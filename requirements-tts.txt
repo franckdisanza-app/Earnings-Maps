@@ -1,0 +1,4 @@
+# Kokoro TTS for `npx hyperframes tts`, in its own venv (.venv-tts) on Python 3.10–3.13.
+# kokoro-onnx 0.6.1 requires Python <3.14, so it can't share the 3.14 pipeline venv.
+kokoro-onnx==0.6.1
+soundfile==0.14.0

@@ -1,0 +1,9 @@
+# Python 3.14 (.venv). Exact pins; update deliberately and log in DECISIONS.md.
+httpx==0.28.1
+beautifulsoup4==4.15.0
+lxml==6.1.3
+pandas==3.0.6
+pydantic==2.14.1
+jsonschema==4.26.0
+PyYAML==6.0.3
+pytest==9.1.1

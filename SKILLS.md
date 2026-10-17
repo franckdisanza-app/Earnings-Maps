@@ -2,7 +2,31 @@
 
 Every third-party skill, plugin, MCP server and library: what was reviewed, at which commit, what it can reach, and the verdict. Rules: docs/KICKOFF.md section 2.3.
 
-**Status: Gate 1 review, nothing installed yet.** Reviewed 2026-10-17.
+**Status: core set installed 2026-10-17 after the Gate 1 OK** (last30days skipped). Reviewed 2026-10-17.
+
+## Installed (what is actually on disk)
+
+| Item | Where | Version / commit | Scope |
+| --- | --- | --- | --- |
+| hyperframes-core, -animation, -keyframes, -cli, -registry | `.claude/skills/` | heygen-com/hyperframes `fa93669` (unmodified, LICENSE added) | project |
+| viral-hooks, viral-tiktok-content, viral-instagram-reels, viral-short-form | `.claude/skills/` | vyralcontent/content-skills `349e495`, **patched**: "Mentioning Vyral" section and promo header removed (commit after `97d7666`) | project |
+| humanizer | `.claude/skills/humanizer/` | blader/humanizer `8c307f3` (v3.1.0) | project |
+| frontend-design, theme-factory | `.claude/skills/` | anthropics/skills `dbd4588` | project |
+| beehiiv MCP | `.mcp.json` | `https://mcp.beehiiv.com/mcp`, not yet authenticated | project |
+| HyperFrames CLI + guardrails | `package.json` devDependency; opt-outs in `.claude/settings.json` `env` and `.env`; deny rules in `.claude/settings.json` | 0.8.167 | project |
+| d3-sankey, d3-shape, gsap | `package.json` devDependencies | 0.12.3, 3.2.0, 3.14.2 (exact) | project |
+| Pipeline Python | `.venv` (Python 3.14.3) | `requirements.txt` (exact pins) | project |
+| Kokoro Python | `.venv-tts` (Python 3.10.6), used via `HYPERFRAMES_PYTHON` in `.env` | `requirements-tts.txt`: kokoro-onnx 0.6.1, soundfile 0.14.0 (pulls onnxruntime 1.23.2, phonemizer 3.4.0, espeakng-loader 0.2.4, numpy 2.2.6) | project |
+| Kokoro model + voices | `~/.cache/hyperframes/tts` | v1.0, 338 MB | **user** |
+| Render browser | `~/.cache/hyperframes/chrome/` | chrome-headless-shell win64-152.0.7977.30 (Chrome for Testing, via `npx hyperframes browser ensure`) | **user** |
+| Inter | `brand/fonts/` | v4.1 variable (woff2 + ttf), OFL.txt | project |
+
+Notes from the install:
+- **kokoro-onnx 0.6.1 requires Python <3.14**, so it got its own venv on the Python 3.10 already installed here (pip resolved it correctly; my pre-check had only looked at wheel tags).
+- **GSAP is loaded from `node_modules`, not a CDN.** HyperFrames' own skeleton uses jsDelivr, which would be a network call at render time. Pinned at 3.14.2, the version the HyperFrames docs target.
+- **`doctor` can't run system Chrome** (`chrome.exe --version` hangs on Windows), so renders use HyperFrames' pinned headless shell. It is also more deterministic than an auto-updating desktop Chrome.
+- **npm 11 blocked esbuild's postinstall.** esbuild's platform binary comes as an optional dependency, and the render smoke test passed without the script, so it stays blocked.
+- **Smoke tests passed:** `hyperframes doctor` (all required checks), pipeline and TTS imports, a 2-second 1080×1920 30 fps H.264 test render (60 frames, Inter loaded, no CDN), and 3 Kokoro samples in `brand/voice-samples/`.
 
 ## How the review was done
 
@@ -10,7 +34,7 @@ Every third-party skill, plugin, MCP server and library: what was reviewed, at w
 - I read every SKILL.md, plugin manifest, hook file and MCP config, then grepped every script for network hosts, environment variables, credential stores, home-folder paths, process spawning and `allowed-tools`.
 - **SkillSpector v2.12.0** (NVIDIA/SkillSpector @ `cf5cac7`) ran in static mode (`--no-llm`, no API keys) as a second opinion. Its pattern rules are noisy on documentation-heavy skills; each HIGH and CRITICAL hit was checked against the actual line (triage below).
 
-## Proposed install method: copy the reviewed files
+## Install method: copy the reviewed files
 
 Skill-only tools are copied byte-for-byte from the reviewed commit into `.claude/skills/<name>/`, rather than installed with `npx skills add` or `/plugin`:
 

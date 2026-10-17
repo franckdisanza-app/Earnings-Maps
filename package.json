@@ -1,0 +1,18 @@
+{
+  "name": "earnings-maps",
+  "private": true,
+  "type": "module",
+  "description": "Earnings Maps: animated money maps from primary-source earnings releases",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "hf": "hyperframes"
+  },
+  "devDependencies": {
+    "d3-sankey": "0.12.3",
+    "d3-shape": "3.2.0",
+    "gsap": "3.14.2",
+    "hyperframes": "0.8.167"
+  }
+}

@@ -11,3 +11,9 @@
 
 - Reviewed the core set at pinned commits, with SkillSpector static scans as a second opinion. Full review and install list in `SKILLS.md`.
 - Nothing installed yet. Waiting for the Gate 1 OK.
+
+## 2026-10-17 · Phase 1: skills and tools ✅
+
+- Gate 1 approved. Installed the reviewed core set (13 skills, beehiiv MCP, HyperFrames CLI with guardrails, pinned Python and Node deps, Inter). last30days skipped. Details in `SKILLS.md`.
+- Smoke tests: `hyperframes doctor` OK, 2 s portrait test render OK, 3 Kokoro voice samples in `brand/voice-samples/` (af_heart, am_michael, bm_george) for the Gate 2 pick.
+- To do for you: authenticate beehiiv with `/mcp` before Phase 6.

@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "env": {
+    "HYPERFRAMES_NO_TELEMETRY": "1",
+    "DO_NOT_TRACK": "1",
+    "HYPERFRAMES_NO_UPDATE_CHECK": "1",
+    "HYPERFRAMES_NO_AUTO_INSTALL": "1",
+    "HYPERFRAMES_SKIP_SKILLS": "1"
+  },
+  "permissions": {
+    "deny": [
+      "Bash(npx hyperframes usage *)",
+      "Bash(npx hyperframes publish *)",
+      "Bash(npx hyperframes cloud *)",
+      "Bash(npx hyperframes lambda *)",
+      "Bash(npx hyperframes auth *)",
+      "Bash(npx hyperframes skills *)",
+      "Bash(npx hyperframes init *)",
+      "Bash(npx hyperframes upgrade *)",
+      "Bash(npx hyperframes@*)",
+      "PowerShell(npx hyperframes usage *)",
+      "PowerShell(npx hyperframes publish *)",
+      "PowerShell(npx hyperframes cloud *)",
+      "PowerShell(npx hyperframes lambda *)",
+      "PowerShell(npx hyperframes auth *)",
+      "PowerShell(npx hyperframes skills *)",
+      "PowerShell(npx hyperframes init *)",
+      "PowerShell(npx hyperframes upgrade *)",
+      "PowerShell(npx hyperframes@*)"
+    ]
+  }
+}

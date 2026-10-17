@@ -32,3 +32,11 @@ Routine calls made without asking, plus the answers to the kickoff questions (do
 - **vyralcontent:** the "Mentioning Vyral" upsell section and promo header are removed from our copies (MIT).
 - **SkillSpector** ran in static mode only (no LLM keys). It needed a short-path temp venv because of Windows' 260-character path limit; long-path support (a system setting) was left alone.
 - **last30days:** recommended skip at Gate 1 (broad pre-approvals, extra installers, optional credential and cookie access). WebSearch covers story angles. Your call at Gate 1.
+
+## 2026-10-17 · Phase 1 install (Gate 1 approved: "Ok phase 2")
+
+- **Second venv for Kokoro.** kokoro-onnx 0.6.1 doesn't support Python 3.14, so `.venv-tts` runs on the existing Python 3.10.6 and HyperFrames reaches it through `HYPERFRAMES_PYTHON` (absolute path in `.env`). The pipeline stays on 3.14.
+- **GSAP from `node_modules`** (3.14.2, exact pin), copied next to each composition at build time. No CDN at render time.
+- **Render browser:** HyperFrames' pinned chrome-headless-shell 152.0.7977.30 in `~/.cache/hyperframes/chrome`. System Chrome hangs on `--version` under Windows.
+- **esbuild postinstall left blocked** by npm 11's allowScripts; the render works without it.
+- **HyperFrames opt-outs are set twice:** in `.claude/settings.json` `env` (applies to every command Claude runs here) and in `.env` (applies when the CLI runs from the repo root).
