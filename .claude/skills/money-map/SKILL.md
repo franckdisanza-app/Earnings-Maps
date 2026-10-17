@@ -14,53 +14,46 @@ This turns approved numbers into the video people share. Two things matter most.
 
 - `data/normalized/$id.json` and `data/normalized/$id.approval.json` exist, and the SHA-256 of the data file equals the approval's `sha256`. `scripts/render.mjs` checks this itself and refuses to run otherwise. Don't work around it. A mismatch means the data changed after approval, so go back to Gate A.
 - `brand/tokens.json` has `status` other than `draft`, and `voice.voice` is set. If it's still a draft, Gate 2 hasn't happened: say so and stop.
-- `scripts/layout.mjs`, `scripts/render.mjs` and `templates/money-map/` exist. If not, say that Phase 4 builds them and stop.
 
 Run everything from the repo root. HyperFrames commands go through `npx hyperframes` (pinned in `package.json`). Never run `publish`, `cloud`, `lambda`, `auth`, `usage`, `skills` or `init`; they're denied in settings because they reach HeyGen or AWS, read the Claude login, or install unreviewed skills.
 
 For composition rules (data attributes, one paused GSAP timeline, determinism), read the `hyperframes-core` skill. For timing and easing, read `hyperframes-animation`. For the CLI loop, read `hyperframes-cli`.
 
-## 1. Plan the story from the data
+## 1. The story comes from the view model
 
-Read `data/normalized/$id.json` and decide, from the numbers only:
+`scripts/money_map_model.py $id` turns the approved data file into `out/$id/build/model.json`, and every on-screen and spoken string goes through `scripts/fmt.py`. Don't hand-write numbers anywhere. What it decides:
 
-- **Hook (0–2 s):** one of the brief's hook patterns, filled with approved values. Max ~7 words on screen. Write three variants into `out/$id/script.md`. The owner can swap hooks later via `/post-pack`.
-- **Flow steps (2–18 s):** segments → revenue → cost of revenue and gross profit → operating expenses and operating income → tax and other → net income. Skip any step the company doesn't report. Never fill a missing line with a calculation unless it's in `derived` with `our_calculation: true`, and then label it "our calculation" on screen.
-- **One insight (18–26 s):** the fastest-growing segment, or the margin change vs last year. Pick the one the numbers support most clearly. Compare only with the prior year and the company's own guidance, never consensus.
-- **End card (26–30 s):** call to action, source line, disclaimer. The last ~2 s hold still as a clean screenshot.
+- **Hook:** "<Company> made $X in 3 months." The number is revenue in revenue blue.
+- **Flow:** segments → revenue → cost of revenue and gross profit → operating expenses and operating income → tax and other → net income. It skips any step the company doesn't report. Subtotals the company doesn't print are labelled "our calculation". An operating loss ends the map, shown hatched in the cost colour as the hero.
+- **Insight:** the fastest-growing big segment, unless the auditor flagged it as not like-for-like (acquisition, one-off), otherwise the operating margin change. Prior year only, never consensus.
+- **End:** call to action, source line, disclaimer; the final frame holds still as the screenshot.
+- **Short formats:** `formats.dollar_split` (cents of each $1 of revenue; only when every step is positive) and `formats.kpi_cards` (revenue, operating income or loss, net income or loss, diluted EPS).
 
-Write the on-screen script (every text string, with its time window) to `out/$id/script.md`. Every number in it must trace to a field in the data file: put the JSON path beside it, for example `lines[revenue_total].value`.
+If the story reads wrong, fix the model or its tests, not the output files.
 
-## 2. Voice (Kokoro, local)
-
-Synthesize each script line separately, so the timeline can sit on measured durations:
-
-```bash
-npx hyperframes tts "<line>" -v <tokens.voice.voice> -o out/$id/build/vo/<nn>.wav
-```
-
-Measure each file with `ffprobe` and record the durations in `out/$id/build/vo/timings.json`. The composition's timing comes from that file, not from guesses, so the voice and the numbers stay in sync, and a re-render gives the same video. Everything the voice says must also be on screen, because most people watch muted. Never use HeyGen or ElevenLabs voices; media-use isn't installed for that reason.
-
-Music, if any: only a track whose license covers commercial social use, recorded in `out/$id/sources.md`. No license, no music.
-
-## 3. Layout (deterministic)
+## 2. Build, voice and render
 
 ```bash
-node scripts/layout.mjs $id
+node scripts/render.mjs $id --video                         # money map (needs Gate A)
+node scripts/render.mjs $id --video --format dollar-split   # ~20 s, optional
+node scripts/render.mjs $id --video --format kpi-cards      # ~20 s, optional
 ```
 
-This computes the Sankey layout with d3-sankey at build time and writes `out/$id/build/layout.json`: node and link coordinates, label positions, colors from the chosen theme in `brand/tokens.json`. The composition only reads these baked values. There's no layout math, randomness, clock or network at render time.
+Each run: re-checks the approval hash and `brand/tokens.json` `status: final`, rebuilds the model and the layout (`scripts/layout.mjs`: d3-sankey, measured labels, `layout.json`), synthesizes one Kokoro line per beat with `npx hyperframes tts` (cached by text, normalized to -15 LUFS), times every beat from the measured clip lengths (`build/beats-<format>.json`; money map 25–35 s, short formats 15–35 s; the voice speeds up slightly before it runs over), builds the HyperFrames page, lints it, and renders `out/$id/<format>.mp4` (30 fps, H.264 + AAC). It also rewrites `out/$id/script.md`: every figure beside its data field, and each built format's voice lines with time windows.
 
-## 4. Build and check the composition
+Never use HeyGen or ElevenLabs voices; media-use isn't installed for that reason. Everything the voice says is also on screen, because most people watch muted. Music, if any: only a track whose license covers commercial social use, recorded in `out/$id/sources.md`. No license, no music.
 
-`scripts/render.mjs $id` assembles `out/$id/build/` from `templates/money-map/`: data, layout, VO timings, local GSAP (`node_modules/gsap`), Inter from `brand/fonts/`. Then:
+Then the stills (same approval gate):
 
 ```bash
-npx hyperframes lint out/$id/build
-npx hyperframes check out/$id/build
+node scripts/stills.mjs $id
 ```
 
-Fix every lint error first. A lint error switches off the layout and contrast audits, so a "clean" check means nothing until lint is clean.
+This writes `cover-9x16.png` (the map's final frame), `cover-4x5.png` and `carousel/01.png` … `06.png` (1080×1350: cover, map, segments or costs, margins, where $1 goes, sources + call to action).
+
+For composition rules, read `hyperframes-core`; for timing and easing, `hyperframes-animation`; for the CLI loop, `hyperframes-cli`.
+
+## 3. Rules every frame keeps
 
 On screen, in every video (brief §2.1 rule 6):
 - company name + ticker (our type, no logo)
@@ -70,34 +63,27 @@ On screen, in every video (brief §2.1 rule 6):
 - "our calculation" on any subtotal the company doesn't print
 - "Not investment advice"
 
-Readability floor: labels ≥ 44 px, key numbers ≥ 72 px, ≤ 7 words on screen at once, each number held ≥ 1.5 s, text inside the safe zone in `brand/tokens.json` (top 154, bottom 384, right 130 px). Number format comes from `tokens.format`: `\$94.9B`, millions below \$1B, `+6%` / `−3%` with a real minus sign.
+Readability floor: labels ≥ 44 px, key numbers ≥ 72 px, ≤ 7 words on screen at once, each number held ≥ 1.5 s, text inside the safe zone in `brand/tokens.json` (top 154, bottom 384, right 130 px). Number format comes from `fmt.py`: `$94.9B`, millions below $1B, `+6%` / `−3%` with a real minus sign.
 
-## 5. Render
+## 4. Visual QA (before showing anyone)
 
 ```bash
-node scripts/render.mjs $id --video
+node scripts/qa.mjs $id
 ```
 
-This re-checks the approval hash, then calls `npx hyperframes render out/$id/build -o out/$id/money-map.mp4 --fps 30 --quality delivery`. Confirm with `ffprobe`: 1080×1920, 30 fps, H.264 + AAC, 25–35 s. If it's outside 25–35 s, adjust the plan, not the playback speed.
+For each built format this snapshots keyframes at 0, 25, 50, 75 and 100% into `out/$id/qa/<format>/`, runs `npx hyperframes check` (lint, runtime errors, overflow, overlaps, WCAG contrast), checks the safe zone and footer widths from the layout geometry, and checks the MP4 (1080×1920, 30 fps, H.264 + AAC, length, size, -18 to -10 LUFS, true peak ≤ -1 dBTP). It writes `out/$id/qa.md` and exits 1 if anything needs fixing. Two kinds of finding are expected and listed separately: during the insight beat the map is dimmed on purpose, and the insight panel fully covers some dimmed labels. A label the panel only partly covers is a real issue.
 
-Then the stills:
-- `cover-9x16.png` (1080×1920) and `cover-4x5.png` (1080×1350): hook plus a strong frame of the map, designed for each crop
-- `carousel/01.png` … `08.png` (1080×1350, 6–8 slides): cover, money map, three insight slides, sources + call to action
+The script doesn't replace your eyes. **Look at each keyframe, cover and carousel slide yourself** with the Read tool, and check:
 
-## 6. Visual QA (before showing anyone)
-
-Export keyframes at 0, 25, 50, 75 and 100% of the MP4 (`ffmpeg -ss … -frames:v 1`), plus every cover and carousel slide. **Look at each image yourself** with the Read tool, and check:
-
-- no overflow, clipping or overlapping labels
-- critical text inside the safe zone
-- minimum sizes met; contrast readable on the theme background
+- no clipping or labels touching (descenders included)
 - every number matches `script.md`, which matches the data file
-- required lines present on the end card (and on the cover's footer if it shows numbers)
+- the voice never pins a number on the wrong thing (read the voice table in `script.md` as a listener would)
+- required lines present on the end card and the cover footer
 - the final frame reads as a standalone screenshot
 
-Fix and re-render until all of it passes. Record what you checked in `out/$id/qa.md`.
+Fix the model, layout or template and re-render until all of it passes.
 
-## 7. Gate B (stop here)
+## 5. Gate B (stop here)
 
 If this session can publish artifacts, publish a **private** preview page (the MP4 or keyframes, the covers, the carousel, and a link to the numbers sheet) so the owner can review from a phone. Otherwise give the file paths.
 
@@ -106,9 +92,9 @@ Then stop. Don't draft captions or post. After the owner approves the MP4, the n
 ## Output
 
 ```
-out/$id/money-map.mp4
+out/$id/money-map.mp4    (+ dollar-split.mp4, kpi-cards.mp4 when built)
 out/$id/cover-9x16.png, cover-4x5.png
-out/$id/carousel/01.png … 08.png
+out/$id/carousel/01.png … 06.png
 out/$id/script.md        on-screen text + VO lines, each number with its data path
 out/$id/qa.md            what visual QA checked
 out/$id/sources.md       filing + music license + voice (Kokoro TTS, AI label on)

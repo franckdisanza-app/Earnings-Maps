@@ -8,7 +8,9 @@
 //   insight     everything dims except the focus; a callout says what changed
 //   end         the call to action; the full map holds as the screenshot frame
 
-const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+import { textWidth } from "../../scripts/layout.mjs";
+
+const esc =(s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 function luminance(hex) {
   const v = hex.replace("#", "").match(/../g).map((h) => parseInt(h, 16) / 255).map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4));
@@ -66,8 +68,46 @@ export function buildHtml({ model, layout, theme, themeName, tokens, preview = f
   // ---- insight panel: away from the focus row --------------------------------------------
   const ins = model.insight;
   const focusNode = ins ? layout.nodes.find((n) => n.id === ins.node) : null;
-  const panelTop = focusNode && focusNode.y < (f.firstRow + f.lastRow) / 2 ? f.lastRow - 90 : f.headerBottom + 20;
-  const insightHtml = ins ? `<div id="insight" style="top:${panelTop}px"><div class="ins-head">${esc(ins.headline)}</div><div class="ins-sub">${esc(ins.sub)}</div></div>` : "";
+  const panel = ins ? placePanel() : null;
+  if (panel?.warn) console.warn(`${model.id}: ${panel.warn}`);
+  // The panel covers part of the dimmed map. It keeps clear of the focus node and its labels, and its
+  // edges never slice a label: each label is fully under it or fully clear. Dense maps leave only
+  // thin gaps between label rows, so the panel may grow (text stays centred) until both edges land
+  // in a gap.
+  function placePanel() {
+    const inner = f.x1 - f.x0 + 48 - 80;
+    const lines = (text, size, weight) => {
+      let n = 1, line = "";
+      for (const w of String(text).split(" ")) {
+        const next = line ? `${line} ${w}` : w;
+        if (line && textWidth(next, size, weight) > inner) { n++; line = w; } else line = next;
+      }
+      return n;
+    };
+    const h = 72 + lines(ins.headline, 76, st.hero_weight) * 84 + 10 + lines(ins.sub, 44, 500) * 56;
+    // label boxes as the browser measures them (font ascent 0.97em, descent 0.24em)
+    const boxes = layout.labels.map((t) => ({ top: t.y - t.size * 0.97, bottom: t.y + t.size * 0.24, node: t.node }));
+    const keep = boxes.filter((b) => b.node === ins.node).concat(focusNode ? [{ top: focusNode.y, bottom: focusNode.y + focusNode.h }] : []);
+    const prefer = focusNode && focusNode.y < (f.firstRow + f.lastRow) / 2 ? f.lastRow - 90 : f.headerBottom + 20;
+    const lo = Math.ceil(f.headerBottom + 12);
+    const hi = Math.floor(f.footerTop - 12);
+    const free = (y) => boxes.every((b) => y <= b.top - 3 || y >= b.bottom + 3);
+    const clearOfFocus = (a, b) => keep.every((k) => k.bottom + 12 <= a || k.top - 12 >= b);
+    let best = null;
+    for (let a = lo; a + h <= hi; a += 2) {
+      if (!free(a)) continue;
+      for (let b = a + h; b <= Math.min(hi, a + h + 160); b += 2) {
+        if (!free(b)) continue;
+        if (clearOfFocus(a, b)) {
+          const score = Math.abs(a - prefer) + (b - a - h) * 2;
+          if (!best || score < best.score) best = { top: a, height: b - a, score };
+        }
+        break; // a taller panel with the same top only scores worse
+      }
+    }
+    return best ?? { top: Math.max(lo, Math.min(prefer, hi - h)), height: h, warn: "no clean slot for the insight panel" };
+  }
+  const insightHtml = ins ? `<div id="insight" style="top:${panel.top}px;height:${panel.height}px"><div class="ins-head">${esc(ins.headline)}</div><div class="ins-sub">${esc(ins.sub)}</div></div>` : "";
 
   // ---- voice clips at the composition root (HyperFrames owns playback) --------------------
   const audioEls = beats
@@ -107,7 +147,7 @@ export function buildHtml({ model, layout, theme, themeName, tokens, preview = f
   #hook .l1 { font-size: 80px; font-weight: ${st.header_weight}; line-height: 92px; letter-spacing: -0.02em; }
   #hook .num { font-size: 208px; font-weight: ${st.hero_weight}; line-height: 210px; letter-spacing: -0.045em; color: ${theme.revenue}; margin-left: -8px; }
   #hook .l2 { font-size: 52px; font-weight: 500; color: ${theme.ink_muted}; line-height: 64px; margin-top: 28px; }
-  #insight { position: absolute; left: ${f.x0 - 24}px; right: ${W - f.x1 - 24}px; padding: 36px 40px; background: ${theme.surface}; border-radius: ${Math.max(st.bar_radius, 6)}px; box-shadow: 0 0 0 2px ${theme.rule}; }
+  #insight { position: absolute; left: ${f.x0 - 24}px; right: ${W - f.x1 - 24}px; padding: 36px 40px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; background: ${theme.surface}; border-radius: ${Math.max(st.bar_radius, 6)}px; box-shadow: 0 0 0 2px ${theme.rule}; }
   #insight .ins-head { font-size: 76px; font-weight: ${st.hero_weight}; line-height: 84px; letter-spacing: -0.025em; }
   ${still ? "#hook, #cta, #insight { display: none; }" : ""}
   #insight .ins-sub { font-size: 44px; font-weight: 500; color: ${theme.ink_muted}; line-height: 56px; margin-top: 10px; }

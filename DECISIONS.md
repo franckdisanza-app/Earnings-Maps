@@ -79,3 +79,15 @@ Routine calls made without asking, plus the answers to the kickoff questions (do
 ## 2026-10-17 · Gate 2
 
 - **The owner picked light editorial and the am_michael voice.** `brand/tokens.json` is now `status: final` with only that look; the other two looks stay on record as frames in `brand/style-frames/`.
+
+## 2026-10-17 · Phase 4 after Gate 2
+
+- **Timing follows the voice.** Each beat lasts as long as its Kokoro line plus a breath, with a minimum per beat type; a money map is held to 25–35 s (short formats 15–35 s) by padding the end card or nudging the voice speed, never by cutting lines. Voice lines narrate the profit spine only; the map shows the rest.
+- **Voice loudness:** every clip is normalized to -15 LUFS (two-pass linear loudnorm, true peak -1.5 dBTP), so videos land near the -14 LUFS phone feeds play at. Raw Kokoro output measured -20.8 LUFS.
+- **Three formats, one model.** The money map, "Every $1 … split" and "the quarter in 4 numbers" read the same `model.json`. The cents split appears only when every step is positive (no loss, no other income), and the cents are our calculation, rounded by largest remainder to sum to 100. After an operating loss the KPI cards use the printed net income line, since the map stops at the loss.
+- **Wording:** "Every $1 Apple took in", not "earned" (the split is of revenue, and "earned" reads as profit). The revenue voice line names its subject ("Total revenue is up 8 percent"), because "That's up 8 percent" after a segment line pinned revenue growth on the segment.
+- **Insight panel placement is measured:** it keeps clear of the focus node, and its edges never cut through a label; on dense maps it grows a little so both edges land between label rows.
+- **Hero spacing:** 16 px more between the hero's name and its figure, so descenders (Uber's "Operating loss") clear the digits. The space came from inside the hero block, so flows keep their minimum length.
+- **Visual QA builds on `hyperframes check`** rather than our own browser code. Two findings are expected and listed separately in `qa.md`: low contrast while the map is dimmed for the insight, and dimmed labels fully under the insight panel. A partly covered label still fails.
+- **`out/<ID>/script.md`** is generated on every build and lists each figure with its data field and each voice line with its time window, so Gate B, `/post-pack` and the compliance-reviewer read the same text.
+

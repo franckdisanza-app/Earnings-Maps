@@ -2,6 +2,7 @@
 //
 //   node scripts/render.mjs <ID> --video                         # needs Gate A: approval hash must match
 //   node scripts/render.mjs <ID> --preview [--snapshot 1.2,9,29.9] [--video] [--no-voice]
+//   --format money-map (default) | dollar-split | kpi-cards   picks the template and its voice lines
 //
 // Steps: view model (scripts/money_map_model.py) → layout (scripts/layout.mjs) → voiceover (one
 // Kokoro line per beat, cached by text, durations measured with ffprobe) → beat timings (each beat
@@ -16,7 +17,9 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { layout } from "./layout.mjs";
+import { writeScript } from "./script_sheet.mjs";
 import { buildHtml } from "../templates/money-map/composition.mjs";
+import { dollarSplitHtml, kpiCardsHtml } from "../templates/formats/formats.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const PY = path.join(ROOT, ".venv", "Scripts", "python.exe");
@@ -29,8 +32,14 @@ const HF_ENV = {
   HYPERFRAMES_NO_AUTO_INSTALL: "1",
   HYPERFRAMES_SKIP_SKILLS: "1",
 };
-export const BEAT_MIN = { hook: 2.4, row: 2.4, insight: 4.2, end: 3.4 };
+export const BEAT_MIN = { hook: 2.4, row: 2.4, insight: 4.2, end: 3.4, part: 2.2, card: 2.4 };
 const LIMITS = { min: 25, max: 35 };
+// voice lines and output names per format; the two short formats run 15–35 s
+export const FORMATS = {
+  "money-map": { voice: (m) => m.voice, min: LIMITS.min },
+  "dollar-split": { voice: (m) => m.formats?.dollar_split?.voice, min: 15 },
+  "kpi-cards": { voice: (m) => m.formats?.kpi_cards?.voice, min: 15 },
+};
 
 function arg(name, fallback = null) {
   const i = process.argv.indexOf(name);
@@ -57,18 +66,34 @@ export function approvalOk(id) {
   return have === want ? [true, "approved"] : [false, `${id} changed after approval; needs a new Gate A`];
 }
 
-function synthesize(model, voDir, voice, speed) {
+// Each clip is brought to the same loudness (two-pass linear loudnorm, true peak capped), so the
+// voice sits near the -14 LUFS that phone feeds play at and no line is louder than the next.
+export const VOICE_LOUDNESS = { I: -15, TP: -1.5, LRA: 11 };
+
+function normalize(raw, out) {
+  const { I, TP, LRA } = VOICE_LOUDNESS;
+  const target = `I=${I}:TP=${TP}:LRA=${LRA}`;
+  const r = spawnSync("ffmpeg", ["-hide_banner", "-nostats", "-i", raw, "-af", `loudnorm=${target}:print_format=json`, "-f", "null", "-"], { encoding: "utf8" });
+  const m = JSON.parse(r.stderr.slice(r.stderr.lastIndexOf("{"), r.stderr.lastIndexOf("}") + 1));
+  const measured = `measured_I=${m.input_i}:measured_TP=${m.input_tp}:measured_LRA=${m.input_lra}:measured_thresh=${m.input_thresh}:offset=${m.target_offset}`;
+  run("ffmpeg", ["-v", "error", "-y", "-i", raw, "-af", `loudnorm=${target}:${measured}:linear=true`, "-ar", "24000", "-ac", "1", out]);
+}
+
+function synthesize(lines, voDir, voice, speed) {
   fs.mkdirSync(voDir, { recursive: true });
-  return model.voice.map((b) => {
+  const { I, TP } = VOICE_LOUDNESS;
+  return lines.map((b) => {
     const key = crypto.createHash("sha256").update(`${voice}|${speed}|${b.text}`).digest("hex").slice(0, 16);
-    const file = path.join(voDir, `${key}.wav`);
-    if (!fs.existsSync(file)) hf("tts", b.text, "-v", voice, "-s", String(speed), "-o", file);
+    const raw = path.join(voDir, `${key}.wav`);
+    const file = path.join(voDir, `${key}.i${-I}tp${-TP}.wav`);
+    if (!fs.existsSync(raw)) hf("tts", b.text, "-v", voice, "-s", String(speed), "-o", raw);
+    if (!fs.existsSync(file)) normalize(raw, file);
     const duration = parseFloat(run("ffprobe", ["-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", file]));
     return { ...b, file, duration };
   });
 }
 
-export function planBeats(voiced, silent = false) {
+export function planBeats(voiced, silent = false, minTotal = LIMITS.min) {
   let t = 0;
   const beats = voiced.map((b) => {
     const dur = Math.max(BEAT_MIN[b.beat], silent ? 0 : b.duration + 0.35);
@@ -78,17 +103,22 @@ export function planBeats(voiced, silent = false) {
   });
   // short videos: give the extra time to the end card (the screenshot frame), up to the minimum
   const total = beats.reduce((a, b) => a + b.dur, 0);
-  if (total < LIMITS.min) beats.at(-1).dur = Math.round((beats.at(-1).dur + LIMITS.min - total) * 100) / 100;
+  if (total < minTotal) beats.at(-1).dur = Math.round((beats.at(-1).dur + minTotal - total) * 100) / 100;
   return beats;
 }
 
 function main() {
   const id = process.argv[2];
   if (!id || id.startsWith("--")) {
-    console.error("usage: node scripts/render.mjs <ID> [--preview] [--theme <name>] [--snapshot t1,t2,...] [--video] [--quality draft|delivery] [--no-voice]");
+    console.error("usage: node scripts/render.mjs <ID> [--preview] [--theme <name>] [--snapshot t1,t2,...] [--video] [--quality draft|delivery] [--no-voice] [--format money-map|dollar-split|kpi-cards]");
     process.exit(2);
   }
   const preview = flag("--preview");
+  const format = arg("--format", "money-map");
+  if (!FORMATS[format]) {
+    console.error(`unknown --format ${format}; one of ${Object.keys(FORMATS).join(", ")}`);
+    process.exit(2);
+  }
   if (!preview) {
     const [ok, why] = approvalOk(id);
     if (!ok) {
@@ -112,12 +142,17 @@ function main() {
   if (geo.warnings.length) console.warn("layout warnings:\n  " + geo.warnings.join("\n  "));
 
   // Voiceover and beat timings; speed the voice up a little if the video would run past 35 s.
+  const lines = FORMATS[format].voice(model);
+  if (!lines) {
+    console.error(`${id} has no ${format} data (the cents split needs every step positive)`);
+    process.exit(1);
+  }
   const silent = flag("--no-voice") || !tokens.voice?.voice;
   let speed = tokens.voice?.speed || 1.0;
   let beats;
   for (;;) {
-    const voiced = silent ? model.voice.map((b) => ({ ...b, duration: 0 })) : synthesize(model, path.join(buildDir, "vo"), tokens.voice.voice, speed);
-    beats = planBeats(voiced, silent);
+    const voiced = silent ? lines.map((b) => ({ ...b, duration: 0 })) : synthesize(lines, path.join(buildDir, "vo"), tokens.voice.voice, speed);
+    beats = planBeats(voiced, silent, FORMATS[format].min);
     const total = beats.reduce((a, b) => a + b.dur, 0);
     if (total <= LIMITS.max || silent || speed >= 1.16) {
       if (total > LIMITS.max) console.warn(`video is ${total.toFixed(1)} s, over ${LIMITS.max} s; shorten the voice lines`);
@@ -127,15 +162,16 @@ function main() {
     console.log(`voice runs ${total.toFixed(1)} s; retrying at speed ${speed}`);
   }
   const duration = Math.round(beats.reduce((a, b) => a + b.dur, 0) * 100) / 100;
-  fs.writeFileSync(path.join(buildDir, "beats.json"), JSON.stringify({ speed, duration, beats }, null, 2) + "\n");
+  fs.writeFileSync(path.join(buildDir, `beats-${format}.json`), JSON.stringify({ format, speed, duration, beats }, null, 2) + "\n");
   console.log(`beats: ${beats.length}, ${duration} s${silent ? " (no voice)" : `, voice ${tokens.voice.voice} at ${speed}`}`);
+  writeScript(ROOT, id);
 
   const snapshot = arg("--snapshot");
   const video = flag("--video");
   const quality = arg("--quality", preview ? "draft" : "delivery");
   for (const name of themes) {
     const theme = tokens.themes[name];
-    const dir = path.join(buildDir, name);
+    const dir = path.join(buildDir, format === "money-map" ? name : `${format}-${name}`);
     fs.rmSync(path.join(dir, "assets", "vo"), { recursive: true, force: true });
     fs.mkdirSync(path.join(dir, "assets", "vo"), { recursive: true });
     fs.copyFileSync(path.join(ROOT, "node_modules/gsap/dist/gsap.min.js"), path.join(dir, "assets/gsap.min.js"));
@@ -145,18 +181,23 @@ function main() {
       fs.copyFileSync(b.file, path.join(dir, "assets", "vo", `${i}.wav`));
       return { ...b, src: `assets/vo/${i}.wav` };
     });
-    fs.writeFileSync(path.join(dir, "index.html"), buildHtml({ model, layout: geo, theme, themeName: name, tokens, preview, beats: placed, duration }));
+    const html =
+      format === "money-map"
+        ? buildHtml({ model, layout: geo, theme, themeName: name, tokens, preview, beats: placed, duration })
+        : (format === "dollar-split" ? dollarSplitHtml : kpiCardsHtml)({ model, theme, tokens, preview, beats: placed, duration });
+    fs.writeFileSync(path.join(dir, "index.html"), html);
     hf("lint", dir);
     console.log(`built ${path.relative(ROOT, dir)}`);
     if (snapshot) {
-      const outDir = path.join(ROOT, "out", id, preview ? "style-frames" : "keyframes", name);
+      const outDir = path.join(ROOT, "out", id, preview ? "style-frames" : "keyframes", format === "money-map" ? name : format);
       fs.rmSync(outDir, { recursive: true, force: true });
       const times = snapshot === "beats" ? beats.map((b) => (b.start + b.dur - 0.1).toFixed(2)).join(",") : snapshot;
       hf("snapshot", dir, "--at", times, "-o", outDir, "--no-end", "--no-browser-gpu");
       console.log(`snapshots → ${path.relative(ROOT, outDir)}`);
     }
     if (video) {
-      const file = path.join(ROOT, "out", id, preview ? `preview-${name}.mp4` : "money-map.mp4");
+      const base = format === "money-map" ? (preview ? name : "money-map") : format;
+      const file = path.join(ROOT, "out", id, preview ? `preview-${base}.mp4` : `${base}.mp4`);
       hf("render", dir, "-o", file, "--fps", "30", "--quality", quality);
       console.log(`video → ${path.relative(ROOT, file)}`);
     }

@@ -81,6 +81,7 @@ export function layout(modelIn, opts = {}) {
   const top = headerBottom + (opts.headerGap ?? 12) + segLabelSpace;
   const footerTop = H - SAFE.bottom_px - 84;
   const heroBlock = LABEL + HERO + 56; // net income name, value, share line under its bar
+  const HERO_DROP = CAP + 20 + HERO * 0.8; // name baseline to value baseline leaves room for descenders (p, g)
 
   const nodes = model.nodes.map((n, i) => ({ ...n, order: i }));
   const links = model.links.map((l) => ({ ...l }));
@@ -208,10 +209,10 @@ export function layout(modelIn, opts = {}) {
     const value = valueText(n);
     const inLastRow = n.layer === rows - 1;
     const xr = inLastRow ? n.rect.x + n.rect.w : X1;
-    const yTop = Math.max(...graph.nodes.filter((m) => m.layer === rows - 1).map((m) => m.rect.y + m.rect.h)) + 18;
+    const yTop = Math.max(...graph.nodes.filter((m) => m.layer === rows - 1).map((m) => m.rect.y + m.rect.h)) + 14;
     lab(n, n.label, xr, yTop + CAP + 4, LABEL, 600, "end", "ink-muted");
-    lab(n, value, xr, yTop + CAP + 8 + HERO * 0.8, HERO, 800, "end", n.kind === "loss" ? "loss" : "ink", { hero: true });
-    if (n.share) lab(n, n.share, xr, yTop + CAP + 8 + HERO * 0.8 + 50, NOTE + 4, 500, "end", "ink-muted");
+    lab(n, value, xr, yTop + HERO_DROP, HERO, 800, "end", n.kind === "loss" ? "loss" : "ink", { hero: true });
+    if (n.share) lab(n, n.share, xr, yTop + HERO_DROP + 46, NOTE + 4, 500, "end", "ink-muted");
     const w = Math.max(textWidth(value, HERO, HW), textWidth(n.label, LABEL, 600), n.share ? textWidth(n.share, NOTE + 4, 500) : 0);
     placed.push({ x0: xr - w - 16, x1: xr, y0: yTop - 4, y1: yTop + heroBlock });
   }

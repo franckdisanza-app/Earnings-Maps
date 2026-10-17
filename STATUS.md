@@ -35,10 +35,16 @@
 - Pilot candidates (fresh releases): PepsiCo FY2026Q3 (filed Oct 8), Nike FY2027Q1 (Oct 1), Costco FY2026Q4 (Sep 24). Coming up: Netflix, Tesla, Coca-Cola (late October), then Microsoft, Alphabet, Meta, Visa, Apple, Amazon.
 - Not yet run: `/earnings-ingest` as a slash command. The owner types it; Claude can't start it.
 
-## 2026-10-17 · Phase 4: visual system ⏸ waiting at Gate 2
+## 2026-10-17 · Phase 4: visual system ✅
 
 - Colors validated with the dataviz checker on each theme's background; tokens updated (blue revenue, orange costs, aqua-green profit; hatched losses).
 - `scripts/money_map_model.py` (view model, all strings via fmt.py), `scripts/layout.mjs` (d3-sankey, top-to-bottom, measured labels), `templates/money-map/composition.mjs` (HyperFrames page, one GSAP timeline), `scripts/render.mjs` (approval-gated render; `--preview` for style frames).
 - Three style frames and 30 s draft videos of Apple FY2025Q4 (dark editorial, light editorial, bold) plus three Kokoro voices, on a private review page: https://claude.ai/artifact/VE8g5iapdg5FpKmAtkJ24C. Final frames saved in `brand/style-frames/`.
 - Checked for generality on Microsoft, Visa and Uber; 121 tests passing.
-- Waiting for the owner's pick: one look and one voice.
+- Gate 2: the owner picked light editorial with the am_michael voice; `brand/tokens.json` is final.
+- Voice-led timing: one Kokoro line per beat, normalized to -15 LUFS, each beat as long as its line; Apple's money map runs 27.8 s.
+- Covers (9:16 final frame, 4:5) and a six-slide carousel from the same model: `scripts/stills.mjs`.
+- Two short formats from the same model: "Every $1 … split" (`--format dollar-split`, about 18 s) and "the quarter in 4 numbers" (`--format kpi-cards`, about 20 s), in `templates/formats/`.
+- `scripts/qa.mjs`: keyframes at 0/25/50/75/100%, `hyperframes check`, safe-zone and footer checks, MP4 specs and loudness, into `out/<ID>/qa.md`. Apple passes on all three formats (preview build).
+- `out/<ID>/script.md` is written on every build: each on-screen figure beside its data field, and the voice lines with time windows. It caught a misleading voice line ("iPhone led with 49 billion. That's up 8 percent", where 8% was total revenue), now fixed.
+- Tests: 125 passing. Nothing has been published; every render so far is a marked preview, because no quarter has passed Gate A yet.

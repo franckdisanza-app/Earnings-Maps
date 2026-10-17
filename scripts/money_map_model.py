@@ -202,7 +202,7 @@ def build(id_: str) -> dict:
         lead = seg_ns[0]
         text = f"Most of it from {lead['label']}: {money_spoken(lead['value'])}." if lead["value"] > 0.5 * rev else f"{lead['label']} led with {money_spoken(lead['value'])}."
         voice.append({"beat": "row", "nodes": [n["id"] for n in seg_ns], "text": text})
-    voice.append({"beat": "row", "nodes": ["revenue"], "text": (f"That's {change_spoken(rev / rev_p - 1)} on a year ago." if rev_p and rev_p > 0 else "That's all revenue.")})
+    voice.append({"beat": "row", "nodes": ["revenue"], "text": (f"Total revenue is {change_spoken(rev / rev_p - 1)} on a year ago." if rev_p and rev_p > 0 else "That's all revenue.")})
     for cid in [c[0] for c in chain[1:]]:
         n = by.get(cid)
         cost = by.get(f"cost:{cid}")
@@ -235,6 +235,41 @@ def build(id_: str) -> dict:
         for i in sorted(range(len(raw)), key=lambda i: raw[i] - cents[i], reverse=True)[: 100 - sum(cents)]:
             cents[i] += 1  # largest remainder, so the cents add up to exactly 100
         carousel["dollar"] = [{"label": n["label"], "cents": cnt, "kind": n["kind"]} for n, cnt in zip(parts, cents)]
+    # ---- other formats: where $1 goes, four KPI cards ----------------------------------------
+    formats = {}
+    if carousel["dollar"]:
+        lines = [{"beat": "hook", "nodes": [], "text": f"Every dollar {data.company.name} took in last quarter, split."}]
+        for part in carousel["dollar"]:
+            what = "net income" if part["kind"] == "profit" else ("tax and other items" if part["label"] == "Tax and other" else part["label"].lower())
+            lines.append({"beat": "part", "nodes": [part["label"]], "text": f"{part['cents']} cents: {what}."})
+        lines.append({"beat": "end", "nodes": [], "text": "Not investment advice."})
+        formats["dollar_split"] = {"hook": f"Every $1 {data.company.name} took in last quarter, split.", "parts": carousel["dollar"], "voice": lines}
+    cards = [{"label": "Revenue", "printed": "revenue_total", "value": rev, "display": money(rev, "units"), "sub": f"{change(rev / rev_p - 1)} vs a year ago" if rev_p and rev_p > 0 else "",
+              "spoken": f"Revenue: {money_spoken(rev)}" + (f", {change_spoken(rev / rev_p - 1)}." if rev_p and rev_p > 0 else ".")}]
+    for cid, label, loss_label in (("operating_income", "Operating income", "Operating loss"), ("net_income", "Net income", "Net loss")):
+        # the map's node when it has one; after an operating loss the map stops, so use the printed line
+        n = next((x for x in nodes if x["id"] in (cid, f"loss:{cid}")), None)
+        if n is not None:
+            value = -n["value"] if n["kind"] == "loss" else n["value"]
+        elif val(cid) is not None:
+            value = val(cid)
+        else:
+            continue
+        name = loss_label if value < 0 else label
+        share = f"{round(abs(value) / rev * 100)}% of revenue" if rev else ""
+        cards.append({"label": name, "printed": cid, "value": value, "display": money(value, "units"),
+                      "sub": share if value >= 0 else f"equal to {share}", "spoken": f"{name}: {money_spoken(abs(value))}."})
+    eps = L.get("eps_diluted")
+    if eps is not None and eps.value is not None:
+        e = eps.value
+        cards.append({"label": "Diluted EPS", "printed": "eps_diluted", "value": e, "display": ("−" if e < 0 else "") + f"${abs(e):.2f}", "sub": "per share", "per_share": True,
+                      "spoken": f"Earnings per share: {'minus ' if e < 0 else ''}{abs(e):.2f} dollars."})
+    cards = cards[:4]
+    kpi_voice = [{"beat": "hook", "nodes": [], "text": f"{data.company.name}'s quarter in {len(cards)} numbers."}]
+    kpi_voice += [{"beat": "card", "nodes": [c["label"]], "text": c["spoken"]} for c in cards]
+    kpi_voice.append({"beat": "end", "nodes": [], "text": "Not investment advice."})
+    formats["kpi_cards"] = {"hook": f"{data.company.name}’s quarter in {len(cards)} numbers", "cards": cards, "voice": kpi_voice}
+
     carousel["sources"] = {"form": data.release.form, "filed": data.release.filing_date.isoformat(), "accession": data.release.accession,
                            "exhibit": data.release.exhibit, "url": data.release.url}
 
@@ -254,6 +289,7 @@ def build(id_: str) -> dict:
         "cta": "Follow for more maps",
         "voice": voice,
         "carousel": carousel,
+        "formats": formats,
         "nodes": nodes,
         "links": links,
         "notes": notes + list(data.notes),
