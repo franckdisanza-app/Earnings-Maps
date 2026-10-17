@@ -58,6 +58,7 @@ class ResultsFiling:
     display: str
     weeks: float
     folder_url: str
+    preliminary: bool = False
     exhibits: list[Exhibit] = field(default_factory=list)
     release_exhibit: Exhibit | None = None
     warnings: list[str] = field(default_factory=list)
@@ -151,6 +152,10 @@ def results_filings(client: SecClient, ticker: str, cik: int, need_before: dt.da
                 warnings.append("filing date doesn't fit a quarter end; may not be a quarterly results release")
         else:
             continue
+        preliminary = (filed - end).days < 10
+        if preliminary:
+            warnings.append(f"filed {(filed - end).days} days after the quarter ended; probably a preliminary update "
+                            "(e.g. deliveries), not the full results release")
         if prior:
             start, start_src = prior[-1] + dt.timedelta(days=1), "prior period's 10-Q/10-K reportDate + 1 day"
         else:
@@ -176,6 +181,7 @@ def results_filings(client: SecClient, ticker: str, cik: int, need_before: dt.da
                 display=display_period(fy, q, cal),
                 weeks=round(weeks_between(start, end), 1),
                 folder_url=filing_folder_url(cik, f["accessionNumber"]),
+                preliminary=preliminary,
                 warnings=warnings,
             )
         )
@@ -186,8 +192,23 @@ def results_filings(client: SecClient, ticker: str, cik: int, need_before: dt.da
         seen[r.fiscal_label] = seen.get(r.fiscal_label, 0) + 1
     for r in out:
         if seen[r.fiscal_label] > 1:
-            r.warnings.append(f"{seen[r.fiscal_label]} Item 2.02 filings map to {r.fiscal_label}; using the earliest is usual, check")
+            r.warnings.append(f"{seen[r.fiscal_label]} Item 2.02 filings map to {r.fiscal_label}; check the chosen one is the full results release")
     return out
+
+
+def choose(filings: list[ResultsFiling], period: str = "") -> ResultsFiling | None:
+    """The full results release: skip preliminary updates (filed days after quarter end, such as
+    deliveries), prefer the original 8-K over amendments, then the earliest for the period.
+    Without a period, the newest period that has a full release."""
+    pool = [r for r in filings if not period or r.fiscal_label == period]
+    full = [r for r in pool if not r.preliminary] or pool
+    if not full:
+        return None
+    if not period:
+        newest = max(r.period_end for r in full)
+        full = [r for r in full if r.period_end == newest]
+    full.sort(key=lambda r: (r.form != "8-K", r.filing_date))
+    return full[0]
 
 
 def attach_exhibits(client: SecClient, filing: ResultsFiling) -> None:
@@ -229,19 +250,12 @@ def main(argv: list[str] | None = None) -> int:
         found = results_filings(client, ticker, int(cik), need_before)
         if args.list:
             for r in found[:12]:
-                print(f"{r.filing_date}  {r.fiscal_label}  {r.display:<34} {r.accession}  period end {r.period_end} ({r.period_end_source.split(';')[0]})")
+                print(f"{r.filing_date}  {r.fiscal_label}{' (preliminary)' if r.preliminary else ''}  {r.display:<34} {r.accession}  period end {r.period_end} ({r.period_end_source.split(';')[0]})")
             return 0
-        if args.period:
-            matches = [r for r in found if r.fiscal_label == args.period]
-            if not matches:
-                print(f"no Item 2.02 filing found for {ticker} {args.period}", file=sys.stderr)
-                return 1
-            filing = sorted(matches, key=lambda r: r.filing_date)[0]
-        else:
-            if not found:
-                print(f"no Item 2.02 filings for {ticker}", file=sys.stderr)
-                return 1
-            filing = found[0]
+        filing = choose(found, args.period)
+        if filing is None:
+            print(f"no Item 2.02 filing found for {ticker} {args.period or ''}".rstrip(), file=sys.stderr)
+            return 1
         attach_exhibits(client, filing)
         if args.download:
             download(client, filing)

@@ -25,3 +25,12 @@
 - Two read-only subagents: `numbers-auditor` (guarded to raw filings, no CLAUDE.md) and `compliance-reviewer`.
 - Tests: 32 passing (auditor guard, repo structure).
 - Not yet done: the skills' first real runs (they need the Phase 3–7 scripts). Next: Phase 3, see `NEXT.md`.
+
+## 2026-10-17 · Phase 3: data pipeline ✅
+
+- Scripts: `sec_client`, `find_releases`, `tables`, `parse_release`, `validate`, `audit_diff`, `numbers_sheet`, `approve`, `reconcile_xbrl`, `verify_watchlist`, plus the pydantic model behind `schemas/earnings.schema.json`.
+- Watchlist: all 20 CIKs and fiscal year ends confirmed with SEC; 18 mapped and validated against their latest release; Tesla and Airbnb need manual ingest.
+- Ingest + validation + blind audit on four past releases (Apple, Microsoft, Visa, Uber): 77/77 values matched, zero unresolved; XBRL agrees where a 10-Q exists. Numbers sheets in `out/<ID>/`.
+- Tests: 113 passing.
+- Pilot candidates (fresh releases): PepsiCo FY2026Q3 (filed Oct 8), Nike FY2027Q1 (Oct 1), Costco FY2026Q4 (Sep 24). Coming up: Netflix, Tesla, Coca-Cola (late October), then Microsoft, Alphabet, Meta, Visa, Apple, Amazon.
+- Not yet run: `/earnings-ingest` as a slash command. The owner types it; Claude can't start it.

@@ -36,7 +36,7 @@
 | --- | ---: | ---: | ---: | --- |
 | iPhone | $49.0B | $46.2B | +6% | CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (U · "iPhone" |
 | Mac | $8.7B | $7.7B | +13% | CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (U · "Mac" |
-| iPad | $7.0B | $7.0B | 0% | CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (U · "iPad" |
+| iPad | $7.0B | $7.0B | +0.0% | CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (U · "iPad" |
 | Wearables, Home and Accessories | $9.0B | $9.0B | −0.3% | CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (U · "Wearables, Home and Accessories" |
 | Services | $28.8B | $25.0B | +15% | CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (U · "Services" |
 
@@ -78,7 +78,7 @@
 
 ## Audit (numbers-auditor, blind)
 
-**Not run yet. Gate A can't pass without it.**
+28 values checked · 28 matched · **0 unresolved**. Full diff: `out/AAPL-FY2025Q4/audit.md`.
 
 ## Guidance (our paraphrase)
 
@@ -86,7 +86,11 @@ None recorded.
 
 ## Notes and questions for the owner
 
-- None.
+- Auditor warning: Prior-year quarter (three months ended September 28, 2024) includes a one-time income tax charge of $10.2 billion, net, from the reversal of the European General Court's State Aid decision; GAAP prior-year provision for income taxes (14,874), net income (14,736) and diluted EPS (0.97) are not comparable. The reconciliation table gives non-GAAP adjusted figures for that quarter: tax 4,628, net income 24,982, diluted EPS 1.64. The release's headline EPS growth uses the non-GAAP prior-year figure.
+- Auditor warning: Scale header: '(In millions, except number of shares, which are reflected in thousands, and per-share amounts)'.
+- Auditor warning: Statement has Three and Twelve Months Ended columns with identical date headers; only three-month columns used.
+- Auditor warning: Quarter length (13 vs 14 weeks) is not stated in the file.
+- Auditor warning: 'Products' and 'Services' appear under both 'Net sales:' and 'Cost of sales:'; 'Services' also appears in the category breakdown. Section headings distinguish them.
 
 ---
 Reply **"approve AAPL-FY2025Q4"** to pass Gate A. Any later change to the data file needs a new approval.

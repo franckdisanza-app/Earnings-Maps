@@ -231,6 +231,12 @@
           "description": "printed in parentheses or with a minus",
           "title": "Printed Negative",
           "type": "boolean"
+        },
+        "expense_printed_negative": {
+          "default": false,
+          "description": "the company prints this cost as a negative number; identities use its magnitude",
+          "title": "Expense Printed Negative",
+          "type": "boolean"
         }
       },
       "required": [
@@ -267,6 +273,19 @@
           "default": null,
           "description": "label of the heading row above, as printed",
           "title": "Section"
+        },
+        "exhibit": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "exhibit type when not the main release exhibit, e.g. 'EX-99.2'",
+          "title": "Exhibit"
         },
         "column_current": {
           "title": "Column Current",
@@ -588,7 +607,8 @@
       "enum": [
         "in_release",
         "not_in_release",
-        "single_segment"
+        "single_segment",
+        "pending_mapping"
       ],
       "title": "Segments Status",
       "type": "string"

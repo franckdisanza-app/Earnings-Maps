@@ -1,8 +1,8 @@
 # Audit: UBER-FY2022Q3
 
-Blind re-extraction by the `numbers-auditor` subagent from `scratchpad/audit/UBER-FY2022Q3/uberq322earningspressrelea.htm (copy of data/raw/UBER/FY2022Q3/)`, compared with `data/normalized/UBER-FY2022Q3.json` (SHA-256 `0fa921c0466d36ab…`).
+Blind re-extraction from `data/raw/UBER/FY2022Q3/uberq322earningspressrelea.htm`, compared with `data/normalized/UBER-FY2022Q3.json` (SHA-256 `0fa921c0466d36ab…`).
 
-Run via: general-purpose agent given the numbers-auditor instructions verbatim (the project subagent loads in the next session); raw file copied to an empty scratch folder; guard hook not active.
+Run via: numbers-auditor project subagent (read-only tools, CLAUDE.md omitted, PreToolUse guard limiting reads to data/raw/), 2026-10-17; a first pass via a general-purpose agent with the same instructions matched value for value.
 
 **15 values checked · 15 matched · 0 unresolved**
 
@@ -31,3 +31,4 @@ Run via: general-purpose agent given the numbers-auditor instructions verbatim (
 - Two segment tables share row labels: Gross Bookings (Mobility 13,684/9,883; Delivery 13,684/12,828) and Revenue; segment revenue taken from the Revenue table.
 - Not like-for-like: Q3 2022 Freight includes the Transplace acquisition (closed Nov 12, 2021); Q3 2022 Mobility revenue includes a net $1.1B benefit from the UK business model change; Q3 2021 Mobility benefited from a $123M accrual release.
 - Share counts in thousands; EPS in dollars per share.
+- Net loss in both quarters includes equity-investment revaluation headwinds in 'Other income (expense), net': (535) in Q3 2022 and (1,832) in Q3 2021.

@@ -29,6 +29,7 @@ DURATION_RE = re.compile(r"\b(three|six|nine|twelve|3|6|9|12)[\s-]+months?\b|\bq
 NUM_RE = re.compile(r"^\(?\s*-?\s*\$?\s*\(?\s*(\d{1,3}(?:,\d{3})+|\d+)(\.\d+)?\s*\)?\s*%?\s*\)?$")
 DASH = {"—", "–", "-", "— ", "−"}
 MONTH_DAY_RE = re.compile(r"(January|February|March|April|May|June|July|August|September|October|November|December|Sept?\.?|Jan\.?|Feb\.?|Mar\.?|Apr\.?|Jun\.?|Jul\.?|Aug\.?|Oct\.?|Nov\.?|Dec\.?)\s+\d{1,2},?(\s|$)", re.I)
+NUMDATE_RE = re.compile(r"(?<![\d/])(\d{1,2})/(\d{1,2})/(\d{4}|\d{2})(?![\d/])")
 SCALE_RE = re.compile(r"\bin\s+(millions|thousands|billions)\b", re.I)
 
 
@@ -86,6 +87,7 @@ class Table:
     columns: dict[int, Column]
     rows: list[Row]
     scale: str | None
+    exhibit: str | None = None  # set by parse_release when the table comes from a second exhibit
 
     def quarter_columns(self) -> list[Column]:
         return [c for c in self.columns.values() if c.months == 3 and not c.is_change and c.end_date]
@@ -98,7 +100,15 @@ class Table:
 def parse_date(text: str) -> dt.date | None:
     m = DATE_RE.search(text)
     if not m:
-        return None
+        n = NUMDATE_RE.search(text)
+        if not n:
+            return None
+        year = int(n.group(3))
+        year = year + 2000 if year < 100 else year
+        try:
+            return dt.date(year, int(n.group(1)), int(n.group(2)))
+        except ValueError:
+            return None
     name = m.group(1).lower().rstrip(".")
     month = MONTHS.get(name) or MONTH_ABBR.get(name[:4] if name.startswith("sept") else name[:3])
     try:
@@ -230,7 +240,7 @@ def build_table(index: int, el, context: list[str]) -> Table | None:
         return None
     def periodish(i: int) -> bool:
         joined = " ".join(grid[i])
-        return bool(DATE_RE.search(joined) or MONTH_DAY_RE.search(joined) or DURATION_RE.search(joined) or any(_is_year(x) for x in grid[i])
+        return bool(DATE_RE.search(joined) or NUMDATE_RE.search(joined) or MONTH_DAY_RE.search(joined) or DURATION_RE.search(joined) or any(_is_year(x) for x in grid[i])
                     or re.search(r"\bended\b|\bchange\b|%", joined, re.I))
 
     # Before the first data row: period rows are headers; a lone label ("Net sales:") is a
@@ -246,6 +256,23 @@ def build_table(index: int, el, context: list[str]) -> Table | None:
             pre_sections.append(label)
         else:
             title_rows.append(i)
+    # Some filers leave out the empty cell above the row labels in a header row, so its
+    # dates sit one column group too far left. A header row whose first cell holds period
+    # text, while data rows keep their label there, gets shifted right by the label width.
+    label_span = 0
+    while label_span < len(origin[first_data]) and origin[first_data][label_span] == 0:
+        label_span += 1
+    width = len(grid[0])
+    prefix: dict[int, str] = {}  # a period heading in the label column applies to every column of its row
+    for hr in header_rows:
+        first = grid[hr][0]
+        if not first or not label_span:
+            continue
+        if DATE_RE.search(first) or NUMDATE_RE.search(first) or _is_year(first):
+            grid[hr] = ([""] * label_span + grid[hr])[:width]  # one column's date sitting in the label column
+        elif MONTH_DAY_RE.search(first) or DURATION_RE.search(first):
+            prefix[hr] = first
+            grid[hr] = [""] * label_span + grid[hr][label_span:]
     data_cols = sorted({c for l, v in parsed[first_data:] for c in v})
     columns: dict[int, Column] = {}
     for c in data_cols:
@@ -258,6 +285,8 @@ def build_table(index: int, el, context: list[str]) -> Table | None:
                 while k >= 0 and not grid[hr][k] and k > c - 3:
                     k -= 1
                 t = grid[hr][k] if k >= 0 and k > c - 3 else ""
+            if hr in prefix:
+                t = f"{prefix[hr]} {t}".strip()
             if t and (not parts or parts[-1] != t):
                 parts.append(t)
         header = clean(" ".join(parts))
@@ -267,7 +296,7 @@ def build_table(index: int, el, context: list[str]) -> Table | None:
             header=header,
             end_date=parse_date(header),
             months=parse_months(header),
-            is_change=bool(re.search(r"change|%|growth|variance", header, re.I)),
+            is_change=bool(re.search(r"change|%|growth|variance|inc\.?\s*/\s*\(?\s*dec|fav\.?\s*/", header, re.I)),
         )
     # A printed value often spans two grid columns ("$" in one, the number in the next), so
     # merge consecutive data columns with the same header into one logical column.
@@ -283,6 +312,14 @@ def build_table(index: int, el, context: list[str]) -> Table | None:
             merged[c] = col
         prev = c
     columns = merged
+    # Only the first column says "Quarter Ended" in some tables. If every labeled column in
+    # the table is a quarter, dated columns without a duration are quarters too. Tables
+    # that also have year-to-date columns are left alone.
+    durations = {c.months for c in columns.values() if c.months and not c.is_change}
+    if durations == {3}:
+        for c in columns.values():
+            if c.months is None and c.end_date and not c.is_change:
+                c.months = 3
 
     rows: list[Row] = []
     section = pre_sections[-1] if pre_sections else None

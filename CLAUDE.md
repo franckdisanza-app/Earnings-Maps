@@ -41,7 +41,8 @@ data/raw/<TICKER>/<period>/  filings as downloaded (cache, gitignored)
 data/normalized/<ID>.json    one quarter's numbers; <ID> = <TICKER>-<period>, e.g. AAPL-FY2026Q4
 data/normalized/<ID>.approval.json   Gate A record
 data/calendar/               /earnings-calendar output
-scripts/                     sec_client, find_releases, parse_release, validate, approve, layout, render, watch
+scripts/                     sec_client, find_releases, tables, parse_release, validate, audit_diff,
+                             numbers_sheet, approve, reconcile_xbrl, verify_watchlist (Phase 4+: layout, render, watch)
 templates/                   money-map, dollar-split, kpi-cards, carousel (HyperFrames HTML)
 brand/                       tokens.json, fonts/ (Inter, OFL), style-frames/, voice-samples/
 out/<ID>/                    deliverables; media gitignored, text records committed

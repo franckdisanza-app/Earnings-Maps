@@ -1,8 +1,8 @@
 # Audit: V-FY2025Q4
 
-Blind re-extraction by the `numbers-auditor` subagent from `scratchpad/audit/V-FY2025Q4/q42025earningsrelease.htm (copy of data/raw/V/FY2025Q4/)`, compared with `data/normalized/V-FY2025Q4.json` (SHA-256 `e9676b6a29833ad7…`).
+Blind re-extraction from `data/raw/V/FY2025Q4/q42025earningsrelease.htm`, compared with `data/normalized/V-FY2025Q4.json` (SHA-256 `e9676b6a29833ad7…`).
 
-Run via: general-purpose agent given the numbers-auditor instructions verbatim (the project subagent loads in the next session); raw file copied to an empty scratch folder; guard hook not active.
+Run via: numbers-auditor project subagent (read-only tools, CLAUDE.md omitted, PreToolUse guard limiting reads to data/raw/), 2026-10-17; a first pass via a general-purpose agent with the same instructions matched value for value.
 
 **14 values checked · 14 matched · 0 unresolved**
 
@@ -30,3 +30,4 @@ Run via: general-purpose agent given the numbers-auditor instructions verbatim (
 - Litigation provision 903 vs 10 is as printed; non-GAAP measures exclude it.
 - 'Visa Quarterly Results of Operations (unaudited)' matches every GAAP value above for both quarter columns.
 - Several row labels carry a trailing space in the HTML; trimmed.
+- The non-GAAP reconciliation removes (899) for litigation provision, which differs from the 903 GAAP line; don't compare the two directly.

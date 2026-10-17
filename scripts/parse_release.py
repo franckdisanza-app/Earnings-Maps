@@ -103,6 +103,14 @@ def scale_for(t: Table, default: str) -> str:
     return m.group(1).lower() if m else default
 
 
+def dash_zero(n):
+    """A printed dash means nil: count it as 0 (the locator still shows the row)."""
+    if n is not None and n.value is None:
+        from tables import Num
+        return Num(0.0, n.text, False, False)
+    return n
+
+
 def ratio(num, den) -> float | None:
     if num is None or not den:
         return None
@@ -113,12 +121,25 @@ def build(ticker: str, period: str, exhibit: pathlib.Path, filing: dict) -> Earn
     entry = company(ticker)
     if not entry.get("tables") or not entry.get("lines"):
         raise MappingError(f"{ticker} has no line mapping in config/watchlist.yaml yet; run scripts/tables.py on the release and add one")
-    tables = extract_tables(exhibit.read_bytes())
+    main_type = filing["release_exhibit"]["type"]
+    exhibit_tables: dict[str, list[Table]] = {main_type: extract_tables(exhibit.read_bytes())}
+
+    def tables_of(ex_type: str) -> list[Table]:
+        if ex_type not in exhibit_tables:
+            ex = next((e for e in filing["exhibits"] if e["type"].upper() == ex_type.upper()), None)
+            path = exhibit.parent / ex["document"] if ex else None
+            if not path or not path.exists():
+                raise MappingError(f"exhibit {ex_type} not cached next to {exhibit.name}; rerun find_releases.py --download")
+            exhibit_tables[ex_type] = extract_tables(path.read_bytes())
+        return exhibit_tables[ex_type]
+
     period_end = dt.date.fromisoformat(filing["period_end"])
 
     def table_for(name: str) -> Table:
         spec = entry["tables"][name]
-        for t in tables:
+        ex_type = spec.get("exhibit", main_type) if isinstance(spec, dict) else main_type
+        for t in tables_of(ex_type):
+            t.exhibit = None if ex_type == main_type else ex_type
             if table_matches(t, spec):
                 try:
                     pick_columns(t, period_end)
@@ -147,8 +168,14 @@ def build(ticker: str, period: str, exhibit: pathlib.Path, filing: dict) -> Earn
     for id_, spec in entry["lines"].items():
         t = get_table(spec.get("table", "income"))
         cur, prior, cur_h, prior_h = pick_columns(t, confirmed_end)
-        row = find_row(t, spec)
+        try:
+            row = find_row(t, spec)
+        except MappingError:
+            if spec.get("optional"):
+                continue
+            raise
         v, pv = row.values.get(cur), row.values.get(prior)
+        v, pv = dash_zero(v), dash_zero(pv)
         if v is None or v.value is None:
             if spec.get("optional"):
                 continue
@@ -162,15 +189,18 @@ def build(ticker: str, period: str, exhibit: pathlib.Path, filing: dict) -> Earn
             unit=unit,
             scale=spec.get("scale", "units" if unit == "USD/share" else scale_for(t, default_scale)),
             basis=spec.get("basis", "GAAP"),
-            locator=Locator(table_title=heading(t), row_label=row.label, section=row.section, column_current=cur_h, column_prior_year=prior_h),
+            locator=Locator(table_title=heading(t), row_label=row.label, section=row.section, column_current=cur_h, column_prior_year=prior_h, exhibit=getattr(t, "exhibit", None)),
             printed_negative=v.negative,
+            expense_printed_negative=bool(spec.get("expense_printed_negative")),
         ))
 
     segments: list[Segment] = []
     for group in entry.get("segments", []) or []:
-        t = get_table(group["table"])
-        cur, prior, cur_h, prior_h = pick_columns(t, confirmed_end)
+        t = get_table(group["table"]) if group.get("table") else None
         for item in group["items"]:
+            if item.get("table"):
+                t = get_table(item["table"])
+            cur, prior, cur_h, prior_h = pick_columns(t, confirmed_end)
             row = find_row(t, item)
             v, pv = row.values.get(cur), row.values.get(prior)
             if v is None or v.value is None:
@@ -185,6 +215,8 @@ def build(ticker: str, period: str, exhibit: pathlib.Path, filing: dict) -> Earn
                 locator=Locator(table_title=heading(t), row_label=row.label, section=row.section, column_current=cur_h, column_prior_year=prior_h),
             ))
         if group.get("total"):
+            t = get_table(group["total"].get("table", group.get("table")))
+            cur, prior, cur_h, prior_h = pick_columns(t, confirmed_end)
             row = find_row(t, group["total"])
             total = row.values.get(cur)
             lines.append(Line(
@@ -225,8 +257,8 @@ def build(ticker: str, period: str, exhibit: pathlib.Path, filing: dict) -> Earn
     start = dt.date.fromisoformat(filing["period_start"])
     cal = calendar_label(start, confirmed_end)
     rel_ex = filing["release_exhibit"]
-    if entry.get("segments_status") == "single_segment":
-        seg_status = "single_segment"
+    if entry.get("segments_status") in ("single_segment", "pending_mapping"):
+        seg_status = entry["segments_status"]
     elif segments:
         seg_status = "in_release"
     else:

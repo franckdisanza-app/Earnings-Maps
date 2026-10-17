@@ -51,3 +51,15 @@ Routine calls made without asking, plus the answers to the kickoff questions (do
 - **Watchlist:** names, fiscal-year-end rules and IR URLs entered now and marked `verified: false`; CIKs, line mappings and segments stay empty until Phase 3 verifies them against SEC data (that needs `SEC_USER_AGENT`).
 - **`tzdata` pinned** in `requirements.txt`: Windows has no system time-zone database, and Zurich/New York conversions (including the Oct 25–Nov 1 five-hour week) depend on it.
 - **`$` in skill files is escaped** (`\$94.9B`) because skill argument substitution treats `$<digit>` as a positional placeholder.
+
+## 2026-10-17 · Phase 3 data pipeline
+
+- **SEC identity:** the owner chose their git name plus account email for `SEC_USER_AGENT` (in `.env` only). The SEC client refuses the placeholder and runs at 5 requests/s, half SEC's limit.
+- **Fiscal periods from the company's own filings.** A results 8-K (Item 2.02) belongs to the latest 10-Q/10-K period that ended within 75 days before it; the newest quarter's end is estimated and then confirmed from the release's column header. Period ends map to a nominal month by stepping back 7 days, which handles 52/53-week years (Apple, Disney, Costco, PepsiCo).
+- **Preliminary 2.02 filings are skipped** (filed less than 10 days after quarter end, such as Tesla's deliveries), and the original 8-K wins over an 8-K/A.
+- **Our own HTML table parser** (lxml with colspan grids) instead of edgartools: EDGAR release tables split values across cells and stack period headers, and every layout we hit (Coca-Cola's date row missing its label cell, McDonald's period heading in the label column, PepsiCo's numeric dates, Starbucks' half-labeled columns) is covered by a test.
+- **Per-company mappings with labels exactly as printed** in `config/watchlist.yaml`; 18 of 20 companies mapped against their latest release. Tesla and Airbnb are `ingest: manual` because their 8-K exhibits have no HTML financial tables. Segments are pending for Nvidia, Netflix, PepsiCo, McDonald's, Nike, Costco and Walmart.
+- **Sign conventions:** values stay exactly as printed; `expense_printed_negative` tells validation to use the magnitude. A printed dash counts as 0.
+- **Three independent checks so far:** our parser, the blind numbers-auditor (77/77 values matched on four quarters, first via a general-purpose agent and then via the real guarded subagent), and SEC XBRL from the 10-Q where one exists (Microsoft 8/8, Uber 5/5). Fiscal Q4s have no three-month XBRL facts.
+- **Fixtures:** Apple FY2025Q4 (products/services cost split), Microsoft FY2026Q1 (clean segments), Visa FY2025Q4 (no cost of revenue), Uber FY2022Q3 (net loss). Raw exhibits are committed under `tests/fixtures/` (public SEC filings).
+- **Visa revenue types** aren't used: the release prints them for the current quarter only, with a YoY %, and our rule recomputes YoY from a prior-year column. Open question for the owner.

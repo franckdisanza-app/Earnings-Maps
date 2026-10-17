@@ -1,8 +1,8 @@
 # Audit: MSFT-FY2026Q1
 
-Blind re-extraction by the `numbers-auditor` subagent from `scratchpad/audit/MSFT-FY2026Q1/msft-ex99_1.htm (copy of data/raw/MSFT/FY2026Q1/)`, compared with `data/normalized/MSFT-FY2026Q1.json` (SHA-256 `ed42db073943afe2…`).
+Blind re-extraction from `data/raw/MSFT/FY2026Q1/msft-ex99_1.htm`, compared with `data/normalized/MSFT-FY2026Q1.json` (SHA-256 `ed42db073943afe2…`).
 
-Run via: general-purpose agent given the numbers-auditor instructions verbatim (the project subagent loads in the next session); raw file copied to an empty scratch folder; guard hook not active.
+Run via: numbers-auditor project subagent (read-only tools, CLAUDE.md omitted, PreToolUse guard limiting reads to data/raw/), 2026-10-17; a first pass via a general-purpose agent with the same instructions matched value for value.
 
 **20 values checked · 20 matched · 0 unresolved**
 
@@ -25,15 +25,9 @@ Run via: general-purpose agent given the numbers-auditor instructions verbatim (
 | net_income | 27,747 / 24,667 | 27747 / 24667 (millions) | ✅ | INCOME STATEMENTS · Net income |
 | eps_diluted | 3.72 / 3.3 | 3.72 / 3.3 (units) | ✅ | INCOME STATEMENTS · Diluted |
 | segments_total_segment | 77,673 / 65,585 | 77673 / 65585 (millions) | ✅ | SEGMENT RESULTS · Revenue |
-| segment:segment:Productivity and Business Processes | 33,020 / 28,317 | 33020 / 28317 (millions) | ✅ | SEGMENT RESULTS · Productivity and Business Processes |
-| segment:segment:Intelligent Cloud | 30,897 / 24,092 | 30897 / 24092 (millions) | ✅ | SEGMENT RESULTS · Intelligent Cloud |
-| segment:segment:More Personal Computing | 13,756 / 13,176 | 13756 / 13176 (millions) | ✅ | SEGMENT RESULTS · More Personal Computing |
-
-## Label differences (values match; review)
-
-- segment:segment:Productivity and Business Processes: ours 'Revenue' vs auditor 'Productivity and Business Processes'
-- segment:segment:Intelligent Cloud: ours 'Revenue' vs auditor 'Intelligent Cloud'
-- segment:segment:More Personal Computing: ours 'Revenue' vs auditor 'More Personal Computing'
+| segment:segment:Productivity and Business Processes | 33,020 / 28,317 | 33020 / 28317 (millions) | ✅ | SEGMENT RESULTS · Revenue |
+| segment:segment:Intelligent Cloud | 30,897 / 24,092 | 30897 / 24092 (millions) | ✅ | SEGMENT RESULTS · Revenue |
+| segment:segment:More Personal Computing | 13,756 / 13,176 | 13756 / 13176 (millions) | ✅ | SEGMENT RESULTS · Revenue |
 
 ## Auditor warnings
 
@@ -41,4 +35,5 @@ Run via: general-purpose agent given the numbers-auditor instructions verbatim (
 - Sales and marketing prints 5,717 in both the 2025 and 2024 columns; verified as printed.
 - Other income line is labeled 'Other expense, net'; both values in parentheses.
 - Non-GAAP reconciliation tables exclude the 'Impact from investments in OpenAI' (non-GAAP net income $30,833 / $25,190; diluted EPS $4.13 / $3.37); not used.
-- Segment revenue is the 'Revenue' row under each segment heading in SEGMENT RESULTS (the auditor reported the segment name as the label).
+- msft-ex99_2.htm is a blog post with no financial tables; msft-ex99_3.htm contains only slide images.
+- Each year's opex lines sum to the 'Operating expenses' total in SEGMENT RESULTS (15,669 / 14,934).

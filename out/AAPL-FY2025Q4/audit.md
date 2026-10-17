@@ -1,8 +1,8 @@
 # Audit: AAPL-FY2025Q4
 
-Blind re-extraction by the `numbers-auditor` subagent from `scratchpad/audit/AAPL-FY2025Q4/a8-kex991q4202509272025.htm (copy of data/raw/AAPL/FY2025Q4/)`, compared with `data/normalized/AAPL-FY2025Q4.json` (SHA-256 `0807939ad06f88ac…`).
+Blind re-extraction from `data/raw/AAPL/FY2025Q4/a8-kex991q4202509272025.htm`, compared with `data/normalized/AAPL-FY2025Q4.json` (SHA-256 `0807939ad06f88ac…`).
 
-Run via: general-purpose agent given the numbers-auditor instructions verbatim (the project subagent loads in the next session); raw file copied to an empty scratch folder; guard hook not active.
+Run via: numbers-auditor project subagent (read-only tools, CLAUDE.md omitted, PreToolUse guard limiting reads to data/raw/), 2026-10-17; a first pass via a general-purpose agent with the same instructions matched value for value.
 
 **28 values checked · 28 matched · 0 unresolved**
 

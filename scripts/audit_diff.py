@@ -133,7 +133,7 @@ def diff(id_: str, auditor_path: pathlib.Path) -> tuple[str, dict]:
     md = [
         f"# Audit: {id_}",
         "",
-        f"Blind re-extraction by the `numbers-auditor` subagent from `{aud.get('source_file', '?')}`, compared with `data/normalized/{id_}.json` (SHA-256 `{summary['data_sha256'][:16]}…`).",
+        f"Blind re-extraction from `{aud.get('source_file', '?')}`, compared with `data/normalized/{id_}.json` (SHA-256 `{summary['data_sha256'][:16]}…`).",
         "",
         *( [f"Run via: {aud['run_via']}.", ""] if aud.get("run_via") else [] ),
         f"**{summary['checked']} values checked · {summary['matched']} matched · {unresolved} unresolved**",

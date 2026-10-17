@@ -1,6 +1,6 @@
 {
-  "source_file": "scratchpad/audit/MSFT-FY2026Q1/msft-ex99_1.htm (copy of data/raw/MSFT/FY2026Q1/)",
-  "run_via": "general-purpose agent given the numbers-auditor instructions verbatim (the project subagent loads in the next session); raw file copied to an empty scratch folder; guard hook not active",
+  "source_file": "data/raw/MSFT/FY2026Q1/msft-ex99_1.htm",
+  "run_via": "numbers-auditor project subagent (read-only tools, CLAUDE.md omitted, PreToolUse guard limiting reads to data/raw/), 2026-10-17; a first pass via a general-purpose agent with the same instructions matched value for value",
   "period": {
     "current_column_header": "Three Months Ended September 30, 2025",
     "prior_year_column_header": "Three Months Ended September 30, 2024"
@@ -213,7 +213,7 @@
     {
       "id": "segment:segment:Productivity and Business Processes",
       "found": true,
-      "label_as_printed": "Productivity and Business Processes",
+      "label_as_printed": "Revenue",
       "table_title": "SEGMENT RESULTS",
       "value_current": 33020,
       "value_prior_year": 28317,
@@ -225,7 +225,7 @@
     {
       "id": "segment:segment:Intelligent Cloud",
       "found": true,
-      "label_as_printed": "Intelligent Cloud",
+      "label_as_printed": "Revenue",
       "table_title": "SEGMENT RESULTS",
       "value_current": 30897,
       "value_prior_year": 24092,
@@ -237,7 +237,7 @@
     {
       "id": "segment:segment:More Personal Computing",
       "found": true,
-      "label_as_printed": "More Personal Computing",
+      "label_as_printed": "Revenue",
       "table_title": "SEGMENT RESULTS",
       "value_current": 13756,
       "value_prior_year": 13176,
@@ -252,6 +252,7 @@
     "Sales and marketing prints 5,717 in both the 2025 and 2024 columns; verified as printed.",
     "Other income line is labeled 'Other expense, net'; both values in parentheses.",
     "Non-GAAP reconciliation tables exclude the 'Impact from investments in OpenAI' (non-GAAP net income $30,833 / $25,190; diluted EPS $4.13 / $3.37); not used.",
-    "Segment revenue is the 'Revenue' row under each segment heading in SEGMENT RESULTS (the auditor reported the segment name as the label)."
+    "msft-ex99_2.htm is a blog post with no financial tables; msft-ex99_3.htm contains only slide images.",
+    "Each year's opex lines sum to the 'Operating expenses' total in SEGMENT RESULTS (15,669 / 14,934)."
   ]
 }

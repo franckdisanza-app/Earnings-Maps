@@ -53,6 +53,7 @@ class Locator(Strict):
     table_title: str
     row_label: str = Field(description="row label exactly as printed")
     section: str | None = Field(default=None, description="label of the heading row above, as printed")
+    exhibit: str | None = Field(default=None, description="exhibit type when not the main release exhibit, e.g. 'EX-99.2'")
     column_current: str
     column_prior_year: str
 
@@ -67,6 +68,7 @@ class Line(Strict):
     basis: Basis = "GAAP"
     locator: Locator
     printed_negative: bool = Field(default=False, description="printed in parentheses or with a minus")
+    expense_printed_negative: bool = Field(default=False, description="the company prints this cost as a negative number; identities use its magnitude")
 
 
 class Segment(Strict):
@@ -125,7 +127,7 @@ class Earnings(Strict):
     scale: Scale = Field(description="default scale of money lines, from the table header")
     release: Release
     lines: list[Line]
-    segments_status: Literal["in_release", "not_in_release", "single_segment"]
+    segments_status: Literal["in_release", "not_in_release", "single_segment", "pending_mapping"]
     segments: list[Segment] = []
     derived: Derived
     guidance: Guidance | None = None

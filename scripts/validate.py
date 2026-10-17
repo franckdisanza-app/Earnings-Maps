@@ -39,8 +39,12 @@ def run_checks(data: Earnings) -> list[Check]:
     lines = {l.id: l for l in data.lines}
 
     def v(i: str, prior: bool):
+        """Value as printed, except costs a company prints as negatives count by magnitude."""
         l = lines.get(i)
-        return None if l is None else (l.prior_year_value if prior else l.value)
+        if l is None:
+            return None
+        x = l.prior_year_value if prior else l.value
+        return -x if (x is not None and l.expense_printed_negative) else x
 
     def identity(cid: str, total_id: str, parts: list[tuple[str, int]], label: str) -> None:
         """total == Σ sign·part, for current and prior year."""
@@ -63,6 +67,7 @@ def run_checks(data: Earnings) -> list[Check]:
     rev_parts = [i for i in ids if i.startswith("revenue_") and i != "revenue_total"]
     cost_parts = [i for i in ids if i.startswith("cost_") and i != "cost_of_revenue_total"]
     opex_parts = [i for i in ids if i.startswith("opex_")]
+    plus = [(i, 1) for i in ids if i.startswith("op_plus_")]  # e.g. equity-investee income inside operating income
 
     if rev_parts:
         identity("revenue_components", "revenue_total", [(i, 1) for i in rev_parts], " + ".join(rev_parts))
@@ -73,20 +78,26 @@ def run_checks(data: Earnings) -> list[Check]:
         identity("opex_components", "operating_expenses_total", [(i, 1) for i in opex_parts], " + ".join(opex_parts))
     if "gross_profit" in lines:
         if "operating_expenses_total" in lines:
-            identity("operating_income", "operating_income", [("gross_profit", 1), ("operating_expenses_total", -1)], "gross_profit − operating_expenses_total")
+            identity("operating_income", "operating_income", [("gross_profit", 1), ("operating_expenses_total", -1)] + plus, "gross_profit − operating_expenses_total" + (" + Σ op_plus" if plus else ""))
         elif opex_parts:
-            identity("operating_income", "operating_income", [("gross_profit", 1)] + [(i, -1) for i in opex_parts], "gross_profit − Σ opex")
+            identity("operating_income", "operating_income", [("gross_profit", 1)] + [(i, -1) for i in opex_parts] + plus, "gross_profit − Σ opex")
     elif "costs_and_expenses_total" in lines:
         parts = (["cost_of_revenue_total"] if "cost_of_revenue_total" in lines else []) + opex_parts
         if parts:
             identity("costs_and_expenses", "costs_and_expenses_total", [(i, 1) for i in parts], " + ".join(parts))
-        identity("operating_income", "operating_income", [("revenue_total", 1), ("costs_and_expenses_total", -1)], "revenue_total − costs_and_expenses_total")
+        identity("operating_income", "operating_income", [("revenue_total", 1), ("costs_and_expenses_total", -1)] + plus, "revenue_total − costs_and_expenses_total")
     elif "operating_expenses_total" in lines:
-        identity("operating_income", "operating_income", [("revenue_total", 1), ("operating_expenses_total", -1)], "revenue_total − operating_expenses_total")
+        identity("operating_income", "operating_income", [("revenue_total", 1), ("operating_expenses_total", -1)] + plus, "revenue_total − operating_expenses_total" + (" + Σ op_plus" if plus else ""))
+    elif "cost_of_revenue_total" in lines and opex_parts:
+        identity("operating_income", "operating_income", [("revenue_total", 1), ("cost_of_revenue_total", -1)] + [(i, -1) for i in opex_parts] + plus, "revenue_total − cost_of_revenue_total − Σ opex")
     else:
         checks.append(Check("operating_income", "n/a", "no cost lines to check against"))
-    if all(i in lines for i in ("income_before_tax", "income_tax", "net_income")):
-        identity("net_income", "net_income", [("income_before_tax", 1), ("income_tax", -1)], "income_before_tax − income_tax")
+    net_id = "net_income_consolidated" if "net_income_consolidated" in lines else "net_income"
+    if all(i in lines for i in ("income_before_tax", "income_tax", net_id)):
+        parts = [("income_before_tax", 1), ("income_tax", -1)] + [(i, 1) for i in ids if i.startswith("after_tax_")]
+        identity("net_income", net_id, parts, " ".join(("+ " if s > 0 else "− ") + p for p, s in parts).lstrip("+ "))
+    if "net_income_consolidated" in lines and "nci" in lines:
+        identity("net_income_attributable", "net_income", [("net_income_consolidated", 1), ("nci", -1)], "net_income_consolidated − nci")
 
     # Segments: each breakdown sums to its printed total and to total revenue.
     groups = sorted({s.group for s in data.segments})

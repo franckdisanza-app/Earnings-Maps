@@ -1,6 +1,6 @@
 {
-  "source_file": "scratchpad/audit/V-FY2025Q4/q42025earningsrelease.htm (copy of data/raw/V/FY2025Q4/)",
-  "run_via": "general-purpose agent given the numbers-auditor instructions verbatim (the project subagent loads in the next session); raw file copied to an empty scratch folder; guard hook not active",
+  "source_file": "data/raw/V/FY2025Q4/q42025earningsrelease.htm",
+  "run_via": "numbers-auditor project subagent (read-only tools, CLAUDE.md omitted, PreToolUse guard limiting reads to data/raw/), 2026-10-17; a first pass via a general-purpose agent with the same instructions matched value for value",
   "period": {
     "current_column_header": "Three Months Ended September 30, 2025",
     "prior_year_column_header": "Three Months Ended September 30, 2024"
@@ -180,6 +180,7 @@
     "INCOME STATEMENT SUMMARY mixes GAAP and non-GAAP (non-GAAP total operating expenses 3,611, net income 5,803, EPS 2.98); not used.",
     "Litigation provision 903 vs 10 is as printed; non-GAAP measures exclude it.",
     "'Visa Quarterly Results of Operations (unaudited)' matches every GAAP value above for both quarter columns.",
-    "Several row labels carry a trailing space in the HTML; trimmed."
+    "Several row labels carry a trailing space in the HTML; trimmed.",
+    "The non-GAAP reconciliation removes (899) for litigation provision, which differs from the 903 GAAP line; don't compare the two directly."
   ]
 }

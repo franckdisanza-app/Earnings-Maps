@@ -1,12 +1,12 @@
 # Earnings Maps watchlist v1 (brief §6). Banks and insurers are out of v1.
 #
-# Filled in Phase 2: ticker, display name, fiscal year end (FYE) rule, IR URL.
-# Filled and verified in Phase 3 against SEC data and each company's latest release:
-#   cik            from https://www.sec.gov/files/company_tickers.json
-#   fye / ir_url   confirmed against the 10-K cover and the company's own site
-#   lines          this company's income-statement line mapping (labels as printed)
-#   segments       the segments to show, as named in the release
-# Until verified, `verified: false`. Nothing here is used for numbers on screen.
+# cik, fye_sec   confirmed with SEC data by scripts/verify_watchlist.py (`verified: true`)
+# fye            the fiscal-year-end rule in words; fye_sec is SEC's MMDD from the latest filing
+# ir_url         many IR sites block scripts (HTTP 403), so these are checked by hand
+# tables/lines/segments   this company's mapping: labels exactly as printed in its release.
+#                Companies without one get it at their first /earnings-ingest (the parser
+#                lists the release's rows when a label is missing).
+# Nothing here is a number shown on screen; numbers come only from the filings.
 #
 # Known shape differences (from the brief): Visa and McDonald's print no cost-of-revenue
 # or gross-profit line; Amazon prints cost of sales but no gross profit (show it only as
@@ -15,7 +15,8 @@
 companies:
   - ticker: AAPL
     name: Apple
-    cik: null
+    cik: 320193
+    fye_sec: "0926"  # SEC fiscalYearEnd (MMDD) from the latest filing
     fye: last Saturday of September
     ir_url: https://investor.apple.com/
     tables:
@@ -57,11 +58,12 @@ companies:
           - {name: Rest of Asia Pacific, label: "Rest of Asia Pacific", section_contains: "by reportable segment"}
         total: {label: "Total net sales", section_contains: "by reportable segment"}
     show_segments: category
-    verified: false
+    verified: true  # CIK and fiscal year end confirmed with SEC data
 
   - ticker: MSFT
     name: Microsoft
-    cik: null
+    cik: 789019
+    fye_sec: "0630"  # SEC fiscalYearEnd (MMDD) from the latest filing
     fye: June 30
     ir_url: https://www.microsoft.com/en-us/investor
     tables:
@@ -93,121 +95,381 @@ companies:
           - {name: More Personal Computing, label: "Revenue", section: "More Personal Computing"}
         total: {label: "Revenue", section: "Total"}
     show_segments: segment
-    verified: false
+    verified: true  # CIK and fiscal year end confirmed with SEC data
 
   - ticker: GOOGL
     name: Alphabet
-    cik: null
+    cik: 1652044
+    fye_sec: "1231"  # SEC fiscalYearEnd (MMDD) from the latest filing
     fye: December 31
     ir_url: https://abc.xyz/investor/
-    lines: {}
-    segments: []
-    verified: false
+    tables:
+      income: {title: "CONSOLIDATED STATEMENTS OF INCOME", exclude: "COMPREHENSIVE"}
+      segments: {title: "segment revenues"}
+    lines:
+      revenue_total: {label: "Revenues"}
+      cost_of_revenue_total: {label: "Cost of revenues"}
+      opex_rd: {label: "Research and development"}
+      opex_sm: {label: "Sales and marketing"}
+      opex_ga: {label: "General and administrative"}
+      costs_and_expenses_total: {label: "Total costs and expenses"}
+      operating_income: {label: "Income from operations"}
+      other_income: {label: "Other income (expense), net"}
+      income_before_tax: {label: "Income before income taxes"}
+      income_tax: {label: "Provision for income taxes"}
+      net_income: {label: "Net income"}
+      eps_diluted: {label: "Diluted net income per common share", unit: USD/share}
+    computed: [gross_profit]
+    segments:
+      - group: segment
+        table: segments
+        items:
+          - {name: Google Services, label: "Google Services", section: "Revenues:"}
+          - {name: Google Cloud, label: "Google Cloud", section: "Revenues:"}
+          - {name: Other Bets, label: "Other Bets", section: "Revenues:"}
+          - {name: Hedging gains (losses), label: "Hedging gains (losses)", section: "Revenues:"}
+        total: {label: "Total revenues", section: "Revenues:"}
+    show_segments: segment
+    verified: true  # CIK and fiscal year end confirmed with SEC data
 
   - ticker: AMZN
     name: Amazon
-    cik: null
+    cik: 1018724
+    fye_sec: "1231"  # SEC fiscalYearEnd (MMDD) from the latest filing
     fye: December 31
     ir_url: https://ir.aboutamazon.com/
-    lines: {}
-    segments: []
+    tables:
+      income: {title: "Consolidated Statements of Operations"}
+      segments: {title: "Segment Information"}
+    lines:
+      revenue_product: {label: "Net product sales"}
+      revenue_service: {label: "Net service sales"}
+      revenue_total: {label: "Total net sales"}
+      cost_of_revenue_total: {label: "Cost of sales", section: "Operating expenses:"}
+      opex_fulfillment: {label: "Fulfillment"}
+      opex_technology: {label: "Technology and infrastructure"}
+      opex_sm: {label: "Sales and marketing"}
+      opex_ga: {label: "General and administrative"}
+      opex_other: {label: "Other operating expense (income), net"}
+      costs_and_expenses_total: {label: "Total operating expenses"}
+      operating_income: {label: "Operating income"}
+      income_before_tax: {label: "Income before income taxes"}
+      net_income: {label: "Net income"}
+      eps_diluted: {label: "Diluted earnings per share", unit: USD/share}
+    computed: [gross_profit]
+    segments:
+      - group: segment
+        table: segments
+        items:
+          - {name: North America, label: "Net sales", section: "North America"}
+          - {name: International, label: "Net sales", section: "International"}
+          - {name: AWS, label: "Net sales", section: "AWS"}
+        total: {label: "Net sales", section: "Consolidated"}
+    show_segments: segment
+    data_notes:
+      - "Amazon's 'Total operating expenses' includes cost of sales, so it maps to total costs and expenses. Its tax line is printed as a negative number next to an equity-method line, so the pre-tax to net income identity isn't checked; gross profit is our calculation."
     shape_note: cost of sales but no gross profit line; gross profit is "our calculation"
-    verified: false
+    verified: true  # CIK and fiscal year end confirmed with SEC data
 
   - ticker: META
     name: Meta
-    cik: null
+    cik: 1326801
+    fye_sec: "1231"  # SEC fiscalYearEnd (MMDD) from the latest filing
     fye: December 31
     ir_url: https://investor.atmeta.com/
-    lines: {}
-    segments: []
-    verified: false
+    tables:
+      income: {title: "CONDENSED CONSOLIDATED STATEMENTS OF INCOME", exclude: "COMPREHENSIVE"}
+      segments: {title: "Segment Information"}
+    lines:
+      revenue_total: {label: "Revenue"}
+      cost_of_revenue_total: {label: "Cost of revenue"}
+      opex_rd: {label: "Research and development"}
+      opex_ms: {label: "Marketing and sales"}
+      opex_ga: {label: ["General and administrative (1)", "General and administrative"]}
+      costs_and_expenses_total: {label: "Total costs and expenses"}
+      operating_income: {label: "Income from operations"}
+      other_income: {label: "Interest and other income (expense), net"}
+      income_before_tax: {label: "Income before income taxes"}
+      income_tax: {label: ["Provision (benefit) for income taxes", "Provision for income taxes"]}
+      net_income: {label: "Net income"}
+      eps_diluted: {label: "Diluted", section: "Earnings per share:", unit: USD/share}
+    computed: [gross_profit]
+    segments:
+      - group: segment
+        table: segments
+        items:
+          - {name: Family of Apps, label: "Family of Apps", section: "Revenue:"}
+          - {name: Reality Labs, label: "Reality Labs", section: "Revenue:"}
+        total: {label: "Total revenue", section: "Revenue:"}
+    show_segments: segment
+    verified: true  # CIK and fiscal year end confirmed with SEC data
 
   - ticker: NVDA
     name: Nvidia
-    cik: null
+    cik: 1045810
+    fye_sec: "0131"  # SEC fiscalYearEnd (MMDD) from the latest filing
     fye: last Sunday of January
     ir_url: https://investor.nvidia.com/
-    lines: {}
+    tables:
+      income: {title: "CONDENSED CONSOLIDATED STATEMENTS OF INCOME", exclude: "COMPREHENSIVE"}
+    lines:
+      revenue_total: {label: "Revenue"}
+      cost_of_revenue_total: {label: "Cost of revenue"}
+      gross_profit: {label: "Gross profit"}
+      opex_rd: {label: "Research and development"}
+      opex_sga: {label: "Sales, general and administrative"}
+      operating_expenses_total: {label: "Total operating expenses"}
+      operating_income: {label: "Operating income"}
+      other_income: {label: "Other income, net"}
+      income_before_tax: {label: "Income before income tax"}
+      income_tax: {label: "Income tax expense"}
+      net_income: {label: "Net income"}
+      eps_diluted: {label: "Diluted", section: "Net income per share:", unit: USD/share}
     segments: []
-    verified: false
+    segments_status: pending_mapping
+    data_notes:
+      - "Nvidia's revenue by market platform (Data Center, Gaming, ...) is in the CFO commentary (EX-99.2), not in the press release tables; mapping pending."
+    verified: true  # CIK and fiscal year end confirmed with SEC data
 
   - ticker: TSLA
     name: Tesla
-    cik: null
+    cik: 1318605
+    fye_sec: "1231"  # SEC fiscalYearEnd (MMDD) from the latest filing
     fye: December 31
     ir_url: https://ir.tesla.com/
     lines: {}
     segments: []
-    verified: false
+    ingest: manual
+    data_notes:
+      - "Tesla's EX-99.1 is its quarterly update deck; the financial statements aren't HTML tables, so ingest reads the deck by hand (or waits for the 10-Q)."
+    verified: true  # CIK and fiscal year end confirmed with SEC data
 
   - ticker: NFLX
     name: Netflix
-    cik: null
+    cik: 1065280
+    fye_sec: "1231"  # SEC fiscalYearEnd (MMDD) from the latest filing
     fye: December 31
     ir_url: https://ir.netflix.net/
-    lines: {}
+    tables:
+      income: {title: "Consolidated Statements of Operations"}
+    lines:
+      revenue_total: {label: "Revenues"}
+      cost_of_revenue_total: {label: "Cost of revenues"}
+      opex_sm: {label: "Sales and marketing"}
+      opex_td: {label: "Technology and development"}
+      opex_ga: {label: "General and administrative"}
+      operating_income: {label: "Operating income"}
+      income_before_tax: {label: "Income before income taxes"}
+      income_tax: {label: "Provision for income taxes", expense_printed_negative: true}
+      net_income: {label: "Net income"}
+      eps_diluted: {label: "Diluted", section_contains: "Earnings per share", unit: USD/share}
+    computed: [gross_profit]
     segments: []
-    verified: false
+    segments_status: pending_mapping
+    data_notes:
+      - "Netflix reports in thousands of dollars."
+    verified: true  # CIK and fiscal year end confirmed with SEC data
 
   - ticker: KO
     name: Coca-Cola
-    cik: null
+    cik: 21344
+    fye_sec: "1231"  # SEC fiscalYearEnd (MMDD) from the latest filing
     fye: December 31
     ir_url: https://investors.coca-colacompany.com/
-    lines: {}
-    segments: []
-    verified: false
+    tables:
+      income: {title: "Consolidated Statements of Income"}
+      segments: {title: "Operating Segments and Corporate"}
+    lines:
+      revenue_total: {label: "Net Operating Revenues"}
+      cost_of_revenue_total: {label: "Cost of goods sold"}
+      gross_profit: {label: "Gross Profit"}
+      opex_sga: {label: "Selling, general and administrative expenses"}
+      opex_other: {label: "Other operating charges"}
+      operating_income: {label: "Operating Income"}
+      income_before_tax: {label: "Income Before Income Taxes"}
+      income_tax: {label: "Income taxes"}
+      net_income_consolidated: {label: "Consolidated Net Income"}
+      nci: {label: "Less: Net income (loss) attributable to noncontrolling interests"}
+      net_income: {label: "Net Income Attributable to Shareowners of The Coca-Cola Company"}
+      eps_diluted: {label: ["Diluted Net Income Per Share1", "Diluted Net Income Per Share"], unit: USD/share}
+    segments:
+      - group: segment
+        table: segments
+        items:
+          - {name: EMEA, label: "EMEA", section_contains: "Net Operating Revenues"}
+          - {name: Latin America, label: "Latin America", section_contains: "Net Operating Revenues"}
+          - {name: North America, label: "North America", section_contains: "Net Operating Revenues"}
+          - {name: Asia Pacific, label: "Asia Pacific", section_contains: "Net Operating Revenues"}
+          - {name: Bottling Investments, label: "Bottling Investments", section_contains: "Net Operating Revenues"}
+          - {name: Corporate, label: "Corporate", section_contains: "Net Operating Revenues"}
+          - {name: Eliminations, label: "Eliminations", section_contains: "Net Operating Revenues"}
+        total: {label: "Consolidated", section_contains: "Net Operating Revenues"}
+    show_segments: segment
+    verified: true  # CIK and fiscal year end confirmed with SEC data
 
   - ticker: PEP
     name: PepsiCo
-    cik: null
+    cik: 77476
+    fye_sec: "1226"  # SEC fiscalYearEnd (MMDD) from the latest filing
     fye: last Saturday of December
     ir_url: https://www.pepsico.com/investors
-    lines: {}
+    tables:
+      income: {title: "Condensed Consolidated Statement of Income"}
+    lines:
+      revenue_total: {label: "Net Revenue"}
+      cost_of_revenue_total: {label: "Cost of sales"}
+      gross_profit: {label: "Gross profit"}
+      opex_sga: {label: "Selling, general and administrative expenses"}
+      opex_impairment: {label: ["Impairment of intangible assets (a)", "Impairment of intangible assets"], optional: true}
+      operating_income: {label: "Operating Profit"}
+      income_before_tax: {label: "Income before income taxes"}
+      income_tax: {label: "Provision for income taxes"}
+      net_income_consolidated: {label: "Net income"}
+      nci: {label: "Less: Net income attributable to noncontrolling interests"}
+      net_income: {label: "Net Income Attributable to PepsiCo"}
+      eps_diluted: {label: "Net income attributable to PepsiCo per common share", section: "Diluted", unit: USD/share}
     segments: []
-    verified: false
+    segments_status: pending_mapping
+    data_notes:
+      - "PepsiCo's quarters are 12 weeks (Q1–Q3) and 16 or 17 weeks (Q4). Division net revenue dollars weren't found in the release tables yet; mapping pending."
+    verified: true  # CIK and fiscal year end confirmed with SEC data
 
   - ticker: MCD
     name: McDonald's
-    cik: null
+    cik: 63908
+    fye_sec: "1231"  # SEC fiscalYearEnd (MMDD) from the latest filing
     fye: December 31
-    ir_url: https://investor.mcdonalds.com/
-    lines: {}
+    ir_url: https://corporate.mcdonalds.com/corpmcd/investors.html
+    tables:
+      income: {has_rows: ["TOTAL REVENUES", "Total operating costs and expenses", "OPERATING INCOME"]}
+    lines:
+      revenue_franchised: {label: "Revenues from franchised restaurants"}
+      revenue_company: {label: "Sales by Company-owned and operated restaurants"}
+      revenue_other: {label: "Other revenues"}
+      revenue_total: {label: "TOTAL REVENUES"}
+      opex_franchised_occupancy: {label: "Franchised restaurants-occupancy expenses"}
+      opex_company_restaurants: {label: "Company-owned and operated restaurant expenses"}
+      opex_other_restaurant: {label: "Other restaurant expenses"}
+      opex_sga_da: {label: "Depreciation and amortization", section: "Selling, general & administrative expenses"}
+      opex_sga_other: {label: "Other", section: "Selling, general & administrative expenses"}
+      opex_other_operating: {label: "Other operating (income) expense, net"}
+      costs_and_expenses_total: {label: "Total operating costs and expenses"}
+      operating_income: {label: "OPERATING INCOME"}
+      income_before_tax: {label: "Income before provision for income taxes"}
+      income_tax: {label: "Provision for income taxes"}
+      net_income: {label: "NET INCOME"}
+      eps_diluted: {label: "EARNINGS PER SHARE-DILUTED", unit: USD/share}
     segments: []
+    segments_status: pending_mapping
     shape_note: no cost-of-revenue or gross-profit line
-    verified: false
+    verified: true  # CIK and fiscal year end confirmed with SEC data
 
   - ticker: SBUX
     name: Starbucks
-    cik: null
+    cik: 829224
+    fye_sec: "0928"  # SEC fiscalYearEnd (MMDD) from the latest filing
     fye: Sunday closest to September 30
     ir_url: https://investor.starbucks.com/
-    lines: {}
-    segments: []
-    verified: false
+    tables:
+      income: {title: "CONSOLIDATED STATEMENTS OF EARNINGS"}
+      seg_na: {title: "North America Segment Results"}
+      seg_intl: {title: "International Segment Results"}
+      seg_cd: {title: "Channel Development Segment Results"}
+      seg_corp: {title: "Corporate and Other"}
+    lines:
+      revenue_company_stores: {label: "Company-operated stores", section: "Net revenues:"}
+      revenue_licensed_stores: {label: "Licensed stores", section: "Net revenues:"}
+      revenue_other: {label: "Other", section: "Net revenues:"}
+      revenue_total: {label: "Total net revenues"}
+      opex_product_distribution: {label: "Product and distribution costs"}
+      opex_store_operating: {label: "Store operating expenses"}
+      opex_other: {label: "Other operating expenses"}
+      opex_da: {label: "Depreciation and amortization expenses"}
+      opex_ga: {label: "General and administrative expenses"}
+      opex_restructuring: {label: "Restructuring and impairments"}
+      operating_expenses_total: {label: "Total operating expenses"}
+      op_plus_equity_investees: {label: "Income from equity investees"}
+      operating_income: {label: "Operating income"}
+      income_before_tax: {label: "Earnings before income taxes"}
+      income_tax: {label: "Income tax expense"}
+      net_income_consolidated: {label: "Net earnings including noncontrolling interests"}
+      nci: {label: "Net earnings/(loss) attributable to noncontrolling interests"}
+      net_income: {label: "Net earnings attributable to Starbucks"}
+      eps_diluted: {label: "Net earnings per common share - diluted", unit: USD/share}
+    segments:
+      - group: segment
+        items:
+          - {name: North America, label: "Net revenues", table: seg_na}
+          - {name: International, label: "Net revenues", table: seg_intl}
+          - {name: Channel Development, label: "Net revenues", table: seg_cd}
+          - {name: Corporate and Other, label: "Net revenues", table: seg_corp}
+    show_segments: segment
+    data_notes:
+      - "Starbucks segment revenues come from four separate tables (three segments plus Corporate and Other)."
+    verified: true  # CIK and fiscal year end confirmed with SEC data
 
   - ticker: NKE
     name: Nike
-    cik: null
+    cik: 320187
+    fye_sec: "0531"  # SEC fiscalYearEnd (MMDD) from the latest filing
     fye: May 31
     ir_url: https://investors.nike.com/
-    lines: {}
+    tables:
+      income: {title: "CONSOLIDATED STATEMENTS OF INCOME"}
+    lines:
+      revenue_total: {label: "Revenues"}
+      cost_of_revenue_total: {label: "Cost of sales"}
+      gross_profit: {label: "Gross profit"}
+      opex_demand_creation: {label: "Demand creation expense"}
+      opex_operating_overhead: {label: "Operating overhead expense"}
+      operating_expenses_total: {label: "Total selling and administrative expense"}
+      income_before_tax: {label: "Income before income taxes"}
+      income_tax: {label: "Income tax expense"}
+      net_income: {label: "NET INCOME"}
+      eps_diluted: {label: "Diluted", section: "Earnings per common share:", unit: USD/share}
     segments: []
-    verified: false
+    segments_status: pending_mapping
+    data_notes:
+      - "Nike prints no operating income line (its statement goes from selling and administrative expense to interest and other items)."
+    verified: true  # CIK and fiscal year end confirmed with SEC data
 
   - ticker: DIS
     name: Disney
-    cik: null
+    cik: 1744489
+    fye_sec: "1003"  # SEC fiscalYearEnd (MMDD) from the latest filing
     fye: Saturday closest to September 30
-    ir_url: https://thewaltdisneycompany.com/investor-relations/
-    lines: {}
-    segments: []
-    verified: false
+    ir_url: https://investors.thewaltdisneycompany.com/
+    tables:
+      income: {has_rows: ["Costs and expenses", "Net income attributable to The Walt Disney Company (Disney)"]}
+      segments: {title: "segment revenue and operating income"}
+    lines:
+      revenue_total: {label: "Revenues"}
+      costs_and_expenses_total: {label: "Costs and expenses", expense_printed_negative: true}
+      charge_restructuring: {label: "Restructuring and impairment charges", optional: true}
+      income_before_tax: {label: "Income before income taxes"}
+      income_tax: {label: "Income taxes", expense_printed_negative: true}
+      net_income_consolidated: {label: "Net income"}
+      nci: {label: "Net income attributable to noncontrolling interests", expense_printed_negative: true}
+      net_income: {label: "Net income attributable to The Walt Disney Company (Disney)"}
+      eps_diluted: {label: "Diluted", section: "Earnings per share attributable to Disney:", unit: USD/share}
+    segments:
+      - group: segment
+        table: segments
+        items:
+          - {name: Entertainment, label: "Entertainment", section: "Revenues:"}
+          - {name: Sports, label: "Sports", section: "Revenues:"}
+          - {name: Experiences, label: "Experiences", section: "Revenues:"}
+          - {name: Eliminations, label: ["Eliminations(1)", "Eliminations"], section: "Revenues:"}
+        total: {label: "Total revenues", section: "Revenues:"}
+    show_segments: segment
+    data_notes:
+      - "Disney prints costs, taxes and minority interests as negative numbers and has no operating income line in its statement."
+    verified: true  # CIK and fiscal year end confirmed with SEC data
 
   - ticker: UBER
     name: Uber
-    cik: null
+    cik: 1543151
+    fye_sec: "1231"  # SEC fiscalYearEnd (MMDD) from the latest filing
     fye: December 31
     ir_url: https://investor.uber.com/
     tables:
@@ -236,20 +498,25 @@ companies:
     show_segments: segment
     data_notes:
       - "Uber's cost of revenue excludes depreciation and amortization, so no gross profit is computed."
-    verified: false
+    verified: true  # CIK and fiscal year end confirmed with SEC data
 
   - ticker: ABNB
     name: Airbnb
-    cik: null
+    cik: 1559720
+    fye_sec: "1231"  # SEC fiscalYearEnd (MMDD) from the latest filing
     fye: December 31
     ir_url: https://investors.airbnb.com/
     lines: {}
     segments: []
-    verified: false
+    ingest: manual
+    data_notes:
+      - "Airbnb's EX-99.1 is a short press release; the financial statements are in the shareholder letter on its IR site (a primary source) until the 10-Q is filed."
+    verified: true  # CIK and fiscal year end confirmed with SEC data
 
   - ticker: V
     name: Visa
-    cik: null
+    cik: 1403161
+    fye_sec: "0930"  # SEC fiscalYearEnd (MMDD) from the latest filing
     fye: September 30
     ir_url: https://investor.visa.com/
     tables:
@@ -274,31 +541,78 @@ companies:
     data_notes:
       - "Visa reports one segment. Its release breaks net revenue into service, data processing, international transaction and other revenue less client incentives, but only for the current quarter with a printed YoY %, so revenue types aren't used until we decide how to show them."
     shape_note: no cost-of-revenue or gross-profit line
-    verified: false
+    verified: true  # CIK and fiscal year end confirmed with SEC data
 
   - ticker: MA
     name: Mastercard
-    cik: null
+    cik: 1141391
+    fye_sec: "1231"  # SEC fiscalYearEnd (MMDD) from the latest filing
     fye: December 31
     ir_url: https://investor.mastercard.com/
-    lines: {}
+    tables:
+      income: {title: "Consolidated Statements of Operations"}
+    lines:
+      revenue_total: {label: "Net Revenue"}
+      opex_ga: {label: "General and administrative"}
+      opex_marketing: {label: "Advertising and marketing"}
+      opex_da: {label: "Depreciation and amortization"}
+      opex_litigation: {label: "Provision for litigation"}
+      operating_expenses_total: {label: "Total operating expenses"}
+      operating_income: {label: "Operating income"}
+      income_before_tax: {label: "Income before income taxes"}
+      income_tax: {label: "Income tax expense"}
+      net_income: {label: "Net Income"}
+      eps_diluted: {label: "Diluted Earnings per Share", unit: USD/share}
     segments: []
-    verified: false
+    segments_status: single_segment
+    verified: true  # CIK and fiscal year end confirmed with SEC data
 
   - ticker: COST
     name: Costco
-    cik: null
+    cik: 909832
+    fye_sec: "0830"  # SEC fiscalYearEnd (MMDD) from the latest filing
     fye: Sunday closest to August 31
     ir_url: https://investor.costco.com/
-    lines: {}
+    tables:
+      income: {title: "CONSOLIDATED STATEMENTS OF INCOME"}
+    lines:
+      revenue_net_sales: {label: "Net sales"}
+      revenue_membership: {label: "Membership fees"}
+      revenue_total: {label: "Total revenue"}
+      cost_of_revenue_total: {label: "Merchandise costs"}
+      opex_sga: {label: "Selling, general and administrative"}
+      operating_income: {label: "Operating income"}
+      income_before_tax: {label: "INCOME BEFORE INCOME TAXES"}
+      income_tax: {label: "Provision for income taxes"}
+      net_income: {label: "NET INCOME"}
+      eps_diluted: {label: "Diluted", section: "NET INCOME PER COMMON SHARE:", unit: USD/share}
     segments: []
-    verified: false
+    segments_status: pending_mapping
+    data_notes:
+      - "Costco's fiscal Q4 is 16 weeks (17 in a 53-week year); Q1–Q3 are 12 weeks."
+    verified: true  # CIK and fiscal year end confirmed with SEC data
 
   - ticker: WMT
     name: Walmart
-    cik: null
+    cik: 104169
+    fye_sec: "0131"  # SEC fiscalYearEnd (MMDD) from the latest filing
     fye: January 31
     ir_url: https://stock.walmart.com/
-    lines: {}
+    tables:
+      income: {title: "Condensed Consolidated Statements of Income"}
+    lines:
+      revenue_net_sales: {label: "Net sales"}
+      revenue_membership: {label: "Membership and other income"}
+      revenue_total: {label: "Total revenues"}
+      cost_of_revenue_total: {label: "Cost of sales"}
+      opex_osga: {label: "Operating, selling, general and administrative expenses"}
+      operating_income: {label: "Operating income"}
+      income_before_tax: {label: "Income before income taxes"}
+      income_tax: {label: "Provision for income taxes"}
+      net_income_consolidated: {label: "Consolidated net income"}
+      nci: {label: "Consolidated net income attributable to noncontrolling interest", expense_printed_negative: true}
+      net_income: {label: "Consolidated net income attributable to Walmart"}
+      eps_diluted: {label: "Diluted net income per common share attributable to Walmart", unit: USD/share}
     segments: []
-    verified: false
+    segments_status: pending_mapping
+    verified: true  # CIK and fiscal year end confirmed with SEC data

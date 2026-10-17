@@ -12,7 +12,8 @@
     "INCOME STATEMENT SUMMARY mixes GAAP and non-GAAP (non-GAAP total operating expenses 3,611, net income 5,803, EPS 2.98); not used.",
     "Litigation provision 903 vs 10 is as printed; non-GAAP measures exclude it.",
     "'Visa Quarterly Results of Operations (unaudited)' matches every GAAP value above for both quarter columns.",
-    "Several row labels carry a trailing space in the HTML; trimmed."
+    "Several row labels carry a trailing space in the HTML; trimmed.",
+    "The non-GAAP reconciliation removes (899) for litigation provision, which differs from the 903 GAAP line; don't compare the two directly."
   ],
   "unresolved": 0
 }

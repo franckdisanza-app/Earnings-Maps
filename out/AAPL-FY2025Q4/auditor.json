@@ -1,6 +1,6 @@
 {
-  "source_file": "scratchpad/audit/AAPL-FY2025Q4/a8-kex991q4202509272025.htm (copy of data/raw/AAPL/FY2025Q4/)",
-  "run_via": "general-purpose agent given the numbers-auditor instructions verbatim (the project subagent loads in the next session); raw file copied to an empty scratch folder; guard hook not active",
+  "source_file": "data/raw/AAPL/FY2025Q4/a8-kex991q4202509272025.htm",
+  "run_via": "numbers-auditor project subagent (read-only tools, CLAUDE.md omitted, PreToolUse guard limiting reads to data/raw/), 2026-10-17; a first pass via a general-purpose agent with the same instructions matched value for value",
   "period": {
     "current_column_header": "Three Months Ended / September 27, 2025",
     "prior_year_column_header": "Three Months Ended / September 28, 2024"

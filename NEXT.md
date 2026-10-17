@@ -1,13 +1,14 @@
 # Next
 
-**Resume at Phase 3: data pipeline** (docs/KICKOFF.md §6).
+**Resume at Phase 4: visual system and templates** (docs/KICKOFF.md §7), ending at **Gate 2**.
 
-1. Ask the owner for their name and email for `SEC_USER_AGENT` and write it to `.env` (never echo it).
-2. Check the SEC endpoints and field names against https://www.sec.gov/edgar/sec-api-documentation before coding.
-3. Build `scripts/sec_client.py` (User-Agent, <10 req/s, disk cache in `data/raw/`, backoff on 403/429/5xx), `find_releases.py`, `parse_release.py`, `validate.py`, `audit_diff.py`, and `approve.py` (writes and `--verify`s `data/normalized/<ID>.approval.json`).
-4. Write `schemas/earnings.schema.json` plus the pydantic mirror. The `approval` record lives in the sidecar `<ID>.approval.json`, not inside the hashed file (see DECISIONS.md).
-5. Fill and verify `config/watchlist.yaml`: CIKs, FYE, IR URLs, line mappings, segments.
-6. Fixtures from four past releases with different shapes (clean segments; products/services cost split; no cost-of-revenue line; a net loss), plus tests for parsing and every validation identity.
-7. First real runs: `/earnings-ingest` on three companies' past releases, including the `numbers-auditor` subagent (its guard is tested in `tests/test_auditor_guard.py`), and run the skill's `evals/evals.json` prompts.
+1. Owner check of the pipeline: type `/earnings-ingest AAPL FY2025Q4` once, so the skill itself has run (everything it calls is built and tested).
+2. Brand tokens: finalize `brand/tokens.json` contrast with the dataviz checks; GSAP and Inter come from local files.
+3. `scripts/layout.mjs`: d3-sankey layout baked to `out/<ID>/build/layout.json` from a data file. Steps: segments → revenue → cost of revenue / gross profit → opex / operating income → tax and other → net income; skip what the company doesn't report; "our calculation" labels.
+4. `templates/money-map/`: HyperFrames composition (1080×1920, 30 fps, one paused GSAP timeline), on-screen required lines, safe zones.
+5. Gate 2: three style frames (dark editorial, light editorial, bold) of the same money map from `AAPL-FY2025Q4`, plus the three Kokoro voices in `brand/voice-samples/`. The owner picks.
+6. Then `render.mjs` (refuses without a matching approval), covers, carousel and visual QA.
 
-Open items for the owner: authenticate beehiiv (`/mcp`) before Phase 6. Gate 2 will ask for a style frame and one of the three voices in `brand/voice-samples/`.
+Pilot (Phase 5): pick from the freshest releases at that time; today PepsiCo FY2026Q3, Nike FY2027Q1 or Costco FY2026Q4. Run `find_releases.py <T> --list` to refresh.
+
+Open questions for the owner: Visa revenue types (current quarter only in the release); segment mappings pending for NVDA, NFLX, PEP, MCD, NKE, COST, WMT; manual ingest for TSLA and ABNB. beehiiv still needs `/mcp` authentication before Phase 6.
