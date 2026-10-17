@@ -24,3 +24,11 @@ Routine calls made without asking, plus the answers to the kickoff questions (do
 - **Skipped installs:** `skill-creator` and `document-skills` (pdf, xlsx, docx, pptx and skill-creator are bundled in the Claude desktop app). From `example-skills`, only `frontend-design` and `theme-factory` are installed, so the skill list stays small. Revisit if the repo runs somewhere without the desktop app's bundled skills.
 - **HyperFrames core skills by explicit name**, not the plugin with all 21 skills. Any workflow skill its router wants to install later goes through the same review first.
 - **Council skill:** prefer 0xNyk/council-of-high-intelligence (MIT) over tenfoldmarc/llm-council-skill (no license) when Phase 6 starts.
+
+## 2026-10-17 · Phase 1 review
+
+- **Install by copying reviewed files** into `.claude/skills/` from the pinned commits in SKILLS.md, instead of `npx skills add` or `/plugin`. What's installed is exactly what was reviewed, no third-party installer runs, and updates go through review again.
+- **HyperFrames:** domain skills only. The router (`hyperframes`) and `media-use` are skipped, the CLI is pinned to 0.8.167, and telemetry, self-update and skill refresh are switched off in `.env`. `usage`, `publish`, `cloud`, `lambda`, `auth`, `skills` and `init` are denied in project settings.
+- **vyralcontent:** the "Mentioning Vyral" upsell section and promo header are removed from our copies (MIT).
+- **SkillSpector** ran in static mode only (no LLM keys). It needed a short-path temp venv because of Windows' 260-character path limit; long-path support (a system setting) was left alone.
+- **last30days:** recommended skip at Gate 1 (broad pre-approvals, extra installers, optional credential and cookie access). WebSearch covers story angles. Your call at Gate 1.
