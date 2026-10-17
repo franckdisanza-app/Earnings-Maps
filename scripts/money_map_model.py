@@ -19,7 +19,9 @@ import sys
 
 from common import company, data_path, out_dir
 from earnings_model import Earnings
-from fmt import change, money, percent, to_units
+import json as _json
+
+from fmt import change, change_spoken, money, money_spoken, percent, to_units
 
 
 def units(v, scale):
@@ -163,7 +165,13 @@ def build(id_: str) -> dict:
 
     # One insight: the fastest-growing big segment, else the operating-margin change.
     insight = None
-    seg_nodes = [n for n in nodes if n["kind"] == "segment" and n["change"] and n["value"] >= 0.1 * rev]
+    # Growth the auditor flagged as not like-for-like (acquisitions, one-off benefits) isn't an insight.
+    audit_file = out_dir(id_) / "audit.json"
+    warnings = _json.loads(audit_file.read_text(encoding="utf-8")).get("auditor_warnings", []) if audit_file.exists() else []
+    flags = ("acquisition", "acquired", "like-for-like", "not comparable", "benefit", "one-time", "one-off", "accrual release")
+    def flagged(name):
+        return any(name.lower() in w.lower() and any(f in w.lower() for f in flags) for w in warnings)
+    seg_nodes = [n for n in nodes if n["kind"] == "segment" and n["change"] and n["value"] >= 0.1 * rev and not flagged(n["label"])]
     rev_growth = rev / rev_p - 1 if rev_p else None
     growth = {}
     for s in segs:
@@ -174,13 +182,40 @@ def build(id_: str) -> dict:
         best = max(seg_nodes, key=lambda n: growth.get(n["id"], -9))
         if growth.get(best["id"], -9) > rev_growth:
             insight = {"node": best["id"], "headline": f"{best['label']} grew {change(growth[best['id']]).lstrip('+')}",
-                       "sub": f"vs {change(rev_growth).lstrip('+')} for all revenue"}
+                       "sub": f"vs {change(rev_growth).lstrip('+')} for all revenue",
+                       "spoken": f"{best['label']} grew {change_spoken(growth[best['id']]).replace('up ', '')}. Revenue grew {change_spoken(rev_growth).replace('up ', '')}."}
     if insight is None and data.derived.operating_margin and data.derived.operating_margin.current is not None and data.derived.operating_margin.prior_year is not None:
         om = data.derived.operating_margin
         diff = (om.current - om.prior_year) * 100
         direction = "up" if diff > 0 else "down"
         insight = {"node": "operating_income", "headline": f"Operating margin {percent(om.current, 1)}",
-                   "sub": f"{direction} from {percent(om.prior_year, 1)} a year ago"}
+                   "sub": f"{direction} from {percent(om.prior_year, 1)} a year ago",
+                   "spoken": f"Operating margin was {percent(om.current, 1).replace('%', ' percent').replace(chr(0x2212), 'minus ')}, {direction} from {percent(om.prior_year, 1).replace('%', ' percent').replace(chr(0x2212), 'minus ')} a year ago."}
+
+    # ---- voiceover: one short line per beat, narrating what's left at each step -------------
+    # The costs are labelled on screen; the voice follows the profit spine so the video stays
+    # inside 25-35 s (Kokoro needs over a second for a number like "102.5 billion").
+    by = {n["id"]: n for n in nodes}
+    voice = [{"beat": "hook", "nodes": [], "text": f"{data.company.name} made {money_spoken(rev, unit_word=True)} in three months."}]
+    seg_ns = sorted([n for n in nodes if n["kind"] == "segment"], key=lambda n: -n["value"])
+    if seg_ns:
+        lead = seg_ns[0]
+        text = f"Most of it from {lead['label']}: {money_spoken(lead['value'])}." if lead["value"] > 0.5 * rev else f"{lead['label']} led with {money_spoken(lead['value'])}."
+        voice.append({"beat": "row", "nodes": [n["id"] for n in seg_ns], "text": text})
+    voice.append({"beat": "row", "nodes": ["revenue"], "text": (f"That's {change_spoken(rev / rev_p - 1)} on a year ago." if rev_p and rev_p > 0 else "That's all revenue.")})
+    for cid in [c[0] for c in chain[1:]]:
+        n = by.get(cid)
+        cost = by.get(f"cost:{cid}")
+        if n is None and cost is None:
+            continue
+        ids = [i for i in (cid, f"cost:{cid}", f"other:{cid}") if i in by]
+        if n and n["kind"] == "loss":
+            voice.append({"beat": "row", "nodes": ids, "text": f"Costs topped revenue: an {n['label'].lower()} of {money_spoken(n['value'])}."})
+            break
+        voice.append({"beat": "row", "nodes": ids, "text": f"{n['label']}: {money_spoken(n['value'])}."})
+    if insight:
+        voice.append({"beat": "insight", "nodes": [insight["node"]], "text": insight.get("spoken") or f"{insight['headline']}."})
+    voice.append({"beat": "end", "nodes": [], "text": "Not investment advice."})
 
     p, r, c = data.period, data.release, data.company
     filed = r.filing_date.strftime("%b %-d, %Y") if sys.platform != "win32" else r.filing_date.strftime("%b %#d, %Y")
@@ -195,7 +230,8 @@ def build(id_: str) -> dict:
         "hook": {"pre": f"{c.name} made", "number": money(rev, "units"), "post": "in 3 months.", "sub": "Here's where every dollar went.",
                  "line": f"{c.name} made {money(rev, 'units')} in 3 months."},
         "insight": insight,
-        "cta": "Follow for the next money map",
+        "cta": "Follow for more maps",
+        "voice": voice,
         "nodes": nodes,
         "links": links,
         "notes": notes + list(data.notes),

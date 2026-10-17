@@ -75,3 +75,7 @@ Routine calls made without asking, plus the answers to the kickoff questions (do
 - **One view model** (`scripts/money_map_model.py`) formats every on-screen string with `fmt.py`, so the video, the numbers sheet and the captions agree. Subtotals we compute are labelled "our calculation".
 - **Render gate:** `scripts/render.mjs` refuses a non-preview render unless the data file's SHA-256 matches its Gate A approval. Preview renders carry a "Style preview" marker and are for private review only.
 - **Segment display names** may be shortened in the watchlist (`short:`), e.g. "Wearables", "Personal Computing"; locators keep the label as printed.
+
+## 2026-10-17 · Gate 2
+
+- **The owner picked light editorial and the am_michael voice.** `brand/tokens.json` is now `status: final` with only that look; the other two looks stay on record as frames in `brand/style-frames/`.

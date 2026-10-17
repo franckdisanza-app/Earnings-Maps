@@ -90,3 +90,31 @@ def line_value(value: float | None, unit: str, scale: str) -> str:
     if unit == "USD":
         return money(value, scale)
     return number(value, scale)
+
+
+# ---- spoken forms for the voiceover --------------------------------------------------------
+
+def money_spoken(value: float | None, scale: str = "units", unit_word: bool = False) -> str:
+    """'$102.5B' -> '102.5 billion' ('102.5 billion dollars' with unit_word); '$812M' -> '812 million'."""
+    if value is None:
+        return ""
+    dollars = to_units(value, scale)
+    a = abs(dollars)
+    if a >= Decimal(10) ** 9:
+        q = _q(a / Decimal(10) ** 9, 1)
+        word = "billion"
+    else:
+        q = _q(a / Decimal(10) ** 6, 0)
+        word = "million"
+    num = format(q.normalize(), "f") if q == q.to_integral() else str(q)
+    return f"{'minus ' if dollars < 0 else ''}{num} {word}{' dollars' if unit_word else ''}"
+
+
+def change_spoken(ratio: float | None) -> str:
+    """+0.079 -> 'up 8 percent'; -0.031 -> 'down 3 percent'."""
+    if ratio is None:
+        return ""
+    pct = _d(ratio) * 100
+    q = _q(abs(pct), 1 if abs(pct) < 1 else 0)
+    num = format(q.normalize(), "f")
+    return f"{'up' if pct > 0 else 'down'} {num} percent" if pct != 0 else "flat"

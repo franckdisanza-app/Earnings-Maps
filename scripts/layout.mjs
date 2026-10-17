@@ -41,8 +41,8 @@ export const METRICS = { T: 64, PAD: 20, GAP: 16, LABEL: 44, LINE: 52, NOTE: 34,
 const { T, PAD, GAP, LABEL, LINE, NOTE, HERO, MIN_FLOW } = METRICS;
 const CAP = Math.round(LABEL * 0.75);
 // Measure at the heaviest weights any theme draws (bold: values 800, hero 900) so every theme fits.
-const VW = 800;
-const HW = 900;
+const VW = Math.max(...Object.values(tokens.themes).map((t) => t.style?.value_weight || 700));
+const HW = Math.max(...Object.values(tokens.themes).map((t) => t.style?.hero_weight || 800));
 
 const KIND_RANK = { cost: 0, segment: 1, revenue: 2, profit: 2, other: 3, loss: 3 };
 
