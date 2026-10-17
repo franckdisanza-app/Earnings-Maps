@@ -1,0 +1,268 @@
+{
+  "ticker": "MSFT",
+  "cik": 789019,
+  "form": "8-K",
+  "accession": "0001193125-25-256310",
+  "filing_date": "2025-10-29",
+  "items": [
+    "2.02",
+    "7.01",
+    "9.01"
+  ],
+  "period_end": "2025-09-30",
+  "period_end_source": "10-Q/10-K reportDate",
+  "period_start": "2025-07-01",
+  "period_start_source": "prior period's 10-Q/10-K reportDate + 1 day",
+  "fiscal_label": "FY2026Q1",
+  "fiscal_year": 2026,
+  "fiscal_quarter": 1,
+  "calendar_label": "Jul\u2013Sep 2025",
+  "display": "Fiscal Q1 2026 (Jul\u2013Sep 2025)",
+  "weeks": 13.1,
+  "folder_url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/",
+  "exhibits": [
+    {
+      "seq": "1",
+      "description": "8-K",
+      "document": "msft-20251028.htm",
+      "type": "8-K",
+      "size": "67050",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-20251028.htm"
+    },
+    {
+      "seq": "2",
+      "description": "EX-99.1",
+      "document": "msft-ex99_1.htm",
+      "type": "EX-99.1",
+      "size": "651408",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_1.htm"
+    },
+    {
+      "seq": "3",
+      "description": "EX-99.2",
+      "document": "msft-ex99_2.htm",
+      "type": "EX-99.2",
+      "size": "15434",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_2.htm"
+    },
+    {
+      "seq": "4",
+      "description": "EX-99.3",
+      "document": "msft-ex99_3.htm",
+      "type": "EX-99.3",
+      "size": "6775",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_3.htm"
+    },
+    {
+      "seq": "5",
+      "description": "GRAPHIC",
+      "document": "img140252018_0.jpg",
+      "type": "GRAPHIC",
+      "size": "38099",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/img140252018_0.jpg"
+    },
+    {
+      "seq": "6",
+      "description": "GRAPHIC",
+      "document": "msft-ex99_3s1.jpg",
+      "type": "GRAPHIC",
+      "size": "126222",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_3s1.jpg"
+    },
+    {
+      "seq": "7",
+      "description": "GRAPHIC",
+      "document": "msft-ex99_3s2.jpg",
+      "type": "GRAPHIC",
+      "size": "259133",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_3s2.jpg"
+    },
+    {
+      "seq": "8",
+      "description": "GRAPHIC",
+      "document": "msft-ex99_3s3.jpg",
+      "type": "GRAPHIC",
+      "size": "168824",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_3s3.jpg"
+    },
+    {
+      "seq": "9",
+      "description": "GRAPHIC",
+      "document": "msft-ex99_3s4.jpg",
+      "type": "GRAPHIC",
+      "size": "411853",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_3s4.jpg"
+    },
+    {
+      "seq": "10",
+      "description": "GRAPHIC",
+      "document": "msft-ex99_3s5.jpg",
+      "type": "GRAPHIC",
+      "size": "374281",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_3s5.jpg"
+    },
+    {
+      "seq": "11",
+      "description": "GRAPHIC",
+      "document": "msft-ex99_3s6.jpg",
+      "type": "GRAPHIC",
+      "size": "332029",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_3s6.jpg"
+    },
+    {
+      "seq": "12",
+      "description": "GRAPHIC",
+      "document": "msft-ex99_3s7.jpg",
+      "type": "GRAPHIC",
+      "size": "284068",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_3s7.jpg"
+    },
+    {
+      "seq": "13",
+      "description": "GRAPHIC",
+      "document": "msft-ex99_3s8.jpg",
+      "type": "GRAPHIC",
+      "size": "349920",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_3s8.jpg"
+    },
+    {
+      "seq": "14",
+      "description": "GRAPHIC",
+      "document": "msft-ex99_3s9.jpg",
+      "type": "GRAPHIC",
+      "size": "259655",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_3s9.jpg"
+    },
+    {
+      "seq": "15",
+      "description": "GRAPHIC",
+      "document": "msft-ex99_3s10.jpg",
+      "type": "GRAPHIC",
+      "size": "261797",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_3s10.jpg"
+    },
+    {
+      "seq": "16",
+      "description": "GRAPHIC",
+      "document": "msft-ex99_3s11.jpg",
+      "type": "GRAPHIC",
+      "size": "277416",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_3s11.jpg"
+    },
+    {
+      "seq": "17",
+      "description": "GRAPHIC",
+      "document": "msft-ex99_3s12.jpg",
+      "type": "GRAPHIC",
+      "size": "289617",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_3s12.jpg"
+    },
+    {
+      "seq": "18",
+      "description": "GRAPHIC",
+      "document": "msft-ex99_3s13.jpg",
+      "type": "GRAPHIC",
+      "size": "88914",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_3s13.jpg"
+    },
+    {
+      "seq": "19",
+      "description": "GRAPHIC",
+      "document": "msft-ex99_3s14.jpg",
+      "type": "GRAPHIC",
+      "size": "223524",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_3s14.jpg"
+    },
+    {
+      "seq": "20",
+      "description": "GRAPHIC",
+      "document": "msft-ex99_3s15.jpg",
+      "type": "GRAPHIC",
+      "size": "336545",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_3s15.jpg"
+    },
+    {
+      "seq": "21",
+      "description": "GRAPHIC",
+      "document": "msft-ex99_3s16.jpg",
+      "type": "GRAPHIC",
+      "size": "395901",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_3s16.jpg"
+    },
+    {
+      "seq": "22",
+      "description": "GRAPHIC",
+      "document": "msft-ex99_3s17.jpg",
+      "type": "GRAPHIC",
+      "size": "277457",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_3s17.jpg"
+    },
+    {
+      "seq": "23",
+      "description": "GRAPHIC",
+      "document": "msft-ex99_3s18.jpg",
+      "type": "GRAPHIC",
+      "size": "321263",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_3s18.jpg"
+    },
+    {
+      "seq": "24",
+      "description": "GRAPHIC",
+      "document": "msft-ex99_3s19.jpg",
+      "type": "GRAPHIC",
+      "size": "333140",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_3s19.jpg"
+    },
+    {
+      "seq": "25",
+      "description": "GRAPHIC",
+      "document": "msft-ex99_3s20.jpg",
+      "type": "GRAPHIC",
+      "size": "384601",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_3s20.jpg"
+    },
+    {
+      "seq": "26",
+      "description": "GRAPHIC",
+      "document": "msft-ex99_3s21.jpg",
+      "type": "GRAPHIC",
+      "size": "194033",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_3s21.jpg"
+    },
+    {
+      "seq": "27",
+      "description": "GRAPHIC",
+      "document": "msft-ex99_3s22.jpg",
+      "type": "GRAPHIC",
+      "size": "91204",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_3s22.jpg"
+    },
+    {
+      "seq": "28",
+      "description": "XBRL TAXONOMY EXTENSION SCHEMA WITH EMBEDDED LINKBASES DOCUMENT",
+      "document": "msft-20251028.xsd",
+      "type": "EX-101.SCH",
+      "size": "55536",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-20251028.xsd"
+    },
+    {
+      "seq": "38",
+      "description": "EXTRACTED XBRL INSTANCE DOCUMENT",
+      "document": "msft-20251028_htm.xml",
+      "type": "XML",
+      "size": "7292",
+      "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-20251028_htm.xml"
+    }
+  ],
+  "release_exhibit": {
+    "seq": "2",
+    "description": "EX-99.1",
+    "document": "msft-ex99_1.htm",
+    "type": "EX-99.1",
+    "size": "651408",
+    "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_1.htm"
+  },
+  "warnings": [
+    "several EX-99 exhibits: EX-99.1 msft-ex99_1.htm, EX-99.2 msft-ex99_2.htm, EX-99.3 msft-ex99_3.htm; using EX-99.1"
+  ]
+}

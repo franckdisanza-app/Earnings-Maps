@@ -1,0 +1,399 @@
+{
+  "schema_version": 1,
+  "company": {
+    "ticker": "MSFT",
+    "name": "Microsoft",
+    "cik": 789019
+  },
+  "period": {
+    "fiscal_label": "FY2026Q1",
+    "fiscal_year": 2026,
+    "fiscal_quarter": 1,
+    "start_date": "2025-07-01",
+    "end_date": "2025-09-30",
+    "start_date_source": "prior period's 10-Q/10-K reportDate + 1 day",
+    "calendar_label": "Jul–Sep 2025",
+    "display": "Fiscal Q1 2026 (Jul–Sep 2025)",
+    "weeks": 13.1
+  },
+  "currency": "USD",
+  "scale": "millions",
+  "release": {
+    "form": "8-K",
+    "filing_date": "2025-10-29",
+    "accession": "0001193125-25-256310",
+    "items": [
+      "2.02",
+      "7.01",
+      "9.01"
+    ],
+    "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312525256310/msft-ex99_1.htm",
+    "exhibit": "EX-99.1",
+    "local_path": "data/raw/MSFT/FY2026Q1/msft-ex99_1.htm"
+  },
+  "lines": [
+    {
+      "id": "revenue_product",
+      "label_as_printed": "Product",
+      "value": 15922.0,
+      "prior_year_value": 15272.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "INCOME STATEMENTS (In millions, except per share amounts) (Unaudited)",
+        "row_label": "Product",
+        "section": "Revenue:",
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "revenue_service",
+      "label_as_printed": "Service and other",
+      "value": 61751.0,
+      "prior_year_value": 50313.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "INCOME STATEMENTS (In millions, except per share amounts) (Unaudited)",
+        "row_label": "Service and other",
+        "section": "Revenue:",
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "revenue_total",
+      "label_as_printed": "Total revenue",
+      "value": 77673.0,
+      "prior_year_value": 65585.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "INCOME STATEMENTS (In millions, except per share amounts) (Unaudited)",
+        "row_label": "Total revenue",
+        "section": "Revenue:",
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "cost_product",
+      "label_as_printed": "Product",
+      "value": 2922.0,
+      "prior_year_value": 3294.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "INCOME STATEMENTS (In millions, except per share amounts) (Unaudited)",
+        "row_label": "Product",
+        "section": "Cost of revenue:",
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "cost_service",
+      "label_as_printed": "Service and other",
+      "value": 21121.0,
+      "prior_year_value": 16805.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "INCOME STATEMENTS (In millions, except per share amounts) (Unaudited)",
+        "row_label": "Service and other",
+        "section": "Cost of revenue:",
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "cost_of_revenue_total",
+      "label_as_printed": "Total cost of revenue",
+      "value": 24043.0,
+      "prior_year_value": 20099.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "INCOME STATEMENTS (In millions, except per share amounts) (Unaudited)",
+        "row_label": "Total cost of revenue",
+        "section": "Cost of revenue:",
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "gross_profit",
+      "label_as_printed": "Gross margin",
+      "value": 53630.0,
+      "prior_year_value": 45486.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "INCOME STATEMENTS (In millions, except per share amounts) (Unaudited)",
+        "row_label": "Gross margin",
+        "section": null,
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "opex_rd",
+      "label_as_printed": "Research and development",
+      "value": 8146.0,
+      "prior_year_value": 7544.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "INCOME STATEMENTS (In millions, except per share amounts) (Unaudited)",
+        "row_label": "Research and development",
+        "section": null,
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "opex_sm",
+      "label_as_printed": "Sales and marketing",
+      "value": 5717.0,
+      "prior_year_value": 5717.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "INCOME STATEMENTS (In millions, except per share amounts) (Unaudited)",
+        "row_label": "Sales and marketing",
+        "section": null,
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "opex_ga",
+      "label_as_printed": "General and administrative",
+      "value": 1806.0,
+      "prior_year_value": 1673.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "INCOME STATEMENTS (In millions, except per share amounts) (Unaudited)",
+        "row_label": "General and administrative",
+        "section": null,
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "operating_income",
+      "label_as_printed": "Operating income",
+      "value": 37961.0,
+      "prior_year_value": 30552.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "INCOME STATEMENTS (In millions, except per share amounts) (Unaudited)",
+        "row_label": "Operating income",
+        "section": null,
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "other_income",
+      "label_as_printed": "Other expense, net",
+      "value": -3660.0,
+      "prior_year_value": -283.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "INCOME STATEMENTS (In millions, except per share amounts) (Unaudited)",
+        "row_label": "Other expense, net",
+        "section": null,
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": true
+    },
+    {
+      "id": "income_before_tax",
+      "label_as_printed": "Income before income taxes",
+      "value": 34301.0,
+      "prior_year_value": 30269.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "INCOME STATEMENTS (In millions, except per share amounts) (Unaudited)",
+        "row_label": "Income before income taxes",
+        "section": null,
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "income_tax",
+      "label_as_printed": "Provision for income taxes",
+      "value": 6554.0,
+      "prior_year_value": 5602.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "INCOME STATEMENTS (In millions, except per share amounts) (Unaudited)",
+        "row_label": "Provision for income taxes",
+        "section": null,
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "net_income",
+      "label_as_printed": "Net income",
+      "value": 27747.0,
+      "prior_year_value": 24667.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "INCOME STATEMENTS (In millions, except per share amounts) (Unaudited)",
+        "row_label": "Net income",
+        "section": null,
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "eps_diluted",
+      "label_as_printed": "Diluted",
+      "value": 3.72,
+      "prior_year_value": 3.3,
+      "unit": "USD/share",
+      "scale": "units",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "INCOME STATEMENTS (In millions, except per share amounts) (Unaudited)",
+        "row_label": "Diluted",
+        "section": "Earnings per share:",
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "segments_total_segment",
+      "label_as_printed": "Revenue",
+      "value": 77673.0,
+      "prior_year_value": 65585.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "SEGMENT RESULTS (In millions) (Unaudited)",
+        "row_label": "Revenue",
+        "section": "Total",
+        "column_current": "Three Months Ended September 30, 2025",
+        "column_prior_year": "Three Months Ended September 30, 2024"
+      },
+      "printed_negative": false
+    }
+  ],
+  "segments_status": "in_release",
+  "segments": [
+    {
+      "group": "segment",
+      "name": "Productivity and Business Processes",
+      "label_as_printed": "Revenue",
+      "value": 33020.0,
+      "prior_year_value": 28317.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "SEGMENT RESULTS (In millions) (Unaudited)",
+        "row_label": "Revenue",
+        "section": "Productivity and Business Processes",
+        "column_current": "Three Months Ended September 30, 2025",
+        "column_prior_year": "Three Months Ended September 30, 2024"
+      }
+    },
+    {
+      "group": "segment",
+      "name": "Intelligent Cloud",
+      "label_as_printed": "Revenue",
+      "value": 30897.0,
+      "prior_year_value": 24092.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "SEGMENT RESULTS (In millions) (Unaudited)",
+        "row_label": "Revenue",
+        "section": "Intelligent Cloud",
+        "column_current": "Three Months Ended September 30, 2025",
+        "column_prior_year": "Three Months Ended September 30, 2024"
+      }
+    },
+    {
+      "group": "segment",
+      "name": "More Personal Computing",
+      "label_as_printed": "Revenue",
+      "value": 13756.0,
+      "prior_year_value": 13176.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "SEGMENT RESULTS (In millions) (Unaudited)",
+        "row_label": "Revenue",
+        "section": "More Personal Computing",
+        "column_current": "Three Months Ended September 30, 2025",
+        "column_prior_year": "Three Months Ended September 30, 2024"
+      }
+    }
+  ],
+  "derived": {
+    "revenue_yoy": 0.18431043683769155,
+    "gross_margin": {
+      "current": 0.6904587179586213,
+      "prior_year": 0.6935427308073493
+    },
+    "operating_margin": {
+      "current": 0.48872838695557014,
+      "prior_year": 0.4658382252039338
+    },
+    "net_margin": {
+      "current": 0.35722838051832684,
+      "prior_year": 0.37610734161774795
+    },
+    "computed_lines": []
+  },
+  "guidance": null,
+  "validation_exceptions": [],
+  "notes": [],
+  "approval": null
+}

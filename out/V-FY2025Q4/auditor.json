@@ -1,0 +1,185 @@
+{
+  "source_file": "scratchpad/audit/V-FY2025Q4/q42025earningsrelease.htm (copy of data/raw/V/FY2025Q4/)",
+  "run_via": "general-purpose agent given the numbers-auditor instructions verbatim (the project subagent loads in the next session); raw file copied to an empty scratch folder; guard hook not active",
+  "period": {
+    "current_column_header": "Three Months Ended September 30, 2025",
+    "prior_year_column_header": "Three Months Ended September 30, 2024"
+  },
+  "items": [
+    {
+      "id": "revenue_total",
+      "found": true,
+      "label_as_printed": "Net revenue",
+      "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+      "value_current": 10724,
+      "value_prior_year": 9617,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    },
+    {
+      "id": "opex_personnel",
+      "found": true,
+      "label_as_printed": "Personnel",
+      "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+      "value_current": 1742,
+      "value_prior_year": 1609,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    },
+    {
+      "id": "opex_marketing",
+      "found": true,
+      "label_as_printed": "Marketing",
+      "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+      "value_current": 576,
+      "value_prior_year": 551,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    },
+    {
+      "id": "opex_network",
+      "found": true,
+      "label_as_printed": "Network and processing",
+      "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+      "value_current": 239,
+      "value_prior_year": 208,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    },
+    {
+      "id": "opex_professional",
+      "found": true,
+      "label_as_printed": "Professional fees",
+      "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+      "value_current": 256,
+      "value_prior_year": 192,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    },
+    {
+      "id": "opex_da",
+      "found": true,
+      "label_as_printed": "Depreciation and amortization",
+      "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+      "value_current": 316,
+      "value_prior_year": 274,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    },
+    {
+      "id": "opex_ga",
+      "found": true,
+      "label_as_printed": "General and administrative",
+      "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+      "value_current": 544,
+      "value_prior_year": 424,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    },
+    {
+      "id": "opex_litigation",
+      "found": true,
+      "label_as_printed": "Litigation provision",
+      "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+      "value_current": 903,
+      "value_prior_year": 10,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    },
+    {
+      "id": "operating_expenses_total",
+      "found": true,
+      "label_as_printed": "Total operating expenses",
+      "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+      "value_current": 4576,
+      "value_prior_year": 3268,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    },
+    {
+      "id": "operating_income",
+      "found": true,
+      "label_as_printed": "Operating income",
+      "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+      "value_current": 6148,
+      "value_prior_year": 6349,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    },
+    {
+      "id": "income_before_tax",
+      "found": true,
+      "label_as_printed": "Income before income taxes",
+      "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+      "value_current": 6223,
+      "value_prior_year": 6372,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    },
+    {
+      "id": "income_tax",
+      "found": true,
+      "label_as_printed": "Income tax provision",
+      "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+      "value_current": 1133,
+      "value_prior_year": 1054,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    },
+    {
+      "id": "net_income",
+      "found": true,
+      "label_as_printed": "Net income",
+      "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+      "value_current": 5090,
+      "value_prior_year": 5318,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    },
+    {
+      "id": "eps_diluted",
+      "found": true,
+      "label_as_printed": "Class A common stock",
+      "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+      "value_current": 2.62,
+      "value_prior_year": 2.65,
+      "scale": "units (per share)",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    }
+  ],
+  "warnings": [
+    "No segment table; Visa reports no segments. Revenue by type appears only in the INCOME STATEMENT SUMMARY with the current quarter and YoY %, no prior-year dollar amounts.",
+    "INCOME STATEMENT SUMMARY mixes GAAP and non-GAAP (non-GAAP total operating expenses 3,611, net income 5,803, EPS 2.98); not used.",
+    "Litigation provision 903 vs 10 is as printed; non-GAAP measures exclude it.",
+    "'Visa Quarterly Results of Operations (unaudited)' matches every GAAP value above for both quarter columns.",
+    "Several row labels carry a trailing space in the HTML; trimmed."
+  ]
+}

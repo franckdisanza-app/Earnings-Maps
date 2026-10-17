@@ -1,0 +1,72 @@
+{
+  "ticker": "UBER",
+  "period": "FY2022Q3",
+  "source": "values confirmed by two independent extractions (parse_release.py and the blind numbers-auditor), 2026-10-17",
+  "period_end": "2022-09-30",
+  "calendar_label": "Jul–Sep 2022",
+  "lines": {
+    "revenue_total": [
+      8343.0,
+      4845.0
+    ],
+    "cost_of_revenue_total": [
+      5173.0,
+      2438.0
+    ],
+    "opex_operations": [
+      617.0,
+      475.0
+    ],
+    "opex_sm": [
+      1153.0,
+      1168.0
+    ],
+    "opex_rd": [
+      760.0,
+      493.0
+    ],
+    "opex_ga": [
+      908.0,
+      625.0
+    ],
+    "opex_da": [
+      227.0,
+      218.0
+    ],
+    "costs_and_expenses_total": [
+      8838.0,
+      5417.0
+    ],
+    "operating_income": [
+      -495.0,
+      -572.0
+    ],
+    "net_income": [
+      -1206.0,
+      -2424.0
+    ],
+    "eps_diluted": [
+      -0.61,
+      -1.28
+    ],
+    "segments_total_segment": [
+      8343.0,
+      4845.0
+    ]
+  },
+  "segments": {
+    "segment:Mobility": [
+      3822.0,
+      2205.0
+    ],
+    "segment:Delivery": [
+      2770.0,
+      2238.0
+    ],
+    "segment:Freight": [
+      1751.0,
+      402.0
+    ]
+  },
+  "segments_status": "in_release"
+}

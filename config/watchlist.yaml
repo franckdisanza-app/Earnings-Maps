@@ -18,8 +18,45 @@ companies:
     cik: null
     fye: last Saturday of September
     ir_url: https://investor.apple.com/
-    lines: {}
-    segments: []
+    tables:
+      income: {title: "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS"}
+    lines:
+      revenue_products: {label: "Products", section: "Net sales:"}
+      revenue_services: {label: "Services", section: "Net sales:"}
+      revenue_total: {label: ["Total net sales (1)", "Total net sales"], section: "Net sales:"}
+      cost_products: {label: "Products", section: "Cost of sales:"}
+      cost_services: {label: "Services", section: "Cost of sales:"}
+      cost_of_revenue_total: {label: "Total cost of sales"}
+      gross_profit: {label: "Gross margin"}
+      opex_rd: {label: "Research and development"}
+      opex_sga: {label: "Selling, general and administrative"}
+      operating_expenses_total: {label: "Total operating expenses"}
+      operating_income: {label: "Operating income"}
+      other_income: {label: "Other income/(expense), net"}
+      income_before_tax: {label: "Income before provision for income taxes"}
+      income_tax: {label: "Provision for income taxes"}
+      net_income: {label: "Net income"}
+      eps_diluted: {label: "Diluted", section: "Earnings per share:", unit: USD/share}
+    segments:
+      - group: category
+        table: income
+        items:
+          - {name: iPhone, label: "iPhone", section_contains: "by category"}
+          - {name: Mac, label: "Mac", section_contains: "by category"}
+          - {name: iPad, label: "iPad", section_contains: "by category"}
+          - {name: "Wearables, Home and Accessories", label: "Wearables, Home and Accessories", section_contains: "by category"}
+          - {name: Services, label: "Services", section_contains: "by category"}
+        total: {label: "Total net sales", section_contains: "by category"}
+      - group: geography
+        table: income
+        items:
+          - {name: Americas, label: "Americas", section_contains: "by reportable segment"}
+          - {name: Europe, label: "Europe", section_contains: "by reportable segment"}
+          - {name: Greater China, label: "Greater China", section_contains: "by reportable segment"}
+          - {name: Japan, label: "Japan", section_contains: "by reportable segment"}
+          - {name: Rest of Asia Pacific, label: "Rest of Asia Pacific", section_contains: "by reportable segment"}
+        total: {label: "Total net sales", section_contains: "by reportable segment"}
+    show_segments: category
     verified: false
 
   - ticker: MSFT
@@ -27,8 +64,35 @@ companies:
     cik: null
     fye: June 30
     ir_url: https://www.microsoft.com/en-us/investor
-    lines: {}
-    segments: []
+    tables:
+      income: {title: "INCOME STATEMENTS", exclude: "COMPREHENSIVE"}
+      segments: {title: "SEGMENT RESULTS"}
+    lines:
+      revenue_product: {label: "Product", section: "Revenue:"}
+      revenue_service: {label: "Service and other", section: "Revenue:"}
+      revenue_total: {label: "Total revenue"}
+      cost_product: {label: "Product", section: "Cost of revenue:"}
+      cost_service: {label: "Service and other", section: "Cost of revenue:"}
+      cost_of_revenue_total: {label: "Total cost of revenue"}
+      gross_profit: {label: "Gross margin"}
+      opex_rd: {label: "Research and development"}
+      opex_sm: {label: "Sales and marketing"}
+      opex_ga: {label: "General and administrative"}
+      operating_income: {label: "Operating income"}
+      other_income: {label: ["Other expense, net", "Other income (expense), net", "Other income, net"]}
+      income_before_tax: {label: "Income before income taxes"}
+      income_tax: {label: "Provision for income taxes"}
+      net_income: {label: "Net income"}
+      eps_diluted: {label: "Diluted", section: "Earnings per share:", unit: USD/share}
+    segments:
+      - group: segment
+        table: segments
+        items:
+          - {name: Productivity and Business Processes, label: "Revenue", section: "Productivity and Business Processes"}
+          - {name: Intelligent Cloud, label: "Revenue", section: "Intelligent Cloud"}
+          - {name: More Personal Computing, label: "Revenue", section: "More Personal Computing"}
+        total: {label: "Revenue", section: "Total"}
+    show_segments: segment
     verified: false
 
   - ticker: GOOGL
@@ -146,8 +210,32 @@ companies:
     cik: null
     fye: December 31
     ir_url: https://investor.uber.com/
-    lines: {}
-    segments: []
+    tables:
+      income: {title: "STATEMENTS OF OPERATIONS"}
+      segment_revenue: {has_rows: ["Mobility (1)", "Delivery (2)", "Freight (3)"]}
+    lines:
+      revenue_total: {label: "Revenue"}
+      cost_of_revenue_total: {label: "Cost of revenue, exclusive of depreciation and amortization shown separately below"}
+      opex_operations: {label: "Operations and support"}
+      opex_sm: {label: "Sales and marketing"}
+      opex_rd: {label: "Research and development"}
+      opex_ga: {label: "General and administrative"}
+      opex_da: {label: "Depreciation and amortization"}
+      costs_and_expenses_total: {label: "Total costs and expenses"}
+      operating_income: {label: ["Loss from operations", "Income (loss) from operations", "Income from operations"]}
+      net_income: {label: ["Net loss attributable to Uber Technologies, Inc.", "Net income (loss) attributable to Uber Technologies, Inc.", "Net income attributable to Uber Technologies, Inc."]}
+      eps_diluted: {label: "Diluted", section_contains: "per share attributable to", unit: USD/share}
+    segments:
+      - group: segment
+        table: segment_revenue
+        items:
+          - {name: Mobility, label: ["Mobility (1)", "Mobility"], section: "Revenue:"}
+          - {name: Delivery, label: ["Delivery (2)", "Delivery"], section: "Revenue:"}
+          - {name: Freight, label: ["Freight (3)", "Freight"], section: "Revenue:"}
+        total: {label: "Total", section: "Revenue:"}
+    show_segments: segment
+    data_notes:
+      - "Uber's cost of revenue excludes depreciation and amortization, so no gross profit is computed."
     verified: false
 
   - ticker: ABNB
@@ -164,8 +252,27 @@ companies:
     cik: null
     fye: September 30
     ir_url: https://investor.visa.com/
-    lines: {}
+    tables:
+      income: {title: "Consolidated Statements of Operations"}
+    lines:
+      revenue_total: {label: "Net revenue"}
+      opex_personnel: {label: "Personnel"}
+      opex_marketing: {label: "Marketing"}
+      opex_network: {label: "Network and processing"}
+      opex_professional: {label: "Professional fees"}
+      opex_da: {label: "Depreciation and amortization"}
+      opex_ga: {label: "General and administrative"}
+      opex_litigation: {label: "Litigation provision"}
+      operating_expenses_total: {label: "Total operating expenses"}
+      operating_income: {label: "Operating income"}
+      income_before_tax: {label: "Income before income taxes"}
+      income_tax: {label: "Income tax provision"}
+      net_income: {label: "Net income"}
+      eps_diluted: {label: "Class A common stock", section: "Diluted Earnings Per Share", unit: USD/share}
     segments: []
+    segments_status: single_segment
+    data_notes:
+      - "Visa reports one segment. Its release breaks net revenue into service, data processing, international transaction and other revenue less client incentives, but only for the current quarter with a printed YoY %, so revenue types aren't used until we decide how to show them."
     shape_note: no cost-of-revenue or gross-profit line
     verified: false
 

@@ -1,0 +1,295 @@
+{
+  "schema_version": 1,
+  "company": {
+    "ticker": "V",
+    "name": "Visa",
+    "cik": 1403161
+  },
+  "period": {
+    "fiscal_label": "FY2025Q4",
+    "fiscal_year": 2025,
+    "fiscal_quarter": 4,
+    "start_date": "2025-07-01",
+    "end_date": "2025-09-30",
+    "start_date_source": "prior period's 10-Q/10-K reportDate + 1 day",
+    "calendar_label": "Jul–Sep 2025",
+    "display": "Fiscal Q4 2025 (Jul–Sep 2025)",
+    "weeks": 13.1
+  },
+  "currency": "USD",
+  "scale": "millions",
+  "release": {
+    "form": "8-K",
+    "filing_date": "2025-10-28",
+    "accession": "0001403161-25-000077",
+    "items": [
+      "2.02",
+      "8.01",
+      "9.01"
+    ],
+    "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000077/q42025earningsrelease.htm",
+    "exhibit": "EX-99.1",
+    "local_path": "data/raw/V/FY2025Q4/q42025earningsrelease.htm"
+  },
+  "lines": [
+    {
+      "id": "revenue_total",
+      "label_as_printed": "Net revenue",
+      "value": 10724.0,
+      "prior_year_value": 9617.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+        "row_label": "Net revenue",
+        "section": "(in millions, except per share data)",
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "opex_personnel",
+      "label_as_printed": "Personnel",
+      "value": 1742.0,
+      "prior_year_value": 1609.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+        "row_label": "Personnel",
+        "section": "Operating Expenses",
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "opex_marketing",
+      "label_as_printed": "Marketing",
+      "value": 576.0,
+      "prior_year_value": 551.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+        "row_label": "Marketing",
+        "section": "Operating Expenses",
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "opex_network",
+      "label_as_printed": "Network and processing",
+      "value": 239.0,
+      "prior_year_value": 208.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+        "row_label": "Network and processing",
+        "section": "Operating Expenses",
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "opex_professional",
+      "label_as_printed": "Professional fees",
+      "value": 256.0,
+      "prior_year_value": 192.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+        "row_label": "Professional fees",
+        "section": "Operating Expenses",
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "opex_da",
+      "label_as_printed": "Depreciation and amortization",
+      "value": 316.0,
+      "prior_year_value": 274.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+        "row_label": "Depreciation and amortization",
+        "section": "Operating Expenses",
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "opex_ga",
+      "label_as_printed": "General and administrative",
+      "value": 544.0,
+      "prior_year_value": 424.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+        "row_label": "General and administrative",
+        "section": "Operating Expenses",
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "opex_litigation",
+      "label_as_printed": "Litigation provision",
+      "value": 903.0,
+      "prior_year_value": 10.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+        "row_label": "Litigation provision",
+        "section": "Operating Expenses",
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "operating_expenses_total",
+      "label_as_printed": "Total operating expenses",
+      "value": 4576.0,
+      "prior_year_value": 3268.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+        "row_label": "Total operating expenses",
+        "section": "Operating Expenses",
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "operating_income",
+      "label_as_printed": "Operating income",
+      "value": 6148.0,
+      "prior_year_value": 6349.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+        "row_label": "Operating income",
+        "section": null,
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "income_before_tax",
+      "label_as_printed": "Income before income taxes",
+      "value": 6223.0,
+      "prior_year_value": 6372.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+        "row_label": "Income before income taxes",
+        "section": null,
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "income_tax",
+      "label_as_printed": "Income tax provision",
+      "value": 1133.0,
+      "prior_year_value": 1054.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+        "row_label": "Income tax provision",
+        "section": null,
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "net_income",
+      "label_as_printed": "Net income",
+      "value": 5090.0,
+      "prior_year_value": 5318.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+        "row_label": "Net income",
+        "section": null,
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "eps_diluted",
+      "label_as_printed": "Class A common stock",
+      "value": 2.62,
+      "prior_year_value": 2.65,
+      "unit": "USD/share",
+      "scale": "units",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "Visa Consolidated Statements of Operations (unaudited)",
+        "row_label": "Class A common stock",
+        "section": "Diluted Earnings Per Share",
+        "column_current": "Three Months EndedSeptember 30, 2025",
+        "column_prior_year": "Three Months EndedSeptember 30, 2024"
+      },
+      "printed_negative": false
+    }
+  ],
+  "segments_status": "single_segment",
+  "segments": [],
+  "derived": {
+    "revenue_yoy": 0.11510866174482692,
+    "gross_margin": null,
+    "operating_margin": {
+      "current": 0.5732935471838866,
+      "prior_year": 0.660185088905064
+    },
+    "net_margin": {
+      "current": 0.4746363297277135,
+      "prior_year": 0.5529790995112821
+    },
+    "computed_lines": []
+  },
+  "guidance": null,
+  "validation_exceptions": [],
+  "notes": [
+    "Visa reports one segment. Its release breaks net revenue into service, data processing, international transaction and other revenue less client incentives, but only for the current quarter with a printed YoY %, so revenue types aren't used until we decide how to show them."
+  ],
+  "approval": null
+}

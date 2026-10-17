@@ -1,0 +1,67 @@
+{
+  "ticker": "V",
+  "period": "FY2025Q4",
+  "source": "values confirmed by two independent extractions (parse_release.py and the blind numbers-auditor), 2026-10-17",
+  "period_end": "2025-09-30",
+  "calendar_label": "Jul–Sep 2025",
+  "lines": {
+    "revenue_total": [
+      10724.0,
+      9617.0
+    ],
+    "opex_personnel": [
+      1742.0,
+      1609.0
+    ],
+    "opex_marketing": [
+      576.0,
+      551.0
+    ],
+    "opex_network": [
+      239.0,
+      208.0
+    ],
+    "opex_professional": [
+      256.0,
+      192.0
+    ],
+    "opex_da": [
+      316.0,
+      274.0
+    ],
+    "opex_ga": [
+      544.0,
+      424.0
+    ],
+    "opex_litigation": [
+      903.0,
+      10.0
+    ],
+    "operating_expenses_total": [
+      4576.0,
+      3268.0
+    ],
+    "operating_income": [
+      6148.0,
+      6349.0
+    ],
+    "income_before_tax": [
+      6223.0,
+      6372.0
+    ],
+    "income_tax": [
+      1133.0,
+      1054.0
+    ],
+    "net_income": [
+      5090.0,
+      5318.0
+    ],
+    "eps_diluted": [
+      2.62,
+      2.65
+    ]
+  },
+  "segments": {},
+  "segments_status": "single_segment"
+}

@@ -1,0 +1,97 @@
+{
+  "ticker": "AAPL",
+  "cik": 320193,
+  "form": "8-K",
+  "accession": "0000320193-25-000077",
+  "filing_date": "2025-10-30",
+  "items": [
+    "2.02",
+    "9.01"
+  ],
+  "period_end": "2025-09-27",
+  "period_end_source": "10-Q/10-K reportDate",
+  "period_start": "2025-06-29",
+  "period_start_source": "prior period's 10-Q/10-K reportDate + 1 day",
+  "fiscal_label": "FY2025Q4",
+  "fiscal_year": 2025,
+  "fiscal_quarter": 4,
+  "calendar_label": "Jul\u2013Sep 2025",
+  "display": "Fiscal Q4 2025 (Jul\u2013Sep 2025)",
+  "weeks": 13.0,
+  "folder_url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000077/",
+  "exhibits": [
+    {
+      "seq": "1",
+      "description": "8-K",
+      "document": "aapl-20251030.htm",
+      "type": "8-K",
+      "size": "39054",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000077/aapl-20251030.htm"
+    },
+    {
+      "seq": "2",
+      "description": "EX-99.1",
+      "document": "a8-kex991q4202509272025.htm",
+      "type": "EX-99.1",
+      "size": "198222",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000077/a8-kex991q4202509272025.htm"
+    },
+    {
+      "seq": "7",
+      "description": "",
+      "document": "aapl-20251030_g1.jpg",
+      "type": "GRAPHIC",
+      "size": "1264",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000077/aapl-20251030_g1.jpg"
+    },
+    {
+      "seq": "3",
+      "description": "XBRL TAXONOMY EXTENSION SCHEMA DOCUMENT",
+      "document": "aapl-20251030.xsd",
+      "type": "EX-101.SCH",
+      "size": "3856",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000077/aapl-20251030.xsd"
+    },
+    {
+      "seq": "4",
+      "description": "XBRL TAXONOMY EXTENSION DEFINITION LINKBASE DOCUMENT",
+      "document": "aapl-20251030_def.xml",
+      "type": "EX-101.DEF",
+      "size": "18605",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000077/aapl-20251030_def.xml"
+    },
+    {
+      "seq": "5",
+      "description": "XBRL TAXONOMY EXTENSION LABEL LINKBASE DOCUMENT",
+      "document": "aapl-20251030_lab.xml",
+      "type": "EX-101.LAB",
+      "size": "35194",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000077/aapl-20251030_lab.xml"
+    },
+    {
+      "seq": "6",
+      "description": "XBRL TAXONOMY EXTENSION PRESENTATION LINKBASE DOCUMENT",
+      "document": "aapl-20251030_pre.xml",
+      "type": "EX-101.PRE",
+      "size": "19692",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000077/aapl-20251030_pre.xml"
+    },
+    {
+      "seq": "17",
+      "description": "EXTRACTED XBRL INSTANCE DOCUMENT",
+      "document": "aapl-20251030_htm.xml",
+      "type": "XML",
+      "size": "8450",
+      "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000077/aapl-20251030_htm.xml"
+    }
+  ],
+  "release_exhibit": {
+    "seq": "2",
+    "description": "EX-99.1",
+    "document": "a8-kex991q4202509272025.htm",
+    "type": "EX-99.1",
+    "size": "198222",
+    "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000077/a8-kex991q4202509272025.htm"
+  },
+  "warnings": []
+}

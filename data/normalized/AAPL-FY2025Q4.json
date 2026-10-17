@@ -1,0 +1,534 @@
+{
+  "schema_version": 1,
+  "company": {
+    "ticker": "AAPL",
+    "name": "Apple",
+    "cik": 320193
+  },
+  "period": {
+    "fiscal_label": "FY2025Q4",
+    "fiscal_year": 2025,
+    "fiscal_quarter": 4,
+    "start_date": "2025-06-29",
+    "end_date": "2025-09-27",
+    "start_date_source": "prior period's 10-Q/10-K reportDate + 1 day",
+    "calendar_label": "Jul–Sep 2025",
+    "display": "Fiscal Q4 2025 (Jul–Sep 2025)",
+    "weeks": 13.0
+  },
+  "currency": "USD",
+  "scale": "millions",
+  "release": {
+    "form": "8-K",
+    "filing_date": "2025-10-30",
+    "accession": "0000320193-25-000077",
+    "items": [
+      "2.02",
+      "9.01"
+    ],
+    "url": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000077/a8-kex991q4202509272025.htm",
+    "exhibit": "EX-99.1",
+    "local_path": "data/raw/AAPL/FY2025Q4/a8-kex991q4202509272025.htm"
+  },
+  "lines": [
+    {
+      "id": "revenue_products",
+      "label_as_printed": "Products",
+      "value": 73716.0,
+      "prior_year_value": 69958.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Products",
+        "section": "Net sales:",
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "revenue_services",
+      "label_as_printed": "Services",
+      "value": 28750.0,
+      "prior_year_value": 24972.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Services",
+        "section": "Net sales:",
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "revenue_total",
+      "label_as_printed": "Total net sales (1)",
+      "value": 102466.0,
+      "prior_year_value": 94930.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Total net sales (1)",
+        "section": "Net sales:",
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "cost_products",
+      "label_as_printed": "Products",
+      "value": 47019.0,
+      "prior_year_value": 44566.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Products",
+        "section": "Cost of sales:",
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "cost_services",
+      "label_as_printed": "Services",
+      "value": 7106.0,
+      "prior_year_value": 6485.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Services",
+        "section": "Cost of sales:",
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "cost_of_revenue_total",
+      "label_as_printed": "Total cost of sales",
+      "value": 54125.0,
+      "prior_year_value": 51051.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Total cost of sales",
+        "section": "Cost of sales:",
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "gross_profit",
+      "label_as_printed": "Gross margin",
+      "value": 48341.0,
+      "prior_year_value": 43879.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Gross margin",
+        "section": null,
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "opex_rd",
+      "label_as_printed": "Research and development",
+      "value": 8866.0,
+      "prior_year_value": 7765.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Research and development",
+        "section": "Operating expenses:",
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "opex_sga",
+      "label_as_printed": "Selling, general and administrative",
+      "value": 7048.0,
+      "prior_year_value": 6523.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Selling, general and administrative",
+        "section": "Operating expenses:",
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "operating_expenses_total",
+      "label_as_printed": "Total operating expenses",
+      "value": 15914.0,
+      "prior_year_value": 14288.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Total operating expenses",
+        "section": "Operating expenses:",
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "operating_income",
+      "label_as_printed": "Operating income",
+      "value": 32427.0,
+      "prior_year_value": 29591.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Operating income",
+        "section": null,
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "other_income",
+      "label_as_printed": "Other income/(expense), net",
+      "value": 377.0,
+      "prior_year_value": 19.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Other income/(expense), net",
+        "section": null,
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "income_before_tax",
+      "label_as_printed": "Income before provision for income taxes",
+      "value": 32804.0,
+      "prior_year_value": 29610.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Income before provision for income taxes",
+        "section": null,
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "income_tax",
+      "label_as_printed": "Provision for income taxes",
+      "value": 5338.0,
+      "prior_year_value": 14874.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Provision for income taxes",
+        "section": null,
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "net_income",
+      "label_as_printed": "Net income",
+      "value": 27466.0,
+      "prior_year_value": 14736.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Net income",
+        "section": null,
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "eps_diluted",
+      "label_as_printed": "Diluted",
+      "value": 1.85,
+      "prior_year_value": 0.97,
+      "unit": "USD/share",
+      "scale": "units",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Diluted",
+        "section": "Earnings per share:",
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "segments_total_category",
+      "label_as_printed": "Total net sales",
+      "value": 102466.0,
+      "prior_year_value": 94930.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Total net sales",
+        "section": "(1) Net sales by category:",
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "segments_total_geography",
+      "label_as_printed": "Total net sales",
+      "value": 102466.0,
+      "prior_year_value": 94930.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Total net sales",
+        "section": "(1) Net sales by reportable segment:",
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      },
+      "printed_negative": false
+    }
+  ],
+  "segments_status": "in_release",
+  "segments": [
+    {
+      "group": "category",
+      "name": "iPhone",
+      "label_as_printed": "iPhone",
+      "value": 49025.0,
+      "prior_year_value": 46222.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "iPhone",
+        "section": "(1) Net sales by category:",
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      }
+    },
+    {
+      "group": "category",
+      "name": "Mac",
+      "label_as_printed": "Mac",
+      "value": 8726.0,
+      "prior_year_value": 7744.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Mac",
+        "section": "(1) Net sales by category:",
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      }
+    },
+    {
+      "group": "category",
+      "name": "iPad",
+      "label_as_printed": "iPad",
+      "value": 6952.0,
+      "prior_year_value": 6950.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "iPad",
+        "section": "(1) Net sales by category:",
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      }
+    },
+    {
+      "group": "category",
+      "name": "Wearables, Home and Accessories",
+      "label_as_printed": "Wearables, Home and Accessories",
+      "value": 9013.0,
+      "prior_year_value": 9042.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Wearables, Home and Accessories",
+        "section": "(1) Net sales by category:",
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      }
+    },
+    {
+      "group": "category",
+      "name": "Services",
+      "label_as_printed": "Services",
+      "value": 28750.0,
+      "prior_year_value": 24972.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Services",
+        "section": "(1) Net sales by category:",
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      }
+    },
+    {
+      "group": "geography",
+      "name": "Americas",
+      "label_as_printed": "Americas",
+      "value": 44192.0,
+      "prior_year_value": 41664.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Americas",
+        "section": "(1) Net sales by reportable segment:",
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      }
+    },
+    {
+      "group": "geography",
+      "name": "Europe",
+      "label_as_printed": "Europe",
+      "value": 28703.0,
+      "prior_year_value": 24924.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Europe",
+        "section": "(1) Net sales by reportable segment:",
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      }
+    },
+    {
+      "group": "geography",
+      "name": "Greater China",
+      "label_as_printed": "Greater China",
+      "value": 14493.0,
+      "prior_year_value": 15033.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Greater China",
+        "section": "(1) Net sales by reportable segment:",
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      }
+    },
+    {
+      "group": "geography",
+      "name": "Japan",
+      "label_as_printed": "Japan",
+      "value": 6636.0,
+      "prior_year_value": 5926.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Japan",
+        "section": "(1) Net sales by reportable segment:",
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      }
+    },
+    {
+      "group": "geography",
+      "name": "Rest of Asia Pacific",
+      "label_as_printed": "Rest of Asia Pacific",
+      "value": 8442.0,
+      "prior_year_value": 7383.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (Unaudited) (In millions, except number of shares, which are reflected in thousands, and per-share amounts)",
+        "row_label": "Rest of Asia Pacific",
+        "section": "(1) Net sales by reportable segment:",
+        "column_current": "Three Months Ended September 27,2025",
+        "column_prior_year": "Three Months Ended September 28,2024"
+      }
+    }
+  ],
+  "derived": {
+    "revenue_yoy": 0.07938480985989682,
+    "gross_margin": {
+      "current": 0.47177600374758455,
+      "prior_year": 0.4622247972190035
+    },
+    "operating_margin": {
+      "current": 0.3164659496808698,
+      "prior_year": 0.31171389444854103
+    },
+    "net_margin": {
+      "current": 0.2680498897195167,
+      "prior_year": 0.15523016959865163
+    },
+    "computed_lines": []
+  },
+  "guidance": null,
+  "validation_exceptions": [],
+  "notes": [],
+  "approval": null
+}

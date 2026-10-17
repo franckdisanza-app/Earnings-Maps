@@ -1,0 +1,197 @@
+{
+  "source_file": "scratchpad/audit/UBER-FY2022Q3/uberq322earningspressrelea.htm (copy of data/raw/UBER/FY2022Q3/)",
+  "run_via": "general-purpose agent given the numbers-auditor instructions verbatim (the project subagent loads in the next session); raw file copied to an empty scratch folder; guard hook not active",
+  "period": {
+    "current_column_header": "Three Months Ended September 30, 2022",
+    "prior_year_column_header": "Three Months Ended September 30, 2021"
+  },
+  "items": [
+    {
+      "id": "revenue_total",
+      "found": true,
+      "label_as_printed": "Revenue",
+      "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS",
+      "value_current": 8343,
+      "value_prior_year": 4845,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    },
+    {
+      "id": "cost_of_revenue_total",
+      "found": true,
+      "label_as_printed": "Cost of revenue, exclusive of depreciation and amortization shown separately below",
+      "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS",
+      "value_current": 5173,
+      "value_prior_year": 2438,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    },
+    {
+      "id": "opex_operations",
+      "found": true,
+      "label_as_printed": "Operations and support",
+      "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS",
+      "value_current": 617,
+      "value_prior_year": 475,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    },
+    {
+      "id": "opex_sm",
+      "found": true,
+      "label_as_printed": "Sales and marketing",
+      "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS",
+      "value_current": 1153,
+      "value_prior_year": 1168,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    },
+    {
+      "id": "opex_rd",
+      "found": true,
+      "label_as_printed": "Research and development",
+      "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS",
+      "value_current": 760,
+      "value_prior_year": 493,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    },
+    {
+      "id": "opex_ga",
+      "found": true,
+      "label_as_printed": "General and administrative",
+      "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS",
+      "value_current": 908,
+      "value_prior_year": 625,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    },
+    {
+      "id": "opex_da",
+      "found": true,
+      "label_as_printed": "Depreciation and amortization",
+      "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS",
+      "value_current": 227,
+      "value_prior_year": 218,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    },
+    {
+      "id": "costs_and_expenses_total",
+      "found": true,
+      "label_as_printed": "Total costs and expenses",
+      "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS",
+      "value_current": 8838,
+      "value_prior_year": 5417,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    },
+    {
+      "id": "operating_income",
+      "found": true,
+      "label_as_printed": "Loss from operations",
+      "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS",
+      "value_current": -495,
+      "value_prior_year": -572,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": true
+    },
+    {
+      "id": "net_income",
+      "found": true,
+      "label_as_printed": "Net loss attributable to Uber Technologies, Inc.",
+      "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS",
+      "value_current": -1206,
+      "value_prior_year": -2424,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": true
+    },
+    {
+      "id": "eps_diluted",
+      "found": true,
+      "label_as_printed": "Diluted",
+      "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS",
+      "value_current": -0.61,
+      "value_prior_year": -1.28,
+      "scale": "per share (units)",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": true
+    },
+    {
+      "id": "segments_total_segment",
+      "found": true,
+      "label_as_printed": "Total",
+      "table_title": "Revenue",
+      "value_current": 8343,
+      "value_prior_year": 4845,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    },
+    {
+      "id": "segment:segment:Mobility",
+      "found": true,
+      "label_as_printed": "Mobility (1)",
+      "table_title": "Revenue",
+      "value_current": 3822,
+      "value_prior_year": 2205,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    },
+    {
+      "id": "segment:segment:Delivery",
+      "found": true,
+      "label_as_printed": "Delivery (2)",
+      "table_title": "Revenue",
+      "value_current": 2770,
+      "value_prior_year": 2238,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    },
+    {
+      "id": "segment:segment:Freight",
+      "found": true,
+      "label_as_printed": "Freight (3)",
+      "table_title": "Revenue",
+      "value_current": 1751,
+      "value_prior_year": 402,
+      "scale": "millions",
+      "currency": "USD",
+      "basis": "GAAP",
+      "printed_negative_parentheses": false
+    }
+  ],
+  "warnings": [
+    "Every table prints the older year (2021) first; the current quarter is the second numeric column.",
+    "Cost of revenue is printed 'exclusive of depreciation and amortization shown separately below'; no total cost of revenue including D&A.",
+    "Two segment tables share row labels: Gross Bookings (Mobility 13,684/9,883; Delivery 13,684/12,828) and Revenue; segment revenue taken from the Revenue table.",
+    "Not like-for-like: Q3 2022 Freight includes the Transplace acquisition (closed Nov 12, 2021); Q3 2022 Mobility revenue includes a net $1.1B benefit from the UK business model change; Q3 2021 Mobility benefited from a $123M accrual release.",
+    "Share counts in thousands; EPS in dollars per share."
+  ]
+}

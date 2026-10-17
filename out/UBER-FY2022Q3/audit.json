@@ -1,0 +1,18 @@
+{
+  "id": "UBER-FY2022Q3",
+  "data_sha256": "0fa921c0466d36ab2b12626dc297ef907e0a73e04d5fcd47e407ef59771fc9b1",
+  "auditor_file": "out/UBER-FY2022Q3/auditor.json",
+  "checked": 15,
+  "matched": 15,
+  "mismatched": [],
+  "not_found": [],
+  "label_differences": [],
+  "auditor_warnings": [
+    "Every table prints the older year (2021) first; the current quarter is the second numeric column.",
+    "Cost of revenue is printed 'exclusive of depreciation and amortization shown separately below'; no total cost of revenue including D&A.",
+    "Two segment tables share row labels: Gross Bookings (Mobility 13,684/9,883; Delivery 13,684/12,828) and Revenue; segment revenue taken from the Revenue table.",
+    "Not like-for-like: Q3 2022 Freight includes the Transplace acquisition (closed Nov 12, 2021); Q3 2022 Mobility revenue includes a net $1.1B benefit from the UK business model change; Q3 2021 Mobility benefited from a $123M accrual release.",
+    "Share counts in thousands; EPS in dollars per share."
+  ],
+  "unresolved": 0
+}

@@ -1,0 +1,654 @@
+{
+  "$defs": {
+    "Company": {
+      "additionalProperties": false,
+      "properties": {
+        "ticker": {
+          "title": "Ticker",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "cik": {
+          "title": "Cik",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "ticker",
+        "name",
+        "cik"
+      ],
+      "title": "Company",
+      "type": "object"
+    },
+    "ComputedLine": {
+      "additionalProperties": false,
+      "description": "A subtotal the company doesn't print. Shown on screen only as 'our calculation'.",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "formula": {
+          "title": "Formula",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "number"
+        },
+        "prior_year_value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Prior Year Value"
+        },
+        "scale": {
+          "default": "millions",
+          "enum": [
+            "units",
+            "thousands",
+            "millions",
+            "billions"
+          ],
+          "title": "Scale",
+          "type": "string"
+        },
+        "our_calculation": {
+          "const": true,
+          "default": true,
+          "title": "Our Calculation",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "label",
+        "formula",
+        "value",
+        "prior_year_value"
+      ],
+      "title": "ComputedLine",
+      "type": "object"
+    },
+    "Derived": {
+      "additionalProperties": false,
+      "properties": {
+        "revenue_yoy": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Revenue Yoy"
+        },
+        "gross_margin": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Ratio"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "operating_margin": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Ratio"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "net_margin": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Ratio"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "computed_lines": {
+          "default": [],
+          "items": {
+            "$ref": "#/$defs/ComputedLine"
+          },
+          "title": "Computed Lines",
+          "type": "array"
+        }
+      },
+      "required": [
+        "revenue_yoy",
+        "gross_margin",
+        "operating_margin",
+        "net_margin"
+      ],
+      "title": "Derived",
+      "type": "object"
+    },
+    "Guidance": {
+      "additionalProperties": false,
+      "properties": {
+        "paraphrase": {
+          "description": "our own words; never a copied sentence",
+          "title": "Paraphrase",
+          "type": "string"
+        },
+        "locator": {
+          "title": "Locator",
+          "type": "string"
+        }
+      },
+      "required": [
+        "paraphrase",
+        "locator"
+      ],
+      "title": "Guidance",
+      "type": "object"
+    },
+    "Line": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "label_as_printed": {
+          "title": "Label As Printed",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "number"
+        },
+        "prior_year_value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Prior Year Value"
+        },
+        "unit": {
+          "default": "USD",
+          "enum": [
+            "USD",
+            "USD/share",
+            "shares",
+            "percent",
+            "count"
+          ],
+          "title": "Unit",
+          "type": "string"
+        },
+        "scale": {
+          "default": "millions",
+          "enum": [
+            "units",
+            "thousands",
+            "millions",
+            "billions"
+          ],
+          "title": "Scale",
+          "type": "string"
+        },
+        "basis": {
+          "default": "GAAP",
+          "enum": [
+            "GAAP",
+            "non-GAAP"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "locator": {
+          "$ref": "#/$defs/Locator"
+        },
+        "printed_negative": {
+          "default": false,
+          "description": "printed in parentheses or with a minus",
+          "title": "Printed Negative",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "label_as_printed",
+        "value",
+        "prior_year_value",
+        "locator"
+      ],
+      "title": "Line",
+      "type": "object"
+    },
+    "Locator": {
+      "additionalProperties": false,
+      "properties": {
+        "table_title": {
+          "title": "Table Title",
+          "type": "string"
+        },
+        "row_label": {
+          "description": "row label exactly as printed",
+          "title": "Row Label",
+          "type": "string"
+        },
+        "section": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "label of the heading row above, as printed",
+          "title": "Section"
+        },
+        "column_current": {
+          "title": "Column Current",
+          "type": "string"
+        },
+        "column_prior_year": {
+          "title": "Column Prior Year",
+          "type": "string"
+        }
+      },
+      "required": [
+        "table_title",
+        "row_label",
+        "column_current",
+        "column_prior_year"
+      ],
+      "title": "Locator",
+      "type": "object"
+    },
+    "Period": {
+      "additionalProperties": false,
+      "properties": {
+        "fiscal_label": {
+          "pattern": "^FY\\d{4}Q[1-4]$",
+          "title": "Fiscal Label",
+          "type": "string"
+        },
+        "fiscal_year": {
+          "title": "Fiscal Year",
+          "type": "integer"
+        },
+        "fiscal_quarter": {
+          "maximum": 4,
+          "minimum": 1,
+          "title": "Fiscal Quarter",
+          "type": "integer"
+        },
+        "start_date": {
+          "format": "date",
+          "title": "Start Date",
+          "type": "string"
+        },
+        "end_date": {
+          "format": "date",
+          "title": "End Date",
+          "type": "string"
+        },
+        "start_date_source": {
+          "description": "how start_date was established, e.g. 'prior 10-Q reportDate + 1 day'",
+          "title": "Start Date Source",
+          "type": "string"
+        },
+        "calendar_label": {
+          "description": "e.g. 'Jul–Sep 2025'",
+          "title": "Calendar Label",
+          "type": "string"
+        },
+        "display": {
+          "description": "on-screen label, e.g. 'Fiscal Q4 2025 (Jul–Sep 2025)'",
+          "title": "Display",
+          "type": "string"
+        },
+        "weeks": {
+          "title": "Weeks",
+          "type": "number"
+        }
+      },
+      "required": [
+        "fiscal_label",
+        "fiscal_year",
+        "fiscal_quarter",
+        "start_date",
+        "end_date",
+        "start_date_source",
+        "calendar_label",
+        "display",
+        "weeks"
+      ],
+      "title": "Period",
+      "type": "object"
+    },
+    "Ratio": {
+      "additionalProperties": false,
+      "properties": {
+        "current": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Current"
+        },
+        "prior_year": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Prior Year"
+        }
+      },
+      "required": [
+        "current",
+        "prior_year"
+      ],
+      "title": "Ratio",
+      "type": "object"
+    },
+    "Release": {
+      "additionalProperties": false,
+      "properties": {
+        "form": {
+          "enum": [
+            "8-K",
+            "8-K/A",
+            "6-K",
+            "10-Q",
+            "10-K"
+          ],
+          "title": "Form",
+          "type": "string"
+        },
+        "filing_date": {
+          "format": "date",
+          "title": "Filing Date",
+          "type": "string"
+        },
+        "accession": {
+          "title": "Accession",
+          "type": "string"
+        },
+        "items": {
+          "default": [],
+          "items": {
+            "type": "string"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "url": {
+          "description": "URL of the exhibit the numbers come from",
+          "title": "Url",
+          "type": "string"
+        },
+        "exhibit": {
+          "description": "exhibit type, e.g. 'EX-99.1'",
+          "title": "Exhibit",
+          "type": "string"
+        },
+        "local_path": {
+          "description": "cached copy under data/raw/",
+          "title": "Local Path",
+          "type": "string"
+        }
+      },
+      "required": [
+        "form",
+        "filing_date",
+        "accession",
+        "url",
+        "exhibit",
+        "local_path"
+      ],
+      "title": "Release",
+      "type": "object"
+    },
+    "Segment": {
+      "additionalProperties": false,
+      "properties": {
+        "group": {
+          "description": "which breakdown: 'segment', 'category', 'geography', ...",
+          "title": "Group",
+          "type": "string"
+        },
+        "name": {
+          "description": "display name",
+          "title": "Name",
+          "type": "string"
+        },
+        "label_as_printed": {
+          "title": "Label As Printed",
+          "type": "string"
+        },
+        "value": {
+          "title": "Value",
+          "type": "number"
+        },
+        "prior_year_value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Prior Year Value"
+        },
+        "unit": {
+          "default": "USD",
+          "enum": [
+            "USD",
+            "USD/share",
+            "shares",
+            "percent",
+            "count"
+          ],
+          "title": "Unit",
+          "type": "string"
+        },
+        "scale": {
+          "default": "millions",
+          "enum": [
+            "units",
+            "thousands",
+            "millions",
+            "billions"
+          ],
+          "title": "Scale",
+          "type": "string"
+        },
+        "basis": {
+          "default": "GAAP",
+          "enum": [
+            "GAAP",
+            "non-GAAP"
+          ],
+          "title": "Basis",
+          "type": "string"
+        },
+        "locator": {
+          "$ref": "#/$defs/Locator"
+        }
+      },
+      "required": [
+        "group",
+        "name",
+        "label_as_printed",
+        "value",
+        "prior_year_value",
+        "locator"
+      ],
+      "title": "Segment",
+      "type": "object"
+    },
+    "ValidationException": {
+      "additionalProperties": false,
+      "properties": {
+        "check": {
+          "title": "Check",
+          "type": "string"
+        },
+        "reason": {
+          "title": "Reason",
+          "type": "string"
+        },
+        "locator": {
+          "title": "Locator",
+          "type": "string"
+        }
+      },
+      "required": [
+        "check",
+        "reason",
+        "locator"
+      ],
+      "title": "ValidationException",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Schema Version",
+      "type": "integer"
+    },
+    "company": {
+      "$ref": "#/$defs/Company"
+    },
+    "period": {
+      "$ref": "#/$defs/Period"
+    },
+    "currency": {
+      "const": "USD",
+      "default": "USD",
+      "title": "Currency",
+      "type": "string"
+    },
+    "scale": {
+      "description": "default scale of money lines, from the table header",
+      "enum": [
+        "units",
+        "thousands",
+        "millions",
+        "billions"
+      ],
+      "title": "Scale",
+      "type": "string"
+    },
+    "release": {
+      "$ref": "#/$defs/Release"
+    },
+    "lines": {
+      "items": {
+        "$ref": "#/$defs/Line"
+      },
+      "title": "Lines",
+      "type": "array"
+    },
+    "segments_status": {
+      "enum": [
+        "in_release",
+        "not_in_release",
+        "single_segment"
+      ],
+      "title": "Segments Status",
+      "type": "string"
+    },
+    "segments": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/Segment"
+      },
+      "title": "Segments",
+      "type": "array"
+    },
+    "derived": {
+      "$ref": "#/$defs/Derived"
+    },
+    "guidance": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Guidance"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "validation_exceptions": {
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/ValidationException"
+      },
+      "title": "Validation Exceptions",
+      "type": "array"
+    },
+    "notes": {
+      "default": [],
+      "items": {
+        "type": "string"
+      },
+      "title": "Notes",
+      "type": "array"
+    },
+    "approval": {
+      "default": null,
+      "description": "always null here; the Gate A record is the sidecar <ID>.approval.json",
+      "title": "Approval",
+      "type": "null"
+    }
+  },
+  "required": [
+    "company",
+    "period",
+    "scale",
+    "release",
+    "lines",
+    "segments_status",
+    "derived"
+  ],
+  "title": "Earnings",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://earningsmaps.com/schemas/earnings.schema.json"
+}

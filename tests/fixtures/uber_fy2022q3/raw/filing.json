@@ -1,0 +1,81 @@
+{
+  "ticker": "UBER",
+  "cik": 1543151,
+  "form": "8-K",
+  "accession": "0001543151-22-000029",
+  "filing_date": "2022-11-01",
+  "items": [
+    "2.02",
+    "9.01"
+  ],
+  "period_end": "2022-09-30",
+  "period_end_source": "10-Q/10-K reportDate",
+  "period_start": "2022-07-01",
+  "period_start_source": "prior period's 10-Q/10-K reportDate + 1 day",
+  "fiscal_label": "FY2022Q3",
+  "fiscal_year": 2022,
+  "fiscal_quarter": 3,
+  "calendar_label": "Jul\u2013Sep 2022",
+  "display": "Fiscal Q3 2022 (Jul\u2013Sep 2022)",
+  "weeks": 13.1,
+  "folder_url": "https://www.sec.gov/Archives/edgar/data/1543151/000154315122000029/",
+  "exhibits": [
+    {
+      "seq": "1",
+      "description": "8-K",
+      "document": "uber-20221101.htm",
+      "type": "8-K",
+      "size": "33100",
+      "url": "https://www.sec.gov/Archives/edgar/data/1543151/000154315122000029/uber-20221101.htm"
+    },
+    {
+      "seq": "2",
+      "description": "EX-99.1",
+      "document": "uberq322earningspressrelea.htm",
+      "type": "EX-99.1",
+      "size": "544142",
+      "url": "https://www.sec.gov/Archives/edgar/data/1543151/000154315122000029/uberq322earningspressrelea.htm"
+    },
+    {
+      "seq": "3",
+      "description": "XBRL TAXONOMY EXTENSION SCHEMA DOCUMENT",
+      "document": "uber-20221101.xsd",
+      "type": "EX-101.SCH",
+      "size": "1890",
+      "url": "https://www.sec.gov/Archives/edgar/data/1543151/000154315122000029/uber-20221101.xsd"
+    },
+    {
+      "seq": "4",
+      "description": "XBRL TAXONOMY EXTENSION LABEL LINKBASE DOCUMENT",
+      "document": "uber-20221101_lab.xml",
+      "type": "EX-101.LAB",
+      "size": "24137",
+      "url": "https://www.sec.gov/Archives/edgar/data/1543151/000154315122000029/uber-20221101_lab.xml"
+    },
+    {
+      "seq": "5",
+      "description": "XBRL TAXONOMY EXTENSION PRESENTATION LINKBASE DOCUMENT",
+      "document": "uber-20221101_pre.xml",
+      "type": "EX-101.PRE",
+      "size": "12500",
+      "url": "https://www.sec.gov/Archives/edgar/data/1543151/000154315122000029/uber-20221101_pre.xml"
+    },
+    {
+      "seq": "7",
+      "description": "EXTRACTED XBRL INSTANCE DOCUMENT",
+      "document": "uber-20221101_htm.xml",
+      "type": "XML",
+      "size": "10848",
+      "url": "https://www.sec.gov/Archives/edgar/data/1543151/000154315122000029/uber-20221101_htm.xml"
+    }
+  ],
+  "release_exhibit": {
+    "seq": "2",
+    "description": "EX-99.1",
+    "document": "uberq322earningspressrelea.htm",
+    "type": "EX-99.1",
+    "size": "544142",
+    "url": "https://www.sec.gov/Archives/edgar/data/1543151/000154315122000029/uberq322earningspressrelea.htm"
+  },
+  "warnings": []
+}

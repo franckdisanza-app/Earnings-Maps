@@ -1,0 +1,18 @@
+{
+  "id": "V-FY2025Q4",
+  "data_sha256": "e9676b6a29833ad7fb7439b79b693f043f3362693cddb671bfe9a56590608149",
+  "auditor_file": "out/V-FY2025Q4/auditor.json",
+  "checked": 14,
+  "matched": 14,
+  "mismatched": [],
+  "not_found": [],
+  "label_differences": [],
+  "auditor_warnings": [
+    "No segment table; Visa reports no segments. Revenue by type appears only in the INCOME STATEMENT SUMMARY with the current quarter and YoY %, no prior-year dollar amounts.",
+    "INCOME STATEMENT SUMMARY mixes GAAP and non-GAAP (non-GAAP total operating expenses 3,611, net income 5,803, EPS 2.98); not used.",
+    "Litigation provision 903 vs 10 is as printed; non-GAAP measures exclude it.",
+    "'Visa Quarterly Results of Operations (unaudited)' matches every GAAP value above for both quarter columns.",
+    "Several row labels carry a trailing space in the HTML; trimmed."
+  ],
+  "unresolved": 0
+}

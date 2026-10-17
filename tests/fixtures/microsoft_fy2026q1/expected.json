@@ -1,0 +1,92 @@
+{
+  "ticker": "MSFT",
+  "period": "FY2026Q1",
+  "source": "values confirmed by two independent extractions (parse_release.py and the blind numbers-auditor), 2026-10-17",
+  "period_end": "2025-09-30",
+  "calendar_label": "Jul–Sep 2025",
+  "lines": {
+    "revenue_product": [
+      15922.0,
+      15272.0
+    ],
+    "revenue_service": [
+      61751.0,
+      50313.0
+    ],
+    "revenue_total": [
+      77673.0,
+      65585.0
+    ],
+    "cost_product": [
+      2922.0,
+      3294.0
+    ],
+    "cost_service": [
+      21121.0,
+      16805.0
+    ],
+    "cost_of_revenue_total": [
+      24043.0,
+      20099.0
+    ],
+    "gross_profit": [
+      53630.0,
+      45486.0
+    ],
+    "opex_rd": [
+      8146.0,
+      7544.0
+    ],
+    "opex_sm": [
+      5717.0,
+      5717.0
+    ],
+    "opex_ga": [
+      1806.0,
+      1673.0
+    ],
+    "operating_income": [
+      37961.0,
+      30552.0
+    ],
+    "other_income": [
+      -3660.0,
+      -283.0
+    ],
+    "income_before_tax": [
+      34301.0,
+      30269.0
+    ],
+    "income_tax": [
+      6554.0,
+      5602.0
+    ],
+    "net_income": [
+      27747.0,
+      24667.0
+    ],
+    "eps_diluted": [
+      3.72,
+      3.3
+    ],
+    "segments_total_segment": [
+      77673.0,
+      65585.0
+    ]
+  },
+  "segments": {
+    "segment:Productivity and Business Processes": [
+      33020.0,
+      28317.0
+    ],
+    "segment:Intelligent Cloud": [
+      30897.0,
+      24092.0
+    ],
+    "segment:More Personal Computing": [
+      13756.0,
+      13176.0
+    ]
+  },
+  "segments_status": "in_release"
+}

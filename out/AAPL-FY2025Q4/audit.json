@@ -1,0 +1,18 @@
+{
+  "id": "AAPL-FY2025Q4",
+  "data_sha256": "0807939ad06f88ac7d17e53258a73c48b5034594d69c722d2d518a32eb4bb480",
+  "auditor_file": "out/AAPL-FY2025Q4/auditor.json",
+  "checked": 28,
+  "matched": 28,
+  "mismatched": [],
+  "not_found": [],
+  "label_differences": [],
+  "auditor_warnings": [
+    "Prior-year quarter (three months ended September 28, 2024) includes a one-time income tax charge of $10.2 billion, net, from the reversal of the European General Court's State Aid decision; GAAP prior-year provision for income taxes (14,874), net income (14,736) and diluted EPS (0.97) are not comparable. The reconciliation table gives non-GAAP adjusted figures for that quarter: tax 4,628, net income 24,982, diluted EPS 1.64. The release's headline EPS growth uses the non-GAAP prior-year figure.",
+    "Scale header: '(In millions, except number of shares, which are reflected in thousands, and per-share amounts)'.",
+    "Statement has Three and Twelve Months Ended columns with identical date headers; only three-month columns used.",
+    "Quarter length (13 vs 14 weeks) is not stated in the file.",
+    "'Products' and 'Services' appear under both 'Net sales:' and 'Cost of sales:'; 'Services' also appears in the category breakdown. Section headings distinguish them."
+  ],
+  "unresolved": 0
+}

@@ -1,0 +1,22 @@
+{
+  "id": "MSFT-FY2026Q1",
+  "data_sha256": "ed42db073943afe236b748a75328b7db2f6655b8cde64a82af364e603d132af2",
+  "auditor_file": "out/MSFT-FY2026Q1/auditor.json",
+  "checked": 20,
+  "matched": 20,
+  "mismatched": [],
+  "not_found": [],
+  "label_differences": [
+    "segment:segment:Productivity and Business Processes: ours 'Revenue' vs auditor 'Productivity and Business Processes'",
+    "segment:segment:Intelligent Cloud: ours 'Revenue' vs auditor 'Intelligent Cloud'",
+    "segment:segment:More Personal Computing: ours 'Revenue' vs auditor 'More Personal Computing'"
+  ],
+  "auditor_warnings": [
+    "Column headers span rows: 'Three Months Ended<br>September 30,' over '2025' / '2024'.",
+    "Sales and marketing prints 5,717 in both the 2025 and 2024 columns; verified as printed.",
+    "Other income line is labeled 'Other expense, net'; both values in parentheses.",
+    "Non-GAAP reconciliation tables exclude the 'Impact from investments in OpenAI' (non-GAAP net income $30,833 / $25,190; diluted EPS $4.13 / $3.37); not used.",
+    "Segment revenue is the 'Revenue' row under each segment heading in SEGMENT RESULTS (the auditor reported the segment name as the label)."
+  ],
+  "unresolved": 0
+}

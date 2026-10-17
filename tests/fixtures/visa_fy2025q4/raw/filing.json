@@ -1,0 +1,122 @@
+{
+  "ticker": "V",
+  "cik": 1403161,
+  "form": "8-K",
+  "accession": "0001403161-25-000077",
+  "filing_date": "2025-10-28",
+  "items": [
+    "2.02",
+    "8.01",
+    "9.01"
+  ],
+  "period_end": "2025-09-30",
+  "period_end_source": "10-Q/10-K reportDate",
+  "period_start": "2025-07-01",
+  "period_start_source": "prior period's 10-Q/10-K reportDate + 1 day",
+  "fiscal_label": "FY2025Q4",
+  "fiscal_year": 2025,
+  "fiscal_quarter": 4,
+  "calendar_label": "Jul\u2013Sep 2025",
+  "display": "Fiscal Q4 2025 (Jul\u2013Sep 2025)",
+  "weeks": 13.1,
+  "folder_url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000077/",
+  "exhibits": [
+    {
+      "seq": "1",
+      "description": "8-K",
+      "document": "v-20251028.htm",
+      "type": "8-K",
+      "size": "44700",
+      "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000077/v-20251028.htm"
+    },
+    {
+      "seq": "2",
+      "description": "EXHIBIT 99.1",
+      "document": "q42025earningsrelease.htm",
+      "type": "EX-99.1",
+      "size": "480174",
+      "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000077/q42025earningsrelease.htm"
+    },
+    {
+      "seq": "7",
+      "description": "",
+      "document": "banner.jpg",
+      "type": "GRAPHIC",
+      "size": "87586",
+      "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000077/banner.jpg"
+    },
+    {
+      "seq": "8",
+      "description": "",
+      "document": "divider.jpg",
+      "type": "GRAPHIC",
+      "size": "23071",
+      "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000077/divider.jpg"
+    },
+    {
+      "seq": "9",
+      "description": "",
+      "document": "footer.jpg",
+      "type": "GRAPHIC",
+      "size": "39976",
+      "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000077/footer.jpg"
+    },
+    {
+      "seq": "10",
+      "description": "",
+      "document": "v-20251028_g1.gif",
+      "type": "GRAPHIC",
+      "size": "155127",
+      "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000077/v-20251028_g1.gif"
+    },
+    {
+      "seq": "3",
+      "description": "XBRL TAXONOMY EXTENSION SCHEMA DOCUMENT",
+      "document": "v-20251028.xsd",
+      "type": "EX-101.SCH",
+      "size": "3711",
+      "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000077/v-20251028.xsd"
+    },
+    {
+      "seq": "4",
+      "description": "XBRL TAXONOMY EXTENSION DEFINITION LINKBASE DOCUMENT",
+      "document": "v-20251028_def.xml",
+      "type": "EX-101.DEF",
+      "size": "17974",
+      "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000077/v-20251028_def.xml"
+    },
+    {
+      "seq": "5",
+      "description": "XBRL TAXONOMY EXTENSION LABEL LINKBASE DOCUMENT",
+      "document": "v-20251028_lab.xml",
+      "type": "EX-101.LAB",
+      "size": "33372",
+      "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000077/v-20251028_lab.xml"
+    },
+    {
+      "seq": "6",
+      "description": "XBRL TAXONOMY EXTENSION PRESENTATION LINKBASE DOCUMENT",
+      "document": "v-20251028_pre.xml",
+      "type": "EX-101.PRE",
+      "size": "19012",
+      "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000077/v-20251028_pre.xml"
+    },
+    {
+      "seq": "20",
+      "description": "EXTRACTED XBRL INSTANCE DOCUMENT",
+      "document": "v-20251028_htm.xml",
+      "type": "XML",
+      "size": "8318",
+      "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000077/v-20251028_htm.xml"
+    }
+  ],
+  "release_exhibit": {
+    "seq": "2",
+    "description": "EXHIBIT 99.1",
+    "document": "q42025earningsrelease.htm",
+    "type": "EX-99.1",
+    "size": "480174",
+    "url": "https://www.sec.gov/Archives/edgar/data/1403161/000140316125000077/q42025earningsrelease.htm"
+  },
+  "warnings": []
+}

@@ -1,0 +1,312 @@
+{
+  "schema_version": 1,
+  "company": {
+    "ticker": "UBER",
+    "name": "Uber",
+    "cik": 1543151
+  },
+  "period": {
+    "fiscal_label": "FY2022Q3",
+    "fiscal_year": 2022,
+    "fiscal_quarter": 3,
+    "start_date": "2022-07-01",
+    "end_date": "2022-09-30",
+    "start_date_source": "prior period's 10-Q/10-K reportDate + 1 day",
+    "calendar_label": "Jul–Sep 2022",
+    "display": "Fiscal Q3 2022 (Jul–Sep 2022)",
+    "weeks": 13.1
+  },
+  "currency": "USD",
+  "scale": "millions",
+  "release": {
+    "form": "8-K",
+    "filing_date": "2022-11-01",
+    "accession": "0001543151-22-000029",
+    "items": [
+      "2.02",
+      "9.01"
+    ],
+    "url": "https://www.sec.gov/Archives/edgar/data/1543151/000154315122000029/uberq322earningspressrelea.htm",
+    "exhibit": "EX-99.1",
+    "local_path": "data/raw/UBER/FY2022Q3/uberq322earningspressrelea.htm"
+  },
+  "lines": [
+    {
+      "id": "revenue_total",
+      "label_as_printed": "Revenue",
+      "value": 8343.0,
+      "prior_year_value": 4845.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (In millions, except share amounts which are reflected in thousands, and per share amounts)",
+        "row_label": "Revenue",
+        "section": null,
+        "column_current": "Three Months Ended September 30, 2022",
+        "column_prior_year": "Three Months Ended September 30, 2021"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "cost_of_revenue_total",
+      "label_as_printed": "Cost of revenue, exclusive of depreciation and amortization shown separately below",
+      "value": 5173.0,
+      "prior_year_value": 2438.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (In millions, except share amounts which are reflected in thousands, and per share amounts)",
+        "row_label": "Cost of revenue, exclusive of depreciation and amortization shown separately below",
+        "section": "Costs and expenses",
+        "column_current": "Three Months Ended September 30, 2022",
+        "column_prior_year": "Three Months Ended September 30, 2021"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "opex_operations",
+      "label_as_printed": "Operations and support",
+      "value": 617.0,
+      "prior_year_value": 475.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (In millions, except share amounts which are reflected in thousands, and per share amounts)",
+        "row_label": "Operations and support",
+        "section": "Costs and expenses",
+        "column_current": "Three Months Ended September 30, 2022",
+        "column_prior_year": "Three Months Ended September 30, 2021"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "opex_sm",
+      "label_as_printed": "Sales and marketing",
+      "value": 1153.0,
+      "prior_year_value": 1168.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (In millions, except share amounts which are reflected in thousands, and per share amounts)",
+        "row_label": "Sales and marketing",
+        "section": "Costs and expenses",
+        "column_current": "Three Months Ended September 30, 2022",
+        "column_prior_year": "Three Months Ended September 30, 2021"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "opex_rd",
+      "label_as_printed": "Research and development",
+      "value": 760.0,
+      "prior_year_value": 493.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (In millions, except share amounts which are reflected in thousands, and per share amounts)",
+        "row_label": "Research and development",
+        "section": "Costs and expenses",
+        "column_current": "Three Months Ended September 30, 2022",
+        "column_prior_year": "Three Months Ended September 30, 2021"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "opex_ga",
+      "label_as_printed": "General and administrative",
+      "value": 908.0,
+      "prior_year_value": 625.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (In millions, except share amounts which are reflected in thousands, and per share amounts)",
+        "row_label": "General and administrative",
+        "section": "Costs and expenses",
+        "column_current": "Three Months Ended September 30, 2022",
+        "column_prior_year": "Three Months Ended September 30, 2021"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "opex_da",
+      "label_as_printed": "Depreciation and amortization",
+      "value": 227.0,
+      "prior_year_value": 218.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (In millions, except share amounts which are reflected in thousands, and per share amounts)",
+        "row_label": "Depreciation and amortization",
+        "section": "Costs and expenses",
+        "column_current": "Three Months Ended September 30, 2022",
+        "column_prior_year": "Three Months Ended September 30, 2021"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "costs_and_expenses_total",
+      "label_as_printed": "Total costs and expenses",
+      "value": 8838.0,
+      "prior_year_value": 5417.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (In millions, except share amounts which are reflected in thousands, and per share amounts)",
+        "row_label": "Total costs and expenses",
+        "section": "Costs and expenses",
+        "column_current": "Three Months Ended September 30, 2022",
+        "column_prior_year": "Three Months Ended September 30, 2021"
+      },
+      "printed_negative": false
+    },
+    {
+      "id": "operating_income",
+      "label_as_printed": "Loss from operations",
+      "value": -495.0,
+      "prior_year_value": -572.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (In millions, except share amounts which are reflected in thousands, and per share amounts)",
+        "row_label": "Loss from operations",
+        "section": null,
+        "column_current": "Three Months Ended September 30, 2022",
+        "column_prior_year": "Three Months Ended September 30, 2021"
+      },
+      "printed_negative": true
+    },
+    {
+      "id": "net_income",
+      "label_as_printed": "Net loss attributable to Uber Technologies, Inc.",
+      "value": -1206.0,
+      "prior_year_value": -2424.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (In millions, except share amounts which are reflected in thousands, and per share amounts)",
+        "row_label": "Net loss attributable to Uber Technologies, Inc.",
+        "section": null,
+        "column_current": "Three Months Ended September 30, 2022",
+        "column_prior_year": "Three Months Ended September 30, 2021"
+      },
+      "printed_negative": true
+    },
+    {
+      "id": "eps_diluted",
+      "label_as_printed": "Diluted",
+      "value": -0.61,
+      "prior_year_value": -1.28,
+      "unit": "USD/share",
+      "scale": "units",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS (In millions, except share amounts which are reflected in thousands, and per share amounts)",
+        "row_label": "Diluted",
+        "section": "Net loss per share attributable to Uber Technologies, Inc. common stockholders:",
+        "column_current": "Three Months Ended September 30, 2022",
+        "column_prior_year": "Three Months Ended September 30, 2021"
+      },
+      "printed_negative": true
+    },
+    {
+      "id": "segments_total_segment",
+      "label_as_printed": "Total",
+      "value": 8343.0,
+      "prior_year_value": 4845.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "Revenue",
+        "row_label": "Total",
+        "section": "Revenue:",
+        "column_current": "Three Months Ended September 30, 2022",
+        "column_prior_year": "Three Months Ended September 30, 2021"
+      },
+      "printed_negative": false
+    }
+  ],
+  "segments_status": "in_release",
+  "segments": [
+    {
+      "group": "segment",
+      "name": "Mobility",
+      "label_as_printed": "Mobility (1)",
+      "value": 3822.0,
+      "prior_year_value": 2205.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "Revenue",
+        "row_label": "Mobility (1)",
+        "section": "Revenue:",
+        "column_current": "Three Months Ended September 30, 2022",
+        "column_prior_year": "Three Months Ended September 30, 2021"
+      }
+    },
+    {
+      "group": "segment",
+      "name": "Delivery",
+      "label_as_printed": "Delivery (2)",
+      "value": 2770.0,
+      "prior_year_value": 2238.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "Revenue",
+        "row_label": "Delivery (2)",
+        "section": "Revenue:",
+        "column_current": "Three Months Ended September 30, 2022",
+        "column_prior_year": "Three Months Ended September 30, 2021"
+      }
+    },
+    {
+      "group": "segment",
+      "name": "Freight",
+      "label_as_printed": "Freight (3)",
+      "value": 1751.0,
+      "prior_year_value": 402.0,
+      "unit": "USD",
+      "scale": "millions",
+      "basis": "GAAP",
+      "locator": {
+        "table_title": "Revenue",
+        "row_label": "Freight (3)",
+        "section": "Revenue:",
+        "column_current": "Three Months Ended September 30, 2022",
+        "column_prior_year": "Three Months Ended September 30, 2021"
+      }
+    }
+  ],
+  "derived": {
+    "revenue_yoy": 0.7219814241486069,
+    "gross_margin": null,
+    "operating_margin": {
+      "current": -0.0593311758360302,
+      "prior_year": -0.11805985552115583
+    },
+    "net_margin": {
+      "current": -0.14455231930960086,
+      "prior_year": -0.5003095975232198
+    },
+    "computed_lines": []
+  },
+  "guidance": null,
+  "validation_exceptions": [],
+  "notes": [
+    "Uber's cost of revenue excludes depreciation and amortization, so no gross profit is computed."
+  ],
+  "approval": null
+}
