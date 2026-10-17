@@ -1,0 +1,24 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Node
+node_modules/
+
+# Caches and outputs
+data/raw/
+out/
+.cache/
+*.log
+
+# OS and editors
+.DS_Store
+Thumbs.db
+desktop.ini
