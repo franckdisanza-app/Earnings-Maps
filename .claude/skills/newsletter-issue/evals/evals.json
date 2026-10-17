@@ -1,0 +1,8 @@
+{
+  "skill_name": "newsletter-issue",
+  "note": "Prompts only. Run at first real use in Phase 6 (issue #0 from the pilot).",
+  "evals": [
+    {"id": 1, "prompt": "/newsletter-issue 2026-W43", "expected_output": "issue.md, issue.html (inline styles, 600px), meta.md with subject/preview/send time Sunday 15:00 Zurich; only approved breakdowns; sections in the brief's order; sponsor placeholder; disclaimer + corrections; compliance PASS.", "files": []},
+    {"id": 2, "prompt": "draft issue #0 of the newsletter from the pilot video", "expected_output": "Uses the one approved pilot breakdown, flags that fewer than three breakdowns exist and asks whether to send a shorter issue.", "files": []}
+  ]
+}

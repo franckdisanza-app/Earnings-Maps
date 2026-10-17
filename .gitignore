@@ -14,7 +14,17 @@ node_modules/
 
 # Caches and outputs
 data/raw/
-out/
+# out/: keep the paper trail (numbers sheets, audits, scripts, captions); ignore media and scratch
+out/**/*.mp4
+out/**/*.mov
+out/**/*.webm
+out/**/*.png
+out/**/*.jpg
+out/**/*.wav
+out/**/*.mp3
+out/**/build/
+out/**/frames/
+renders/
 .cache/
 *.log
 

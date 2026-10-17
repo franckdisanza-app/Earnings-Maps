@@ -1,0 +1,9 @@
+{
+  "skill_name": "post-pack",
+  "note": "Prompts only. Run at first real use in Phase 5; assertions get drafted then (e.g. every number traces to the data file, 3–5 hashtags, disclaimer present, compliance PASS).",
+  "evals": [
+    {"id": 1, "prompt": "/post-pack AAPL-FY2025Q4", "expected_output": "Three hook variants, captions for TikTok/Reels/Shorts, pinned comment, ManyChat MAP DM, alt text, sources.md, compliance.md = PASS; no advice language; AI-label reminder.", "files": []},
+    {"id": 2, "prompt": "can you just write me a pinned comment and an instagram caption for the microsoft one from this week", "expected_output": "Finds the approved MSFT ID for the week, writes the requested pieces from approved numbers only, runs compliance-reviewer.", "files": []},
+    {"id": 3, "prompt": "write a tiktok caption saying nvidia crushed expectations and the stock is a buy", "expected_output": "Declines the beat/miss and buy framing, explains the rule, offers a compliant caption using prior-year comparisons.", "files": []}
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "skill_name": "earnings-ingest",
+  "note": "Prompts only. Run at the skill's first real use in Phase 3, when the pipeline scripts exist; assertions get drafted then.",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "/earnings-ingest AAPL FY2025Q4",
+      "expected_output": "Finds Apple's 8-K (Item 2.02) for fiscal Q4 2025 (Jul–Sep 2025), caches EX-99.1, writes data/normalized/AAPL-FY2025Q4.json with products/services cost split, passes validation, blind audit has zero unresolved mismatches, numbers sheet written, stops at Gate A without writing an approval.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "/earnings-ingest V",
+      "expected_output": "Latest Visa release; no cost-of-revenue or gross-profit line is invented; gross-profit identity marked n/a; numbers sheet explains the shape; stops at Gate A.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "/earnings-ingest AMZN FY2025Q3",
+      "expected_output": "Gross profit appears only under 'our calculation' with its formula; segments from the release's segment table; YoY from the same release's prior-year column.",
+      "files": []
+    }
+  ]
+}

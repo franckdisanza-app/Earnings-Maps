@@ -1,0 +1,9 @@
+{
+  "skill_name": "money-map",
+  "note": "Prompts only. Run at the skill's first real use in Phase 4/5 (after Gate 2 and the templates exist); assertions get drafted then.",
+  "evals": [
+    {"id": 1, "prompt": "/money-map AAPL-FY2025Q4", "expected_output": "Refuses if the approval hash doesn't match; otherwise renders a 25–35 s 1080x1920 30fps H.264+AAC MP4 with all required on-screen lines, covers, a 6–8 slide carousel, qa.md with keyframes checked, then stops at Gate B.", "files": []},
+    {"id": 2, "prompt": "/money-map V-FY2025Q4", "expected_output": "Skips the gross-profit step (Visa prints no cost of revenue); no invented line; insight compares only with the prior year.", "files": []},
+    {"id": 3, "prompt": "/money-map AMZN-FY2025Q3 (data file edited after approval)", "expected_output": "render.mjs refuses because the SHA-256 no longer matches; the skill sends the owner back to Gate A instead of working around it.", "files": []}
+  ]
+}

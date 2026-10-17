@@ -40,3 +40,14 @@ Routine calls made without asking, plus the answers to the kickoff questions (do
 - **Render browser:** HyperFrames' pinned chrome-headless-shell 152.0.7977.30 in `~/.cache/hyperframes/chrome`. System Chrome hangs on `--version` under Windows.
 - **esbuild postinstall left blocked** by npm 11's allowScripts; the render works without it.
 - **HyperFrames opt-outs are set twice:** in `.claude/settings.json` `env` (applies to every command Claude runs here) and in `.env` (applies when the CLI runs from the repo root).
+
+## 2026-10-17 · Phase 2 scaffold
+
+- **Gate A approval lives in a sidecar**, `data/normalized/<ID>.approval.json` (approved_by, approved_at, sha256). The brief puts `approval` in the data file, but a file can't contain its own hash, so the data file's `approval` stays null and the sidecar holds the record. It's written by `scripts/approve.py` only after the owner's explicit "approve <ID>" in chat. `--verify` is used by render and post-pack.
+- **`out/` keeps its text records in git** (numbers sheets, audits, scripts, captions, sources, compliance reports); media and build folders are ignored. The paper trail for every published number stays versioned.
+- **Who can invoke what:** `/earnings-ingest`, `/money-map` and `/earnings-calendar` have `disable-model-invocation: true` (network, renders), so only the owner starts them. `/post-pack` and `/newsletter-issue` write local drafts only, so Claude can run them too. No project skill pre-approves tools.
+- **The auditor's blindness is enforced, not just instructed:** `numbers-auditor` runs with `omitClaudeMd: true` and a PreToolUse hook (`.claude/hooks/auditor_guard.py`) that allows reads only under `data/raw/` and `tests/fixtures/<case>/raw/`. Covered by `tests/test_auditor_guard.py`.
+- **Skill evals deferred to first real use.** skill-creator's loop compares runs with and without the skill, which needs the pipeline scripts (Phases 3–7). Each skill has `evals/evals.json` with prompts; assertions and runs happen at its first real use.
+- **Watchlist:** names, fiscal-year-end rules and IR URLs entered now and marked `verified: false`; CIKs, line mappings and segments stay empty until Phase 3 verifies them against SEC data (that needs `SEC_USER_AGENT`).
+- **`tzdata` pinned** in `requirements.txt`: Windows has no system time-zone database, and Zurich/New York conversions (including the Oct 25–Nov 1 five-hour week) depend on it.
+- **`$` in skill files is escaped** (`\$94.9B`) because skill argument substitution treats `$<digit>` as a positional placeholder.

@@ -1,0 +1,197 @@
+# Earnings Maps watchlist v1 (brief §6). Banks and insurers are out of v1.
+#
+# Filled in Phase 2: ticker, display name, fiscal year end (FYE) rule, IR URL.
+# Filled and verified in Phase 3 against SEC data and each company's latest release:
+#   cik            from https://www.sec.gov/files/company_tickers.json
+#   fye / ir_url   confirmed against the 10-K cover and the company's own site
+#   lines          this company's income-statement line mapping (labels as printed)
+#   segments       the segments to show, as named in the release
+# Until verified, `verified: false`. Nothing here is used for numbers on screen.
+#
+# Known shape differences (from the brief): Visa and McDonald's print no cost-of-revenue
+# or gross-profit line; Amazon prints cost of sales but no gross profit (show it only as
+# "our calculation").
+
+companies:
+  - ticker: AAPL
+    name: Apple
+    cik: null
+    fye: last Saturday of September
+    ir_url: https://investor.apple.com/
+    lines: {}
+    segments: []
+    verified: false
+
+  - ticker: MSFT
+    name: Microsoft
+    cik: null
+    fye: June 30
+    ir_url: https://www.microsoft.com/en-us/investor
+    lines: {}
+    segments: []
+    verified: false
+
+  - ticker: GOOGL
+    name: Alphabet
+    cik: null
+    fye: December 31
+    ir_url: https://abc.xyz/investor/
+    lines: {}
+    segments: []
+    verified: false
+
+  - ticker: AMZN
+    name: Amazon
+    cik: null
+    fye: December 31
+    ir_url: https://ir.aboutamazon.com/
+    lines: {}
+    segments: []
+    shape_note: cost of sales but no gross profit line; gross profit is "our calculation"
+    verified: false
+
+  - ticker: META
+    name: Meta
+    cik: null
+    fye: December 31
+    ir_url: https://investor.atmeta.com/
+    lines: {}
+    segments: []
+    verified: false
+
+  - ticker: NVDA
+    name: Nvidia
+    cik: null
+    fye: last Sunday of January
+    ir_url: https://investor.nvidia.com/
+    lines: {}
+    segments: []
+    verified: false
+
+  - ticker: TSLA
+    name: Tesla
+    cik: null
+    fye: December 31
+    ir_url: https://ir.tesla.com/
+    lines: {}
+    segments: []
+    verified: false
+
+  - ticker: NFLX
+    name: Netflix
+    cik: null
+    fye: December 31
+    ir_url: https://ir.netflix.net/
+    lines: {}
+    segments: []
+    verified: false
+
+  - ticker: KO
+    name: Coca-Cola
+    cik: null
+    fye: December 31
+    ir_url: https://investors.coca-colacompany.com/
+    lines: {}
+    segments: []
+    verified: false
+
+  - ticker: PEP
+    name: PepsiCo
+    cik: null
+    fye: last Saturday of December
+    ir_url: https://www.pepsico.com/investors
+    lines: {}
+    segments: []
+    verified: false
+
+  - ticker: MCD
+    name: McDonald's
+    cik: null
+    fye: December 31
+    ir_url: https://investor.mcdonalds.com/
+    lines: {}
+    segments: []
+    shape_note: no cost-of-revenue or gross-profit line
+    verified: false
+
+  - ticker: SBUX
+    name: Starbucks
+    cik: null
+    fye: Sunday closest to September 30
+    ir_url: https://investor.starbucks.com/
+    lines: {}
+    segments: []
+    verified: false
+
+  - ticker: NKE
+    name: Nike
+    cik: null
+    fye: May 31
+    ir_url: https://investors.nike.com/
+    lines: {}
+    segments: []
+    verified: false
+
+  - ticker: DIS
+    name: Disney
+    cik: null
+    fye: Saturday closest to September 30
+    ir_url: https://thewaltdisneycompany.com/investor-relations/
+    lines: {}
+    segments: []
+    verified: false
+
+  - ticker: UBER
+    name: Uber
+    cik: null
+    fye: December 31
+    ir_url: https://investor.uber.com/
+    lines: {}
+    segments: []
+    verified: false
+
+  - ticker: ABNB
+    name: Airbnb
+    cik: null
+    fye: December 31
+    ir_url: https://investors.airbnb.com/
+    lines: {}
+    segments: []
+    verified: false
+
+  - ticker: V
+    name: Visa
+    cik: null
+    fye: September 30
+    ir_url: https://investor.visa.com/
+    lines: {}
+    segments: []
+    shape_note: no cost-of-revenue or gross-profit line
+    verified: false
+
+  - ticker: MA
+    name: Mastercard
+    cik: null
+    fye: December 31
+    ir_url: https://investor.mastercard.com/
+    lines: {}
+    segments: []
+    verified: false
+
+  - ticker: COST
+    name: Costco
+    cik: null
+    fye: Sunday closest to August 31
+    ir_url: https://investor.costco.com/
+    lines: {}
+    segments: []
+    verified: false
+
+  - ticker: WMT
+    name: Walmart
+    cik: null
+    fye: January 31
+    ir_url: https://stock.walmart.com/
+    lines: {}
+    segments: []
+    verified: false

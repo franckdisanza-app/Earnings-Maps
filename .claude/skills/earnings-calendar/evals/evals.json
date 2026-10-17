@@ -1,0 +1,8 @@
+{
+  "skill_name": "earnings-calendar",
+  "note": "Prompts only. Run at first real use in Phase 7.",
+  "evals": [
+    {"id": 1, "prompt": "/earnings-calendar", "expected_output": "latest.json/latest.md for the next 4 weeks; every confirmed date links the company's own IR page or press release; no aggregator sources; after-close releases on Oct 26–30, 2026 show 21:00 Zurich, other weeks 22:00; unconfirmed rows marked with their basis.", "files": []},
+    {"id": 2, "prompt": "/earnings-calendar 2", "expected_output": "Two-week window; companies outside it listed under 'later'.", "files": []}
+  ]
+}
