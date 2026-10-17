@@ -37,8 +37,8 @@ const SAFE = tokens.safe_zone_9x16;
 const X0 = SAFE.left_px;
 const X1 = W - SAFE.right_px;
 const SPAN = X1 - X0;
-export const METRICS = { T: 64, PAD: 20, GAP: 16, LABEL: 44, LINE: 52, NOTE: 34, HERO: 112, MIN_FLOW: 56 };
-const { T, PAD, GAP, LABEL, LINE, NOTE, HERO, MIN_FLOW } = METRICS;
+export const METRICS = { T: 64, PAD: 20, GAP: 16, LABEL: 44, LINE: 52, NOTE: 34, HERO: 112, MIN_FLOW: 56, MAX_FLOW: 220 };
+const { T, PAD, GAP, LABEL, LINE, NOTE, HERO, MIN_FLOW, MAX_FLOW } = METRICS;
 const CAP = Math.round(LABEL * 0.75);
 // Measure at the heaviest weights any theme draws (bold: values 800, hero 900) so every theme fits.
 const VW = Math.max(...Object.values(tokens.themes).map((t) => t.style?.value_weight || 700));
@@ -94,6 +94,9 @@ export function layout(model) {
   const rows = Math.max(...graph.nodes.map((n) => n.layer)) + 1;
   out.rows = rows;
 
+  // The payoff number: net income, or the loss when the story stops at a loss.
+  const heroNode = graph.nodes.find((n) => n.id === "net_income" && n.kind === "profit") || graph.nodes.find((n) => n.kind === "loss");
+
   // Horizontal geometry from d3-sankey (its "y" axis is our x axis).
   for (const n of graph.nodes) n.rect = { x: X0 + n.y0, w: n.y1 - n.y0, h: T };
 
@@ -101,7 +104,7 @@ export function layout(model) {
   const valueText = (n) => (n.kind === "loss" ? `−${n.display.replace("−", "")}` : n.display);
   const inside = new Map(); // node id -> { mode, lines }
   for (const n of graph.nodes.filter((m) => m.kind !== "segment" && m.kind !== "loss")) {
-    if (n.id === "net_income" && n.kind === "profit") continue;
+    if (n === heroNode) continue;
     const value = valueText(n);
     const extra = n.kind === "revenue" && n.change ? n.change : null;
     const valueLine = extra ? `${value}  ${extra}` : value;
@@ -123,12 +126,18 @@ export function layout(model) {
 
   // ---- 2) vertical geometry: rows stacked with equal flow length -------------------------
   const rowH = Array.from({ length: rows }, (_, r) => Math.max(...graph.nodes.filter((n) => n.layer === r).map((n) => n.rect.h)));
-  const lastRowHasHero = graph.nodes.some((n) => n.id === "net_income" && n.kind === "profit" && n.layer === rows - 1);
+  const lastRowHasHero = Boolean(heroNode);
   const bottom = footerTop - 20 - (lastRowHasHero ? heroBlock : 0);
-  const flow = rows > 1 ? (bottom - top - rowH.reduce((a, b) => a + b, 0)) / (rows - 1) : 0;
+  let flow = rows > 1 ? (bottom - top - rowH.reduce((a, b) => a + b, 0)) / (rows - 1) : 0;
   if (flow < MIN_FLOW) out.warnings.push(`flows are only ${Math.round(flow)} px long`);
+  // Few rows: cap the flow length and split the spare height above and below the map.
+  let shift = 0;
+  if (flow > MAX_FLOW) {
+    shift = ((flow - MAX_FLOW) * (rows - 1)) / 2;
+    flow = MAX_FLOW;
+  }
   const rowY = [];
-  let y = top;
+  let y = top + shift;
   for (let r = 0; r < rows; r++) {
     rowY.push(y);
     y += rowH[r] + flow;
@@ -186,12 +195,13 @@ export function layout(model) {
   }
 
   // Net income: the payoff, under its bar, right-aligned, in the largest type.
-  for (const n of graph.nodes.filter((m) => m.id === "net_income" && m.kind === "profit")) {
+  for (const n of heroNode ? [heroNode] : []) {
     const value = valueText(n);
-    const xr = n.rect.x + n.rect.w;
-    const yTop = n.rect.y + n.rect.h + 18;
+    const inLastRow = n.layer === rows - 1;
+    const xr = inLastRow ? n.rect.x + n.rect.w : X1;
+    const yTop = Math.max(...graph.nodes.filter((m) => m.layer === rows - 1).map((m) => m.rect.y + m.rect.h)) + 18;
     lab(n, n.label, xr, yTop + CAP + 4, LABEL, 600, "end", "ink-muted");
-    lab(n, value, xr, yTop + CAP + 8 + HERO * 0.8, HERO, 800, "end", "ink", { hero: true });
+    lab(n, value, xr, yTop + CAP + 8 + HERO * 0.8, HERO, 800, "end", n.kind === "loss" ? "loss" : "ink", { hero: true });
     if (n.share) lab(n, n.share, xr, yTop + CAP + 8 + HERO * 0.8 + 50, NOTE + 4, 500, "end", "ink-muted");
     const w = Math.max(textWidth(value, HERO, HW), textWidth(n.label, LABEL, 600), n.share ? textWidth(n.share, NOTE + 4, 500) : 0);
     placed.push({ x0: xr - w - 16, x1: xr, y0: yTop - 4, y1: yTop + heroBlock });
@@ -218,12 +228,14 @@ export function layout(model) {
       yy += sz ? NOTE + 10 : LINE;
     }
   };
-  const rest = graph.nodes.filter((n) => n.kind !== "segment" && !inside.has(n.id) && !(n.id === "net_income" && n.kind === "profit"));
+  const rest = graph.nodes.filter((n) => n.kind !== "segment" && !inside.has(n.id) && n !== heroNode);
   rest.sort((a, b) => a.layer - b.layer);
   for (const n of rest) {
     let done = false;
     for (const f of forms(n)) {
       const yCands = [n.rect.y + n.rect.h / 2 - f.h / 2, n.rect.y - 4, n.rect.y + n.rect.h - f.h + 4];
+      for (let k = 1; k <= 8; k++) yCands.push(n.rect.y - 4 + k * 13); // slide down, still touching the bar
+      for (let k = 1; k <= 4; k++) yCands.push(n.rect.y + n.rect.h - f.h + 4 - k * 13);
       const tries = [];
       for (const y0 of yCands) tries.push({ x: n.rect.x - 18, anchor: "end", box: { x0: n.rect.x - 18 - f.w, x1: n.rect.x - 18, y0, y1: y0 + f.h } });
       for (const y0 of yCands) tries.push({ x: n.rect.x + n.rect.w + 18, anchor: "start", box: { x0: n.rect.x + n.rect.w + 18, x1: n.rect.x + n.rect.w + 18 + f.w, y0, y1: y0 + f.h } });
@@ -247,7 +259,7 @@ export function layout(model) {
 
   // ---- 5) segment row: labels above the bars ----------------------------------------------
   const segs = graph.nodes.filter((n) => n.kind === "segment").sort((a, b) => a.rect.x - b.rect.x);
-  const segBase = top - 18;
+  const segBase = rowY[0] - 18;
   const tierTop = headerBottom + 20;
   const small = [];
   segs.forEach((n, i) => {
@@ -364,7 +376,7 @@ export function layout(model) {
   const ctaW = textWidth(model.cta || "", 32, 700);
   out.header = { cta: companyW + 40 + ctaW <= SPAN ? "company" : periodW + 40 + ctaW <= SPAN ? "period" : "none" };
   if (out.header.cta === "none") out.warnings.push("no room for the call to action in the header");
-  out.frame = { headerTop: SAFE.top_px, headerBottom, firstRow: top, lastRow: rowY[rows - 1], footerTop, x0: X0, x1: X1, segBase, flow: Math.round(flow) };
+  out.frame = { headerTop: SAFE.top_px, headerBottom, firstRow: rowY[0], lastRow: rowY[rows - 1], footerTop, x0: X0, x1: X1, segBase, flow: Math.round(flow) };
   return out;
 }
 

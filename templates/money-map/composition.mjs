@@ -43,7 +43,7 @@ export function buildHtml({ model, layout, theme, themeName, tokens, preview = f
       return `<rect class="bar" data-node="${esc(n.id)}" x="${n.x}" y="${n.y}" width="${n.w}" height="${n.h}" rx="${st.bar_radius}" fill="${paint}"/>`;
     })
     .join("\n      ");
-  const color = { ink: theme.ink, "ink-muted": theme.ink_muted };
+  const color = { ink: theme.ink, "ink-muted": theme.ink_muted, loss: theme.cost };
   const labelEls = layout.labels
     .map((t, i) => {
       const node = nodeById[t.node];
