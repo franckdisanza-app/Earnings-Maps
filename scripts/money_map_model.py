@@ -217,6 +217,27 @@ def build(id_: str) -> dict:
         voice.append({"beat": "insight", "nodes": [insight["node"]], "text": insight.get("spoken") or f"{insight['headline']}."})
     voice.append({"beat": "end", "nodes": [], "text": "Not investment advice."})
 
+    # ---- carousel data: segments, margins, cents of each dollar, sources ---------------------
+    carousel = {"segments": [], "margins": [], "dollar": [], "sources": {}}
+    for n in sorted([n for n in nodes if n["kind"] == "segment"], key=lambda n: -n["value"]):
+        carousel["segments"].append({"name": n["label"], "display": n["display"], "change": n["change"], "value": n["value"]})
+    d = data.derived
+    for label, ratio in (("Gross margin", d.gross_margin), ("Operating margin", d.operating_margin), ("Net margin", d.net_margin)):
+        if ratio and ratio.current is not None and ratio.prior_year is not None:
+            carousel["margins"].append({"label": label, "current": ratio.current, "prior": ratio.prior_year,
+                                        "current_display": percent(ratio.current, 1), "prior_display": percent(ratio.prior_year, 1),
+                                        "our_calculation": label == "Gross margin" and "gross_profit" not in L})
+    # cents of each dollar: only when every step is positive and nothing is added below revenue
+    parts = [n for n in nodes if n["kind"] == "cost"] + [n for n in nodes if n["id"] == "net_income" and n["kind"] == "profit"]
+    if parts and not any(n["kind"] in ("loss", "other") for n in nodes) and abs(sum(n["value"] for n in parts) - rev) <= 3e6:
+        raw = [n["value"] / rev * 100 for n in parts]
+        cents = [int(x) for x in raw]
+        for i in sorted(range(len(raw)), key=lambda i: raw[i] - cents[i], reverse=True)[: 100 - sum(cents)]:
+            cents[i] += 1  # largest remainder, so the cents add up to exactly 100
+        carousel["dollar"] = [{"label": n["label"], "cents": cnt, "kind": n["kind"]} for n, cnt in zip(parts, cents)]
+    carousel["sources"] = {"form": data.release.form, "filed": data.release.filing_date.isoformat(), "accession": data.release.accession,
+                           "exhibit": data.release.exhibit, "url": data.release.url}
+
     p, r, c = data.period, data.release, data.company
     filed = r.filing_date.strftime("%b %-d, %Y") if sys.platform != "win32" else r.filing_date.strftime("%b %#d, %Y")
     bases = {l.basis for l in data.lines}
@@ -232,6 +253,7 @@ def build(id_: str) -> dict:
         "insight": insight,
         "cta": "Follow for more maps",
         "voice": voice,
+        "carousel": carousel,
         "nodes": nodes,
         "links": links,
         "notes": notes + list(data.notes),

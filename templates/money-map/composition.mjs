@@ -20,7 +20,7 @@ function contrast(a, b) {
 }
 const onFill = (fill) => (contrast("#FFFFFF", fill) >= contrast("#0B0D10", fill) ? "#FFFFFF" : "#0B0D10");
 
-export function buildHtml({ model, layout, theme, themeName, tokens, preview = false, beats, duration }) {
+export function buildHtml({ model, layout, theme, themeName, tokens, preview = false, beats = [], duration = 1, still = false }) {
   const st = theme.style;
   const W = layout.canvas.width;
   const H = layout.canvas.height;
@@ -77,7 +77,7 @@ export function buildHtml({ model, layout, theme, themeName, tokens, preview = f
 
   const company = model.company;
   const ctaSlot = layout.header?.cta || "company";
-  const BEATS = beats.map(({ beat, nodes, start, dur }) => ({ beat, nodes, start, dur }));
+  const BEATS = still ? [] : beats.map(({ beat, nodes, start, dur }) => ({ beat, nodes, start, dur }));
 
   return `<!doctype html>
 <html lang="en">
@@ -109,6 +109,7 @@ export function buildHtml({ model, layout, theme, themeName, tokens, preview = f
   #hook .l2 { font-size: 52px; font-weight: 500; color: ${theme.ink_muted}; line-height: 64px; margin-top: 28px; }
   #insight { position: absolute; left: ${f.x0 - 24}px; right: ${W - f.x1 - 24}px; padding: 36px 40px; background: ${theme.surface}; border-radius: ${Math.max(st.bar_radius, 6)}px; box-shadow: 0 0 0 2px ${theme.rule}; }
   #insight .ins-head { font-size: 76px; font-weight: ${st.hero_weight}; line-height: 84px; letter-spacing: -0.025em; }
+  ${still ? "#hook, #cta, #insight { display: none; }" : ""}
   #insight .ins-sub { font-size: 44px; font-weight: 500; color: ${theme.ink_muted}; line-height: 56px; margin-top: 10px; }
 </style>
 </head>
@@ -164,7 +165,7 @@ export function buildHtml({ model, layout, theme, themeName, tokens, preview = f
   const ofNodes = (sel, ids, attr) => q(sel).filter((el) => ids.includes(el.dataset[attr || "node"]));
   const tl = gsap.timeline({ paused: true, defaults: { ease: "power2.out" } });
 
-  gsap.set(["#header", "#footer", "#cta", ".bar", ".label", ".leader", ".flow", "#insight"], { opacity: 0 });
+  if (BEATS.length) gsap.set(["#header", "#footer", "#cta", ".bar", ".label", ".leader", ".flow", "#insight"], { opacity: 0 });
 
   // nodes no beat mentions are revealed with the first row beat
   const mentioned = new Set(BEATS.flatMap((b) => b.nodes));

@@ -31,12 +31,8 @@ export function textWidth(text, size, weight = 400) {
 }
 
 // ---- canvas -------------------------------------------------------------------------------
-const W = tokens.canvas.video.width;
-const H = tokens.canvas.video.height;
-const SAFE = tokens.safe_zone_9x16;
-const X0 = SAFE.left_px;
-const X1 = W - SAFE.right_px;
-const SPAN = X1 - X0;
+// default canvas: the 9:16 video; layout(model, { width, height, safe, segments }) for other formats
+const VIDEO = { width: tokens.canvas.video.width, height: tokens.canvas.video.height, safe: tokens.safe_zone_9x16 };
 export const METRICS = { T: 64, PAD: 20, GAP: 16, LABEL: 44, LINE: 52, NOTE: 34, HERO: 112, MIN_FLOW: 56, MAX_FLOW: 220 };
 const { T, PAD, GAP, LABEL, LINE, NOTE, HERO, MIN_FLOW, MAX_FLOW } = METRICS;
 const CAP = Math.round(LABEL * 0.75);
@@ -45,6 +41,11 @@ const VW = Math.max(...Object.values(tokens.themes).map((t) => t.style?.value_we
 const HW = Math.max(...Object.values(tokens.themes).map((t) => t.style?.hero_weight || 800));
 
 const KIND_RANK = { cost: 0, segment: 1, revenue: 2, profit: 2, other: 3, loss: 3 };
+
+function withoutSegments(m) {
+  const segIds = new Set(m.nodes.filter((n) => n.kind === "segment").map((n) => n.id));
+  return { ...m, nodes: m.nodes.filter((n) => !segIds.has(n.id)), links: m.links.filter((l) => !segIds.has(l.source)) };
+}
 
 function wrapName(name) {
   const words = name.split(" ");
@@ -64,12 +65,20 @@ function wrapName(name) {
   return best;
 }
 
-export function layout(model) {
+export function layout(modelIn, opts = {}) {
+  const W = opts.width ?? VIDEO.width;
+  const H = opts.height ?? VIDEO.height;
+  const SAFE = opts.safe ?? VIDEO.safe;
+  const X0 = SAFE.left_px;
+  const X1 = W - SAFE.right_px;
+  const SPAN = X1 - X0;
+  // the 4:5 carousel map leaves the segment row to its own slide
+  const model = opts.segments === false ? withoutSegments(modelIn) : modelIn;
   const out = { canvas: { width: W, height: H }, nodes: [], links: [], labels: [], leaders: [], warnings: [] };
   const hasSegments = model.nodes.some((n) => n.kind === "segment");
   const headerBottom = SAFE.top_px + 108;
   const segLabelSpace = hasSegments ? 222 : 0;
-  const top = headerBottom + 12 + segLabelSpace;
+  const top = headerBottom + (opts.headerGap ?? 12) + segLabelSpace;
   const footerTop = H - SAFE.bottom_px - 84;
   const heroBlock = LABEL + HERO + 56; // net income name, value, share line under its bar
 
