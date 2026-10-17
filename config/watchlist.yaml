@@ -45,7 +45,7 @@ companies:
           - {name: iPhone, label: "iPhone", section_contains: "by category"}
           - {name: Mac, label: "Mac", section_contains: "by category"}
           - {name: iPad, label: "iPad", section_contains: "by category"}
-          - {name: "Wearables, Home and Accessories", label: "Wearables, Home and Accessories", section_contains: "by category"}
+          - {name: "Wearables, Home and Accessories", short: "Wearables", label: "Wearables, Home and Accessories", section_contains: "by category"}
           - {name: Services, label: "Services", section_contains: "by category"}
         total: {label: "Total net sales", section_contains: "by category"}
       - group: geography
@@ -90,9 +90,9 @@ companies:
       - group: segment
         table: segments
         items:
-          - {name: Productivity and Business Processes, label: "Revenue", section: "Productivity and Business Processes"}
+          - {name: Productivity and Business Processes, short: "Productivity & Business", label: "Revenue", section: "Productivity and Business Processes"}
           - {name: Intelligent Cloud, label: "Revenue", section: "Intelligent Cloud"}
-          - {name: More Personal Computing, label: "Revenue", section: "More Personal Computing"}
+          - {name: More Personal Computing, short: "Personal Computing", label: "Revenue", section: "More Personal Computing"}
         total: {label: "Revenue", section: "Total"}
     show_segments: segment
     verified: true  # CIK and fiscal year end confirmed with SEC data

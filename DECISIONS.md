@@ -63,3 +63,15 @@ Routine calls made without asking, plus the answers to the kickoff questions (do
 - **Three independent checks so far:** our parser, the blind numbers-auditor (77/77 values matched on four quarters, first via a general-purpose agent and then via the real guarded subagent), and SEC XBRL from the 10-Q where one exists (Microsoft 8/8, Uber 5/5). Fiscal Q4s have no three-month XBRL facts.
 - **Fixtures:** Apple FY2025Q4 (products/services cost split), Microsoft FY2026Q1 (clean segments), Visa FY2025Q4 (no cost of revenue), Uber FY2022Q3 (net loss). Raw exhibits are committed under `tests/fixtures/` (public SEC filings).
 - **Visa revenue types** aren't used: the release prints them for the current quarter only, with a YoY %, and our rule recomputes YoY from a prior-year column. Open question for the owner.
+
+## 2026-10-17 · Phase 4 visual system (before Gate 2)
+
+- **The map reads top to bottom.** The brief says "flows build left to right", but five stages of 44 px labels don't fit side by side at 1080 px wide. Reading downward mirrors the income statement (revenue at the top, net income at the bottom). Shown to the owner at Gate 2 as a departure.
+- **Colors validated with the dataviz skill's checker** (`validate_palette.js --pairs all` on each theme's background): revenue blue, costs orange, profit aqua-green pass every gate in all three looks (worst colour-blind ΔE 9.4–10.5). The brief's muted red-grey costs failed (they read as grey and collapse into green for red-green colour-blind viewers). **Losses** use the cost color with a 45° hatch plus the word "loss": no fourth hue stays distinct.
+- **Segments wear one color** (the revenue blue) and are told apart by labels, because they are nominal categories.
+- **Backgrounds avoid stock looks:** dark editorial on slate #12161D, light editorial on cool paper #F4F6F5 (not cream), bold on indigo #1B1446.
+- **Profit lines show margin, not year-on-year growth.** Revenue and segments show growth. One-offs in the prior-year quarter (Apple's 2024 State Aid tax charge) make profit growth misleading.
+- **Layout is computed at build time** (`scripts/layout.mjs`: d3-sankey, labels measured with fontkit at the heaviest weight any theme draws), baked into `layout.json`, and tested for determinism, safe-zone bounds and label/bar overlap. Costs sit directly under the flow that feeds them; profit bars grow to hold their own label; cost labels use the column a peeled-off cost leaves free.
+- **One view model** (`scripts/money_map_model.py`) formats every on-screen string with `fmt.py`, so the video, the numbers sheet and the captions agree. Subtotals we compute are labelled "our calculation".
+- **Render gate:** `scripts/render.mjs` refuses a non-preview render unless the data file's SHA-256 matches its Gate A approval. Preview renders carry a "Style preview" marker and are for private review only.
+- **Segment display names** may be shortened in the watchlist (`short:`), e.g. "Wearables", "Personal Computing"; locators keep the label as printed.

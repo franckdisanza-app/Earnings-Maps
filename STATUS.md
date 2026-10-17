@@ -34,3 +34,11 @@
 - Tests: 113 passing.
 - Pilot candidates (fresh releases): PepsiCo FY2026Q3 (filed Oct 8), Nike FY2027Q1 (Oct 1), Costco FY2026Q4 (Sep 24). Coming up: Netflix, Tesla, Coca-Cola (late October), then Microsoft, Alphabet, Meta, Visa, Apple, Amazon.
 - Not yet run: `/earnings-ingest` as a slash command. The owner types it; Claude can't start it.
+
+## 2026-10-17 · Phase 4: visual system ⏸ waiting at Gate 2
+
+- Colors validated with the dataviz checker on each theme's background; tokens updated (blue revenue, orange costs, aqua-green profit; hatched losses).
+- `scripts/money_map_model.py` (view model, all strings via fmt.py), `scripts/layout.mjs` (d3-sankey, top-to-bottom, measured labels), `templates/money-map/composition.mjs` (HyperFrames page, one GSAP timeline), `scripts/render.mjs` (approval-gated render; `--preview` for style frames).
+- Three style frames and 30 s draft videos of Apple FY2025Q4 (dark editorial, light editorial, bold) plus three Kokoro voices, on a private review page: https://claude.ai/artifact/VE8g5iapdg5FpKmAtkJ24C. Final frames saved in `brand/style-frames/`.
+- Checked for generality on Microsoft, Visa and Uber; 121 tests passing.
+- Waiting for the owner's pick: one look and one voice.

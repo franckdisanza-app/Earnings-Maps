@@ -1,14 +1,13 @@
 # Next
 
-**Resume at Phase 4: visual system and templates** (docs/KICKOFF.md §7), ending at **Gate 2**.
+**Waiting at Gate 2.** The owner picks one look (dark editorial, light editorial, bold) and one voice (bm_george, am_michael, af_heart) on https://claude.ai/artifact/VE8g5iapdg5FpKmAtkJ24C.
 
-1. Owner check of the pipeline: type `/earnings-ingest AAPL FY2025Q4` once, so the skill itself has run (everything it calls is built and tested).
-2. Brand tokens: finalize `brand/tokens.json` contrast with the dataviz checks; GSAP and Inter come from local files.
-3. `scripts/layout.mjs`: d3-sankey layout baked to `out/<ID>/build/layout.json` from a data file. Steps: segments → revenue → cost of revenue / gross profit → opex / operating income → tax and other → net income; skip what the company doesn't report; "our calculation" labels.
-4. `templates/money-map/`: HyperFrames composition (1080×1920, 30 fps, one paused GSAP timeline), on-screen required lines, safe zones.
-5. Gate 2: three style frames (dark editorial, light editorial, bold) of the same money map from `AAPL-FY2025Q4`, plus the three Kokoro voices in `brand/voice-samples/`. The owner picks.
-6. Then `render.mjs` (refuses without a matching approval), covers, carousel and visual QA.
+After the pick (rest of Phase 4):
+1. `brand/tokens.json`: set `status: final`, `theme`, `voice.voice`; delete the other themes; log in DECISIONS.md.
+2. Voiceover: one Kokoro line per beat (hook, each row, insight, end card), durations measured with ffprobe into `build/vo/timings.json`; the timeline follows them; add the audio track (AAC) and an optional licensed music bed.
+3. Covers (9:16 and 4:5) and the 6–8 slide carousel (1080×1350) from the same layout.
+4. Templates 2 and 3: "Where \$1 goes" (about 20 s) and "Earnings in 30 seconds" (four KPI cards).
+5. Visual QA script: keyframes at 0/25/50/75/100% plus the layout tests; contrast and safe-zone report into `out/<ID>/qa.md`.
+6. Known layout follow-ups: a footer slot for the call to action when the company name is long (Microsoft); the Microsoft "Tax and other" label warning; let the insight picker skip growth the auditor flags as not like-for-like (Uber's Freight acquisition).
 
-Pilot (Phase 5): pick from the freshest releases at that time; today PepsiCo FY2026Q3, Nike FY2027Q1 or Costco FY2026Q4. Run `find_releases.py <T> --list` to refresh.
-
-Open questions for the owner: Visa revenue types (current quarter only in the release); segment mappings pending for NVDA, NFLX, PEP, MCD, NKE, COST, WMT; manual ingest for TSLA and ABNB. beehiiv still needs `/mcp` authentication before Phase 6.
+Then Phase 5 (pilot): refresh candidates with `find_releases.py <T> --list`; today PepsiCo FY2026Q3, Nike FY2027Q1, Costco FY2026Q4.
